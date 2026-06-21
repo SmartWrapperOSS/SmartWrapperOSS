@@ -167,15 +167,20 @@ def run(workflow_name: str, frameworks: list, model_ids: list, config: dict, arg
     ]
     results.sort(key=lambda r: r.composite_score, reverse=True)
 
+    # Output filenames always include the workflow name (e.g.
+    # "results_summarize.json", "results_tool-use.html") so that running
+    # both workflows doesn't overwrite one's output with the other's.
+    json_path = f"results_{workflow_name}.json"
+    html_path = f"results_{workflow_name}.html"
+
     show_reasons = config["output"].get("show_reasons", True)
     print_table(results, show_reasons=show_reasons)
-    save_json(results, config["output"]["json_path"])
+    save_json(results, json_path)
 
     # HTML dashboard is opt-out, not opt-in — it costs nothing extra to
     # generate (same data as results.json, just rendered) and most people
     # testing locally will want something easier to skim than raw JSON.
     if config["output"].get("html_dashboard", True):
-        html_path = config["output"].get("html_path", "results.html")
         save_html(results, html_path, workflow_name=workflow_name)
 
 

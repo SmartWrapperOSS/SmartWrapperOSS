@@ -61,9 +61,11 @@ evaluation:
 # --- Output settings ---
 output:
   show_reasons: true               # print judge/scoring reasons under each row
-  json_path: "results.json"
+  # Output files are always named results_<workflow>.json /
+  # results_<workflow>.html (e.g. results_summarize.json,
+  # results_tool-use.html) so running multiple workflows doesn't
+  # overwrite each other's output. Not configurable.
   html_dashboard: true             # also generate a browsable results.html (no server needed)
-  html_path: "results.html"
 
 # --- Optional: override built-in prompts ---
 # Omit this whole section to use each workflow's default, built-in prompts.

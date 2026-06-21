@@ -191,11 +191,13 @@ for the same number of (framework, model) combinations.
 
 ## 5. Things worth checking when you test
 
-- **`results.json`** is written to the path set in `config.yaml` →
-  `output.json_path` (default: `results.json` in the project root).
-  Confirm it contains a `dimensions` object per result — if it's empty
-  or missing fields, something failed silently upstream (check the
-  terminal output for `failed: ...` lines).
+- **`results_<workflow>.json`** (e.g. `results_summarize.json`,
+  `results_tool-use.json`) is written to the project root — named after
+  whichever workflow you ran, so running both workflows doesn't
+  overwrite one's output with the other's. Confirm it contains a
+  `dimensions` object per result — if it's empty or missing fields,
+  something failed silently upstream (check the terminal output for
+  `failed: ...` lines).
 - **Composite score sorting** — the table should always show the highest
   `composite_score` first (labeled "Best:" at the bottom of the table).
 - **Anti-bias judge rotation** (summarization only) — if you set
