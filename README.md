@@ -57,7 +57,7 @@ no-API-key smoke test.
 python main.py --workflow tool-use \
     --task benchmarks/tool_use/weather_and_calendar.yaml \
     --frameworks autogen langgraph \
-    --models gpt-4o claude-3-5-sonnet
+    --models gpt-4o claude-sonnet-4-6
 ```
 
 ### Run the Summarization evaluator
@@ -66,7 +66,7 @@ python main.py --workflow tool-use \
 python main.py --workflow summarize \
     --file gs://your-bucket/document.pdf \
     --frameworks autogen langgraph \
-    --models gpt-4o claude-3-5-sonnet gemini-pro
+    --models gpt-4o claude-sonnet-4-6 gemini-3.5-flash
 ```
 
 ## Output
@@ -201,6 +201,12 @@ of any kind — see [LICENSE](./LICENSE) for full terms.
   but still depend on how representative the benchmark task is of your
   real use case. Use all scores as a directional signal to support human
   decision-making, not as a substitute for it.
+
+- **The LLM judge avoids judging its own output, with some limits. The Quality, Coverage, and Conciseness scores in the summarization workflow are produced by a configured judge model (currently claude-sonnet-4-6). SummarizationEvaluator automatically substitutes a different model as judge whenever the configured judge is also the model under evaluation, to avoid a model rating its own output favorably. Two limits to be aware of: (1) this check only excludes the exact same model ID — it does not control for bias toward other models from the same provider or model family; and (2) if a judge call fails or returns unparseable output, that dimension silently falls back to a neutral score of 50 rather than failing the run, so an unusually "average" score on one dimension may reflect a judge error rather than a genuine middling result. We have not independently audited this benchmark for either form of residual bias.
+
+- ** Published results reflect a small, fixed sample — not a statistically validated benchmark. Scores shown here come from a limited number of runs against a fixed set of benchmark tasks defined by the SmartWrapperOSS maintainer. They have not been repeated across multiple trials, multiple document types, or multiple prompt variations, and have not been independently reviewed. Small differences in score (for example, a few points) should not be read as a meaningful or reproducible difference in real-world performance. Treat published comparisons as illustrative of how the tool works, not as a vendor ranking you should act on without running your own evaluation against your own tasks.
+
+- ** This compares capability tiers, not equivalent models. The models listed in any given table may differ substantially in size, training, and intended use case (for example, a smaller/cheaper model alongside a larger flagship model). This is not an apples-to-apples evaluation of "which model is best" in the abstract — it is a guide to help you judge what level of capability, quality, and cost your specific task actually requires. A lower score for a smaller model does not mean it is a worse model; it may simply be more than sufficient, and considerably cheaper, for your use case. Use these results to scope the right tier of model for your work, not to rank providers or models against each other in general.
 
 - **You are responsible for your own API usage and costs.** Running this
   tool calls third-party LLM APIs (OpenAI, Anthropic, Google, or any

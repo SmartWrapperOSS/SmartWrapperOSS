@@ -12,11 +12,11 @@ models:
     provider: openai
     api_key: "YOUR_OPENAI_API_KEY"
 
-  - id: claude-3-5-sonnet
+  - id: claude-sonnet-4-6
     provider: anthropic
     api_key: "YOUR_ANTHROPIC_API_KEY"
 
-  - id: gemini-pro
+  - id: gemini-3.5-flash
     provider: google
     api_key: "YOUR_GOOGLE_API_KEY"
 
@@ -39,7 +39,7 @@ evaluation:
   # (Quality / Coverage / Conciseness). The anti-bias rule in
   # SummarizationEvaluator automatically avoids using this judge to
   # score its own output — see workflows/summarization/evaluator.py.
-  judge_model: claude-3-5-sonnet
+  judge_model: claude-sonnet-4-6
 
   # Optional: override the default weights for each workflow's composite
   # score. Omit either block to use the workflow's built-in defaults.
