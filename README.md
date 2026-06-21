@@ -71,26 +71,31 @@ python main.py --workflow summarize \
 
 ## Output
 
-Summarization:
+Tool-Use Workflow
 ```
-Framework    Model            Quality  Coverage  Concise  Latency   Cost     Score
-────────────────────────────────────────────────────────────────────────────────────
-LangGraph    claude-3-5-sonnet   91       88       79      1.8s    $0.018    87.4
-AutoGen      claude-3-5-sonnet   88       85       82      2.1s    $0.019    84.7
-LangGraph    gpt-4o              85       90       71      2.3s    $0.022    83.1
-AutoGen      gpt-4o              83       87       74      2.6s    $0.024    81.2
-LangGraph    gemini-pro          79       83       80      3.1s    $0.015    79.8
-```
-
-Tool-Use:
-```
-Framework    Model         Tool Selection  Arg Correctness  Completion  Efficiency  Latency  Cost    Score
-─────────────────────────────────────────────────────────────────────────────────────────────────────────
-LangGraph    claude-3-5-sonnet   100             100            100         100       1.6s   $0.004   100.0
-AutoGen      claude-3-5-sonnet   100             100            100         100       1.9s   $0.005    98.7
+| Framework | Model              | Tool Selection | Argument Correctness | Task Completion | Efficiency | Latency Score | Cost Score      | Score |
+|-----------|--------------------|-----------------|------------------------|-------------------|------------|----------------|------------------|-------|
+| autogen   | gpt-4o             | 100             | 100                    | 100               | 50         | 99.9 (5.0s)    | 100 ($0.0058)    | 95    |
+| langgraph | gpt-4o             | 100             | 100                    | 100               | 50         | 100 (5.0s)     | 94.1 ($0.0061)   | 94.6  |
+| autogen   | claude-sonnet-4-6  | 100             | 100                    | 100               | 66.7       | 76.8 (10.0s)   | 0 ($0.0099)      | 87.4  |
+| langgraph | claude-sonnet-4-6  | 100             | 100                    | 100               | 66.7       | 0 (26.5s)      | 0 ($0.0099)      | 81.7  |
 ```
 
-Results from either workflow are also saved to `results.json` with full
+Summarization Workflow
+```
+| Framework | Model              | Quality | Coverage | Conciseness | Latency Score  | Cost Score       | Score |
+|-----------|--------------------|---------|----------|--------------|-----------------|-------------------|-------|
+| langgraph | gpt-4o             | 95      | 95       | 62           | 100 (4.9s)      | 100 ($0.0073)     | 91    |
+| langgraph | gemini-3.5-flash   | 95      | 97       | 72           | 32.9 (12.4s)    | 93.8 ($0.0082)    | 85.8  |
+| autogen   | gpt-4o             | 97      | 97       | 42           | 76.2 (7.6s)     | 60.5 ($0.0133)    | 83    |
+| autogen   | gemini-3.5-flash   | 97      | 97       | 52           | 34.3 (12.2s)    | 83.9 ($0.0097)    | 82.7  |
+| langgraph | claude-sonnet-4-6  | 95      | 95       | 85           | 36.1 (12.0s)    | 27.6 ($0.0183)    | 80.9  |
+| autogen   | claude-sonnet-4-6  | 95      | 95       | 85           | 0 (16.0s)       | 0 ($0.0225)       | 74.5  |
+
+> **About Cost Score and Latency Score:** these columns aren't a fixed scale — they rank the rows in each table against each other. The cheapest/fastest run shown gets a score of 100; the most expensive/slowest gets a 0. A score of 100 means "cheapest among the rows in this comparison," not "free" — adding or removing a model can change these scores even though the underlying cost or latency didn't change. Raw dollar cost and latency in seconds are shown in parentheses.
+
+
+Results from either workflow are also saved to `results_tool-use.html/json` and `results_summarize.html/json` with full
 outputs and scoring reasons.
 
 ## Architecture
