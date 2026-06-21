@@ -30,7 +30,6 @@ docker-compose.override.yml
 # --- Logs & local output ---
 *.log
 logs/
-output/
 *.tmp
  
 # --- Editor / IDE ---
