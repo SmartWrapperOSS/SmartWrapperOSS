@@ -1,0 +1,112 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 Aditi Jain (SmartWrapperOSS)
+#
+# Copy this file to config/config.yaml and fill in your own API keys.
+# config/config.yaml is gitignored — never commit real API keys.
+
+# --- Models available to run/judge with ---
+# Add or remove entries here to control which models SmartWrapperOSS can use.
+# "id" must match the --models value you pass on the CLI.
+models:
+  - id: gpt-4o
+    provider: openai
+    api_key: "YOUR_OPENAI_API_KEY"
+
+  - id: claude-3-5-sonnet
+    provider: anthropic
+    api_key: "YOUR_ANTHROPIC_API_KEY"
+
+  - id: gemini-pro
+    provider: google
+    api_key: "YOUR_GOOGLE_API_KEY"
+
+  - id: llama3
+    provider: ollama
+    base_url: "http://localhost:11434"   # only needed for local Ollama models
+
+# --- GCS settings (only used by the "summarize" workflow) ---
+gcs:
+  credentials_path: "gcp-credentials.json"   # path to your service account key
+
+# --- Chunking settings (only used by the "summarize" workflow) ---
+chunking:
+  chunk_size: 1000      # words per chunk
+  chunk_overlap: 100     # words of overlap between chunks
+
+# --- Evaluation settings ---
+evaluation:
+  # Which model judges the subjective summarization dimensions
+  # (Quality / Coverage / Conciseness). The anti-bias rule in
+  # SummarizationEvaluator automatically avoids using this judge to
+  # score its own output — see workflows/summarization/evaluator.py.
+  judge_model: claude-3-5-sonnet
+
+  # Optional: override the default weights for each workflow's composite
+  # score. Omit either block to use the workflow's built-in defaults.
+  summarization_weights:
+    quality: 0.35
+    coverage: 0.30
+    conciseness: 0.15
+    latency: 0.10
+    cost: 0.10
+
+  tool_use_weights:
+    tool_selection: 0.25
+    argument_correctness: 0.25
+    task_completion: 0.25
+    efficiency: 0.10
+    latency: 0.075
+    cost: 0.075
+
+# --- Output settings ---
+output:
+  show_reasons: true               # print judge/scoring reasons under each row
+  json_path: "results.json"
+  html_dashboard: true             # also generate a browsable results.html (no server needed)
+  html_path: "results.html"
+
+# --- Optional: override built-in prompts ---
+# Omit this whole section to use each workflow's default, built-in prompts.
+# Only override what you want to test — any field you leave out falls back
+# to its default. This is useful for testing how prompt wording affects
+# scores without editing source code.
+#
+# IMPORTANT: keep the exact {placeholder} names shown below — they're
+# filled in automatically at run time. Removing a placeholder will cause
+# an error; adding extra text around them is fine.
+#
+# prompts:
+#   summarize:
+#     summarize_prompt: |
+#       You are a document summarization assistant.
+#       Summarize the following document in no more than 3 sentences.
+#
+#       DOCUMENT:
+#       {document}
+#     review_prompt: |
+#       Review this summary against the source. Return only the improved
+#       summary, with no preamble.
+#
+#       ORIGINAL:
+#       {document}
+#
+#       SUMMARY:
+#       {draft}
+#
+#   tool_use:
+#     agent_prompt: |
+#       You are a careful assistant that can call tools to complete tasks.
+#       Always double-check your arguments before calling a tool.
+#
+#       TASK:
+#       {prompt}
+#
+#       AVAILABLE TOOLS:
+#       {tool_descriptions}
+#
+#       CONVERSATION SO FAR:
+#       {history}
+#
+#       Respond with ONLY valid JSON in ONE of these two forms:
+#       To call a tool: {{"action": "call_tool", "tool": "<tool_name>", "args": {{...}}}}
+#       When done: {{"action": "final_answer", "answer": "<your final answer>"}}

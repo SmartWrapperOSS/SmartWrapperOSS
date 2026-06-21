@@ -1,0 +1,53 @@
+# --- Project-specific: secrets & local config ---
+config/config.yaml
+gcp-credentials.json
+results.json
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+ 
+# --- Python ---
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.eggs/
+build/
+dist/
+*.egg
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+ 
+# --- Docker ---
+docker-compose.override.yml
+ 
+# --- Logs & local output ---
+*.log
+logs/
+output/
+*.tmp
+ 
+# --- Editor / IDE ---
+.vscode/
+.idea/
+*.swp
+*.swo
+ 
+# --- macOS ---
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+ 
+# --- Windows ---
+Thumbs.db
+ehthumbs.db
+Desktop.ini

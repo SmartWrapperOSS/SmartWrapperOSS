@@ -1,0 +1,35 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 Aditi Jain (SmartWrapperOSS)
+
+# This task tests whether an agent can:
+#   1. Call the right tool first (check weather, not jump straight to the calendar)
+#   2. Use the weather result to decide whether a follow-up action is needed
+#   3. Only update the calendar if it's actually raining
+
+task_id: weather_calendar_001
+
+prompt: >
+  Check the weather in Boston tomorrow. If it's raining, move my 3pm
+  meeting to 5pm. If it's not raining, leave the meeting as is.
+
+available_tools:
+  - get_weather
+  - get_calendar_event
+  - update_calendar_event
+
+expected_calls:
+  - tool: get_weather
+    args:
+      location: "Boston"
+      date: "tomorrow"
+    required: true
+
+  - tool: get_calendar_event
+    args:
+      time: "3pm"
+    required: true
+
+  - tool: update_calendar_event
+    args:
+      new_time: "5pm"
+    required: true
