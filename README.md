@@ -186,7 +186,7 @@ moved into a closed-source product.
 
 ## License
 
-Copyright 2026 MY_NAME (SmartWrapperOSS)
+Copyright 2026 Aditi Jain (SmartWrapperOSS)
 
 Licensed under the Apache License, Version 2.0.
 See the [LICENSE](./LICENSE) file in the root of this repository for full terms.
