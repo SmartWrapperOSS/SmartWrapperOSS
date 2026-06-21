@@ -18,7 +18,7 @@ across the whole project rather than the full boilerplate below.
 
 ```
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2026 My_Name (SmartWrapperOSS)
+// Copyright 2026 Aditi Jain (SmartWrapperOSS)
 ```
 
 (swap `//` for the appropriate comment syntax per language — see below)
@@ -30,13 +30,13 @@ across the whole project rather than the full boilerplate below.
 ### JavaScript / TypeScript / Java / C / C++ / C# / Go / Rust / Swift / Kotlin
 ```
 // SPDX-License-Identifier: Apache-2.0
-// Copyright 2026 My_Name (SmartWrapperOSS)
+// Copyright 2026 Aditi Jain (SmartWrapperOSS)
 ```
 
 ### Python / Ruby / Shell / YAML / Dockerfile / Makefile
 ```
 # SPDX-License-Identifier: Apache-2.0
-# Copyright 2026 My_Name (SmartWrapperOSS)
+# Copyright 2026 Aditi Jain (SmartWrapperOSS)
 ```
 Note: if the file starts with a shebang (e.g. `#!/usr/bin/env python3`),
 keep the shebang as line 1 and put this header immediately after it.
@@ -66,7 +66,7 @@ don't mix both.
 ### JavaScript / TypeScript / Java / C / C++ / C# / Go / Rust / Swift / Kotlin
 ```
 /*
- * Copyright 2026 My_Name (SmartWrapperOSS)
+ * Copyright 2026 Aditi Jain (SmartWrapperOSS)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
