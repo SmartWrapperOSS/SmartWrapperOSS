@@ -71,32 +71,38 @@ python main.py --workflow summarize \
 
 ## Output
 
-Tool-Use Workflow
-```
-| Framework | Model              | Tool Selection | Argument Correctness | Task Completion | Efficiency | Latency Score | Cost Score      | Score |
-|-----------|--------------------|-----------------|------------------------|-------------------|------------|----------------|------------------|-------|
-| autogen   | gpt-4o             | 100             | 100                    | 100               | 50         | 99.9 (5.0s)    | 100 ($0.0058)    | 95    |
-| langgraph | gpt-4o             | 100             | 100                    | 100               | 50         | 100 (5.0s)     | 94.1 ($0.0061)   | 94.6  |
-| autogen   | claude-sonnet-4-6  | 100             | 100                    | 100               | 66.7       | 76.8 (10.0s)   | 0 ($0.0099)      | 87.4  |
-| langgraph | claude-sonnet-4-6  | 100             | 100                    | 100               | 66.7       | 0 (26.5s)      | 0 ($0.0099)      | 81.7  |
-```
+**Tool-Use Workflow**
 
-Summarization Workflow
-```
-| Framework | Model              | Quality | Coverage | Conciseness | Latency Score  | Cost Score       | Score |
-|-----------|--------------------|---------|----------|--------------|-----------------|-------------------|-------|
-| langgraph | gpt-4o             | 95      | 95       | 62           | 100 (4.9s)      | 100 ($0.0073)     | 91    |
-| langgraph | gemini-3.5-flash   | 95      | 97       | 72           | 32.9 (12.4s)    | 93.8 ($0.0082)    | 85.8  |
-| autogen   | gpt-4o             | 97      | 97       | 42           | 76.2 (7.6s)     | 60.5 ($0.0133)    | 83    |
-| autogen   | gemini-3.5-flash   | 97      | 97       | 52           | 34.3 (12.2s)    | 83.9 ($0.0097)    | 82.7  |
-| langgraph | claude-sonnet-4-6  | 95      | 95       | 85           | 36.1 (12.0s)    | 27.6 ($0.0183)    | 80.9  |
-| autogen   | claude-sonnet-4-6  | 95      | 95       | 85           | 0 (16.0s)       | 0 ($0.0225)       | 74.5  |
+| Framework | Model             | Tool Selection | Argument Correctness | Task Completion | Efficiency | Latency Score | Cost Score     | Score |
+|-----------|-------------------|-----------------|------------------------|-------------------|------------|----------------|------------------|-------|
+| autogen   | gpt-4o            | 100             | 100                    | 100               | 50         | 99.9 (5.0s)    | 100 ($0.0058)    | 95    |
+| langgraph | gpt-4o            | 100             | 100                    | 100               | 50         | 100 (5.0s)     | 94.1 ($0.0061)   | 94.6  |
+| autogen   | claude-sonnet-4-6 | 100             | 100                    | 100               | 66.7       | 76.8 (10.0s)   | 0 ($0.0099)      | 87.4  |
+| langgraph | claude-sonnet-4-6 | 100             | 100                    | 100               | 66.7       | 0 (26.5s)      | 0 ($0.0099)      | 81.7  |
 
-> **About Cost Score and Latency Score:** these columns aren't a fixed scale — they rank the rows in each table against each other. The cheapest/fastest run shown gets a score of 100; the most expensive/slowest gets a 0. A score of 100 means "cheapest among the rows in this comparison," not "free" — adding or removing a model can change these scores even though the underlying cost or latency didn't change. Raw dollar cost and latency in seconds are shown in parentheses.
+**Summarization Workflow**
 
+| Framework | Model             | Quality | Coverage | Conciseness | Latency Score | Cost Score      | Score |
+|-----------|-------------------|---------|----------|--------------|-----------------|-------------------|-------|
+| langgraph | gpt-4o            | 95      | 95       | 62           | 100 (4.9s)      | 100 ($0.0073)     | 91    |
+| langgraph | gemini-3.5-flash  | 95      | 97       | 72           | 32.9 (12.4s)    | 93.8 ($0.0082)    | 85.8  |
+| autogen   | gpt-4o            | 97      | 97       | 42           | 76.2 (7.6s)     | 60.5 ($0.0133)    | 83    |
+| autogen   | gemini-3.5-flash  | 97      | 97       | 52           | 34.3 (12.2s)    | 83.9 ($0.0097)    | 82.7  |
+| langgraph | claude-sonnet-4-6 | 95      | 95       | 85           | 36.1 (12.0s)    | 27.6 ($0.0183)    | 80.9  |
+| autogen   | claude-sonnet-4-6 | 95      | 95       | 85           | 0 (16.0s)       | 0 ($0.0225)       | 74.5  |
 
-Results from either workflow are also saved to `results_tool-use.html/json` and `results_summarize.html/json` with full
-outputs and scoring reasons.
+> **About Cost Score and Latency Score:** these columns aren't a fixed
+> scale — they rank the rows in each table against each other. The
+> cheapest/fastest run shown gets a score of 100; the most
+> expensive/slowest gets a 0. A score of 100 means "cheapest among the
+> rows in this comparison," not "free" — adding or removing a model can
+> change these scores even though the underlying cost or latency didn't
+> change. Raw dollar cost and latency in seconds are shown in
+> parentheses.
+
+Results from either workflow are also saved to `results_tool-use.html` /
+`.json` and `results_summarize.html` / `.json`, with full outputs and
+scoring reasons.
 
 ## Architecture
 
@@ -106,36 +112,36 @@ adding a new task type never requires touching the CLI, comparison
 table, or model router.
 
 ```
-                    main.py (CLI)
-                          │
-              picks a workflow by name
-                          │
-        ┌─────────────────┴─────────────────┐
-        │                                   │
-  Summarization Workflow              Tool-Use Workflow
-  (Document → chunks via GCS)         (YAML benchmark task)
-        │                                   │
-  ┌─────┴─────┐                       ┌─────┴─────┐
-  AutoGen   LangGraph                 AutoGen   LangGraph
-  runner     runner                   runner     runner
-        │                                   │
-        └─────────────────┬─────────────────┘
-                          │
-                  Model Router (shared)
-              GPT-4o / Claude / Gemini / Llama
-                          │
-        ┌─────────────────┴─────────────────┐
-        │                                   │
-  Summarization Evaluator              Tool-Use Evaluator
-  Quality · Coverage ·                 Tool Selection · Args ·
-  Conciseness · Latency · Cost         Completion · Efficiency ·
-  (LLM-as-judge, anti-bias rotation)   Latency · Cost (mechanical)
-        │                                   │
-        └─────────────────┬─────────────────┘
-                          │
-            Comparison Table + results.json
-              (generic — renders whatever
-               dimensions the workflow scored)
+                          main.py (CLI)
+                               │
+                   picks a workflow by name
+                               │
+            ┌──────────────────┴──────────────────┐
+            │                                      │
+   Summarization Workflow                 Tool-Use Workflow
+   (Document → chunks via GCS)            (YAML benchmark task)
+            │                                      │
+     ┌──────┴──────┐                         ┌──────┴──────┐
+   AutoGen      LangGraph                  AutoGen      LangGraph
+   runner        runner                    runner        runner
+            │                                      │
+            └──────────────────┬──────────────────┘
+                               │
+                      Model Router (shared)
+                  GPT-4o / Claude / Gemini / Llama
+                               │
+            ┌──────────────────┴──────────────────┐
+            │                                      │
+   Summarization Evaluator                 Tool-Use Evaluator
+   Quality · Coverage ·                    Tool Selection · Args ·
+   Conciseness · Latency · Cost            Completion · Efficiency ·
+   (LLM-as-judge, anti-bias rotation)      Latency · Cost (mechanical)
+            │                                      │
+            └──────────────────┬──────────────────┘
+                               │
+                Comparison Table + results.json
+                  (generic — renders whatever
+                   dimensions the workflow scored)
 ```
 
 ## Configuration
@@ -207,11 +213,45 @@ of any kind — see [LICENSE](./LICENSE) for full terms.
   real use case. Use all scores as a directional signal to support human
   decision-making, not as a substitute for it.
 
-- **The LLM judge avoids judging its own output, with some limits. The Quality, Coverage, and Conciseness scores in the summarization workflow are produced by a configured judge model (currently claude-sonnet-4-6). SummarizationEvaluator automatically substitutes a different model as judge whenever the configured judge is also the model under evaluation, to avoid a model rating its own output favorably. Two limits to be aware of: (1) this check only excludes the exact same model ID — it does not control for bias toward other models from the same provider or model family; and (2) if a judge call fails or returns unparseable output, that dimension silently falls back to a neutral score of 50 rather than failing the run, so an unusually "average" score on one dimension may reflect a judge error rather than a genuine middling result. We have not independently audited this benchmark for either form of residual bias.
+- **The LLM judge avoids judging its own output, with some limits.** The
+  Quality, Coverage, and Conciseness scores in the summarization
+  workflow are produced by a configured judge model (currently
+  `claude-sonnet-4-6`). `SummarizationEvaluator` automatically
+  substitutes a different model as judge whenever the configured judge
+  is also the model under evaluation, to avoid a model rating its own
+  output favorably. Two limits to be aware of: (1) this check only
+  excludes the exact same model ID — it does not control for bias
+  toward other models from the same provider or model family; and (2)
+  if a judge call fails or returns unparseable output, that dimension
+  silently falls back to a neutral score of 50 rather than failing the
+  run, so an unusually "average" score on one dimension may reflect a
+  judge error rather than a genuine middling result. We have not
+  independently audited this benchmark for either form of residual
+  bias.
 
-- ** Published results reflect a small, fixed sample — not a statistically validated benchmark. Scores shown here come from a limited number of runs against a fixed set of benchmark tasks defined by the SmartWrapperOSS maintainer. They have not been repeated across multiple trials, multiple document types, or multiple prompt variations, and have not been independently reviewed. Small differences in score (for example, a few points) should not be read as a meaningful or reproducible difference in real-world performance. Treat published comparisons as illustrative of how the tool works, not as a vendor ranking you should act on without running your own evaluation against your own tasks.
+- **Published results reflect a small, fixed sample — not a
+  statistically validated benchmark.** Scores shown here come from a
+  limited number of runs against a fixed set of benchmark tasks defined
+  by the SmartWrapperOSS maintainer. They have not been repeated across
+  multiple trials, multiple document types, or multiple prompt
+  variations, and have not been independently reviewed. Small
+  differences in score (for example, a few points) should not be read
+  as a meaningful or reproducible difference in real-world performance.
+  Treat published comparisons as illustrative of how the tool works,
+  not as a vendor ranking you should act on without running your own
+  evaluation against your own tasks.
 
-- ** This compares capability tiers, not equivalent models. The models listed in any given table may differ substantially in size, training, and intended use case (for example, a smaller/cheaper model alongside a larger flagship model). This is not an apples-to-apples evaluation of "which model is best" in the abstract — it is a guide to help you judge what level of capability, quality, and cost your specific task actually requires. A lower score for a smaller model does not mean it is a worse model; it may simply be more than sufficient, and considerably cheaper, for your use case. Use these results to scope the right tier of model for your work, not to rank providers or models against each other in general.
+- **This compares capability tiers, not equivalent models.** The models
+  listed in any given table may differ substantially in size, training,
+  and intended use case (for example, a smaller/cheaper model alongside
+  a larger flagship model). This is not an apples-to-apples evaluation
+  of "which model is best" in the abstract — it is a guide to help you
+  judge what level of capability, quality, and cost your specific task
+  actually requires. A lower score for a smaller model does not mean it
+  is a worse model; it may simply be more than sufficient, and
+  considerably cheaper, for your use case. Use these results to scope
+  the right tier of model for your work, not to rank providers or
+  models against each other in general.
 
 - **You are responsible for your own API usage and costs.** Running this
   tool calls third-party LLM APIs (OpenAI, Anthropic, Google, or any
