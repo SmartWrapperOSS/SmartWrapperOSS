@@ -186,7 +186,7 @@ moved into a closed-source product.
 
 ## License
 
-Copyright 2026 MY_NAME (SmartWrapperOSS)
+Copyright 2026 Adiit Jain (SmartWrapperOSS)
 
 Licensed under the Apache License, Version 2.0.
 See the [LICENSE](./LICENSE) file in the root of this repository for full terms.
@@ -300,3 +300,5 @@ of any kind — see [LICENSE](./LICENSE) for full terms.
 
 - **No SLA.** This is a community project with no uptime, support, or
   reliability guarantees.
+
+- **No affiliation with model providers**.

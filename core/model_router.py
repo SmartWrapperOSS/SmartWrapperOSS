@@ -38,7 +38,7 @@ COST_PER_1K_TOKENS = {
     "gpt-4o":            {"input": 0.0025,  "output": 0.010},
     "claude-sonnet-4-6": {"input": 0.003,  "output": 0.015},
     "gemini-3.5-flash":  {"input": 0.0015, "output": 0.009},
-    "llama3":            {"input": 0.0,    "output": 0.0},  # local model, no API cost
+    "mistral":            {"input": 0.0,    "output": 0.0},  # local model, no API cost
 }
 
 

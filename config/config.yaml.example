@@ -20,8 +20,8 @@ models:
     provider: google
     api_key: "YOUR_GOOGLE_API_KEY"
 
-  - id: llama3
-    provider: ollama
+  - id: mistral
+    provider: mistral
     base_url: "http://localhost:11434"   # only needed for local Ollama models
 
 # --- GCS settings (only used by the "summarize" workflow) ---
