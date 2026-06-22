@@ -186,7 +186,7 @@ moved into a closed-source product.
 
 ## License
 
-Copyright 2026 Aditi Jain (SmartWrapperOSS)
+Copyright 2026 MY_NAME (SmartWrapperOSS)
 
 Licensed under the Apache License, Version 2.0.
 See the [LICENSE](./LICENSE) file in the root of this repository for full terms.
@@ -267,7 +267,20 @@ of any kind — see [LICENSE](./LICENSE) for full terms.
 - **Cost figures are estimates, not guarantees.** The cost dimension is
   calculated from publicly published provider pricing combined with token
   counts returned in each response. Provider pricing can change at any
-  time; always verify against your provider's billing dashboard.
+  time; always verify against your provider's billing dashboard. Pricing
+  in this repository's example tables and default cost table was last
+  verified against each provider's official documentation on 2026-06-21
+  — if you're reading this later, treat published example costs as
+  illustrative of the comparison, not as current pricing.
+
+- **No affiliation with model providers.** Neither I nor SmartWrapperOSS
+  are affiliated with, endorsed by, or employed by OpenAI, Anthropic, or
+  Google. Model names (GPT-4o, Claude, Gemini), trademarks, and logos
+  referenced in this project belong to their respective owners and are
+  used only to identify which models are being benchmarked. This is an
+  independent, third-party tool built on top of these providers' public
+  APIs — nothing here represents an official integration, partnership,
+  or statement from any of these companies.
 
 - **Data handling.**
   - Documents you upload (summarization workflow) are sent to **your
