@@ -72,8 +72,8 @@ class ModelRouter:
             return self._call_anthropic(model_id, config, prompt)
         elif provider == "google":
             return self._call_google(model_id, config, prompt)
-        elif provider == "ollama":
-            return self._call_ollama(model_id, config, prompt)
+        elif provider == "mistral":
+            return self._call_mistral(model_id, config, prompt)
         else:
             raise ValueError(f"Unknown provider: '{provider}'")
 
@@ -146,7 +146,7 @@ class ModelRouter:
             cost_usd=cost,
         )
 
-    def _call_ollama(self, model_id: str, config: dict, prompt: str) -> ModelResponse:
+    def _call_mistral(self, model_id: str, config: dict, prompt: str) -> ModelResponse:
         import requests
         base_url = config.get("base_url", "http://localhost:11434")
 
