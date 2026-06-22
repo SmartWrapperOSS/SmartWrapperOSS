@@ -22,7 +22,7 @@ models:
 
   - id: mistral
     provider: mistral
-    base_url: "http://localhost:11434"   # only needed for local Ollama models
+    base_url: "http://localhost:11434"   # only needed for local Mistral models
 
 # --- GCS settings (only used by the "summarize" workflow) ---
 gcs:
