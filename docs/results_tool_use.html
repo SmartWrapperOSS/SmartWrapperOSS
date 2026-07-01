@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SmartWrapperOSS — Results (tool-use)</title>
+<style>
+
+  :root {
+    --bg: #0d1117;
+    --bg-raised: #161b22;
+    --border: #30363d;
+    --text: #e6edf3;
+    --text-dim: #8b949e;
+    --accent: #7ee787;
+    --accent-dim: #2ea04326;
+    --mono: ui-monospace, "SF Mono", "Cascadia Code", "Fira Code", Consolas, monospace;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 32px 24px 64px;
+  }
+
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 16px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .brand { display: flex; align-items: baseline; gap: 8px; }
+  .brand-mark { color: var(--accent); font-weight: 700; }
+  .brand-name { font-weight: 600; letter-spacing: 0.02em; }
+
+  .meta { color: var(--text-dim); font-size: 13px; }
+  .meta-label { color: var(--text-dim); }
+  .meta-value { color: var(--text); }
+  .meta-sep { margin: 0 8px; opacity: 0.4; }
+
+  table { width: 100%; border-collapse: collapse; }
+
+  thead th {
+    text-align: left;
+    font-weight: 600;
+    color: var(--text-dim);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    user-select: none;
+    white-space: nowrap;
+  }
+  thead th:hover { color: var(--text); }
+  thead th .sort-arrow { opacity: 0.5; margin-left: 4px; font-size: 10px; }
+
+  tbody tr.result-row {
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+  }
+  tbody tr.result-row:hover { background: var(--bg-raised); }
+
+  tbody td {
+    padding: 10px 12px;
+    white-space: nowrap;
+  }
+
+  td.framework { color: var(--accent); font-weight: 600; }
+  td.score { font-weight: 700; }
+
+  tr.detail-row td {
+    background: var(--bg-raised);
+    padding: 16px;
+    white-space: normal;
+    border-bottom: 1px solid var(--border);
+  }
+  tr.detail-row { display: none; }
+  tr.detail-row.open { display: table-row; }
+
+  .detail-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .detail-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 10px 12px;
+  }
+  .detail-card-label {
+    color: var(--text-dim);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 4px;
+  }
+  .detail-card-score { font-size: 18px; font-weight: 700; color: var(--accent); }
+  .detail-card-reason { color: var(--text-dim); font-size: 12px; margin-top: 4px; }
+
+  .detail-output {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 12px;
+    white-space: pre-wrap;
+    font-size: 13px;
+    color: var(--text);
+    max-height: 240px;
+    overflow-y: auto;
+  }
+  .detail-output-label {
+    color: var(--text-dim);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 6px;
+  }
+
+  .row-actions { float: right; }
+  .row-actions button {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  .row-actions button:hover { color: var(--text); border-color: var(--text-dim); }
+
+  .empty-state {
+    color: var(--text-dim);
+    text-align: center;
+    padding: 48px 0;
+  }
+
+  .page-footer {
+    margin-top: 32px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    color: var(--text-dim);
+    font-size: 12px;
+  }
+
+  .footer-note {
+    margin-bottom: 12px;
+    line-height: 1.6;
+  }
+  .footer-note strong { color: var(--text); }
+
+  .raw-value {
+    color: var(--text-dim);
+    font-size: 12px;
+  }
+
+  .expand-caret {
+    display: inline-block;
+    margin-right: 6px;
+    color: var(--text-dim);
+    transition: transform 0.15s ease;
+  }
+  tr.result-row.expanded .expand-caret { transform: rotate(90deg); }
+
+</style>
+</head>
+<body>
+  <div class="page">
+    <header class="page-header">
+      <div class="brand">
+        <span class="brand-mark">&gt;_</span>
+        <span class="brand-name">SmartWrapperOSS</span>
+      </div>
+      <div class="meta">
+        <span class="meta-label">workflow</span>
+        <span class="meta-value">tool-use</span>
+        <span class="meta-sep">·</span>
+        <span class="meta-label">runs</span>
+        <span class="meta-value" id="run-count">4</span>
+      </div>
+    </header>
+
+    <main>
+      <table id="results-table">
+        <thead id="table-head"></thead>
+        <tbody id="table-body"></tbody>
+      </table>
+      <p class="empty-state" id="empty-state" style="display:none;">
+        No results to show. Every row was removed from this view.
+      </p>
+    </main>
+
+    <footer class="page-footer">
+      <p class="footer-note">
+        <strong>About Cost Score and Latency Score:</strong> these columns
+        are not a fixed scale — they rank the rows in this table against
+        each other. The cheapest/fastest run shown here gets a score of
+        100; the most expensive/slowest run shown here gets a 0. A score
+        of 100 means "cheapest among the rows in this comparison," not
+        "free" — adding or removing a model from the comparison can change
+        these scores even though the underlying cost or latency didn't
+        change. Click a row to see the actual dollar cost and latency in
+        seconds.
+      </p>
+      <p>
+        Generated by SmartWrapperOSS. This is a static snapshot of one run —
+        it does not update live and does not write back to results.json.
+      </p>
+    </footer>
+  </div>
+
+<script>
+
+  // The full dataset for this run, embedded at generation time by
+  // output/dashboard.py. This is the single source of truth the page
+  // renders from — see the module docstring in dashboard.py for why.
+  let RESULTS = [
+  {
+    "id": "autogen__gpt-4o__0",
+    "framework": "autogen",
+    "model_id": "gpt-4o",
+    "composite_score": 95.0,
+    "dimensions": {
+      "tool_selection": {
+        "score": 100.0,
+        "reason": "3/3 expected tools called"
+      },
+      "argument_correctness": {
+        "score": 100.0,
+        "reason": "4/4 arguments matched"
+      },
+      "task_completion": {
+        "score": 100.0,
+        "reason": "3/3 required steps completed"
+      },
+      "efficiency": {
+        "score": 50.0,
+        "reason": "6 calls made, 3 expected"
+      },
+      "latency": {
+        "score": 99.9,
+        "reason": "5.0s"
+      },
+      "cost": {
+        "score": 100.0,
+        "reason": "$0.0058"
+      }
+    },
+    "output": "",
+    "latency_ms": 5018.855810165405,
+    "cost_usd": 0.0058325,
+    "extra": {
+      "tool_calls": [
+        {
+          "tool_name": "get_weather",
+          "arguments": {
+            "location": "Boston",
+            "date": "tomorrow"
+          },
+          "result": {
+            "location": "Boston",
+            "date": "tomorrow",
+            "condition": "rain",
+            "precipitation": true
+          },
+          "timestamp": 1782082557.822541
+        },
+        {
+          "tool_name": "get_calendar_event",
+          "arguments": {
+            "meeting_time": "3pm"
+          },
+          "result": {
+            "error": "Bad arguments: get_calendar_event() got an unexpected keyword argument 'meeting_time'"
+          },
+          "timestamp": 1782082558.448565
+        },
+        {
+          "tool_name": "get_calendar_event",
+          "arguments": {},
+          "result": {
+            "error": "Bad arguments: get_calendar_event() missing 1 required positional argument: 'time'"
+          },
+          "timestamp": 1782082559.142028
+        },
+        {
+          "tool_name": "get_calendar_event",
+          "arguments": {
+            "time": "3pm"
+          },
+          "result": {
+            "time": "3pm",
+            "title": "Team sync",
+            "attendees": 4
+          },
+          "timestamp": 1782082560.1859279
+        },
+        {
+          "tool_name": "update_calendar_event",
+          "arguments": {
+            "time": "3pm",
+            "new_time": "5pm"
+          },
+          "result": {
+            "error": "Bad arguments: update_calendar_event() got an unexpected keyword argument 'time'"
+          },
+          "timestamp": 1782082560.9714859
+        },
+        {
+          "tool_name": "update_calendar_event",
+          "arguments": {
+            "old_time": "3pm",
+            "new_time": "5pm"
+          },
+          "result": {
+            "error": "Bad arguments: update_calendar_event() got an unexpected keyword argument 'old_time'. Did you mean 'new_time'?"
+          },
+          "timestamp": 1782082561.768836
+        }
+      ]
+    }
+  },
+  {
+    "id": "langgraph__gpt-4o__1",
+    "framework": "langgraph",
+    "model_id": "gpt-4o",
+    "composite_score": 94.6,
+    "dimensions": {
+      "tool_selection": {
+        "score": 100.0,
+        "reason": "3/3 expected tools called"
+      },
+      "argument_correctness": {
+        "score": 100.0,
+        "reason": "4/4 arguments matched"
+      },
+      "task_completion": {
+        "score": 100.0,
+        "reason": "3/3 required steps completed"
+      },
+      "efficiency": {
+        "score": 50.0,
+        "reason": "6 calls made, 3 expected"
+      },
+      "latency": {
+        "score": 100.0,
+        "reason": "5.0s"
+      },
+      "cost": {
+        "score": 94.1,
+        "reason": "$0.0061"
+      }
+    },
+    "output": "",
+    "latency_ms": 5001.004457473755,
+    "cost_usd": 0.0060750000000000005,
+    "extra": {
+      "tool_calls": [
+        {
+          "tool_name": "get_weather",
+          "arguments": {
+            "location": "Boston",
+            "date": "tomorrow"
+          },
+          "result": {
+            "location": "Boston",
+            "date": "tomorrow",
+            "condition": "rain",
+            "precipitation": true
+          },
+          "timestamp": 1782082557.7233658
+        },
+        {
+          "tool_name": "get_calendar_event",
+          "arguments": {
+            "time": "3pm"
+          },
+          "result": {
+            "time": "3pm",
+            "title": "Team sync",
+            "attendees": 4
+          },
+          "timestamp": 1782082558.352625
+        },
+        {
+          "tool_name": "update_calendar_event",
+          "arguments": {
+            "time": "3pm",
+            "new_time": "5pm"
+          },
+          "result": {
+            "error": "Bad arguments: update_calendar_event() got an unexpected keyword argument 'time'"
+          },
+          "timestamp": 1782082559.399076
+        },
+        {
+          "tool_name": "update_calendar_event",
+          "arguments": {
+            "current_time": "3pm",
+            "new_time": "5pm"
+          },
+          "result": {
+            "error": "Bad arguments: update_calendar_event() got an unexpected keyword argument 'current_time'"
+          },
+          "timestamp": 1782082560.182195
+        },
+        {
+          "tool_name": "update_calendar_event",
+          "arguments": {
+            "original_time": "3pm",
+            "new_time": "5pm"
+          },
+          "result": {
+            "error": "Bad arguments: update_calendar_event() got an unexpected keyword argument 'original_time'"
+          },
+          "timestamp": 1782082561.0363631
+        },
+        {
+          "tool_name": "update_calendar_event",
+          "arguments": {
+            "old_time": "3pm",
+            "new_time": "5pm"
+          },
+          "result": {
+            "error": "Bad arguments: update_calendar_event() got an unexpected keyword argument 'old_time'. Did you mean 'new_time'?"
+          },
+          "timestamp": 1782082561.76977
+        }
+      ]
+    }
+  },
+  {
+    "id": "autogen__claude-sonnet-4-6__2",
+    "framework": "autogen",
+    "model_id": "claude-sonnet-4-6",
+    "composite_score": 87.4,
+    "dimensions": {
+      "tool_selection": {
+        "score": 100.0,
+        "reason": "3/3 expected tools called"
+      },
+      "argument_correctness": {
+        "score": 100.0,
+        "reason": "4/4 arguments matched"
+      },
+      "task_completion": {
+        "score": 100.0,
+        "reason": "3/3 required steps completed"
+      },
+      "efficiency": {
+        "score": 66.7,
+        "reason": "5 calls made, 3 expected"
+      },
+      "latency": {
+        "score": 76.8,
+        "reason": "10.0s"
+      },
+      "cost": {
+        "score": 0.0,
+        "reason": "$0.0099"
+      }
+    },
+    "output": "",
+    "latency_ms": 9980.552673339844,
+    "cost_usd": 0.009924,
+    "extra": {
+      "tool_calls": [
+        {
+          "tool_name": "get_weather",
+          "arguments": {
+            "location": "Boston",
+            "date": "tomorrow"
+          },
+          "result": {
+            "location": "Boston",
+            "date": "tomorrow",
+            "condition": "rain",
+            "precipitation": true
+          },
+          "timestamp": 1782082558.42814
+        },
+        {
+          "tool_name": "get_calendar_event",
+          "arguments": {
+            "date": "tomorrow",
+            "time": "3pm"
+          },
+          "result": {
+            "error": "Bad arguments: get_calendar_event() got an unexpected keyword argument 'date'"
+          },
+          "timestamp": 1782082559.9666119
+        },
+        {
+          "tool_name": "get_calendar_event",
+          "arguments": {
+            "time": "3pm"
+          },
+          "result": {
+            "time": "3pm",
+            "title": "Team sync",
+            "attendees": 4
+          },
+          "timestamp": 1782082561.1063309
+        },
+        {
+          "tool_name": "update_calendar_event",
+          "arguments": {
+            "title": "Team sync",
+            "old_time": "3pm",
+            "new_time": "5pm"
+          },
+          "result": {
+            "error": "Bad arguments: update_calendar_event() got an unexpected keyword argument 'title'"
+          },
+          "timestamp": 1782082562.953965
+        },
+        {
+          "tool_name": "update_calendar_event",
+          "arguments": {
+            "old_time": "3pm",
+            "new_time": "5pm"
+          },
+          "result": {
+            "error": "Bad arguments: update_calendar_event() got an unexpected keyword argument 'old_time'. Did you mean 'new_time'?"
+          },
+          "timestamp": 1782082564.468551
+        }
+      ]
+    }
+  },
+  {
+    "id": "langgraph__claude-sonnet-4-6__3",
+    "framework": "langgraph",
+    "model_id": "claude-sonnet-4-6",
+    "composite_score": 81.7,
+    "dimensions": {
+      "tool_selection": {
+        "score": 100.0,
+        "reason": "3/3 expected tools called"
+      },
+      "argument_correctness": {
+        "score": 100.0,
+        "reason": "4/4 arguments matched"
+      },
+      "task_completion": {
+        "score": 100.0,
+        "reason": "3/3 required steps completed"
+      },
+      "efficiency": {
+        "score": 66.7,
+        "reason": "5 calls made, 3 expected"
+      },
+      "latency": {
+        "score": 0.0,
+        "reason": "26.5s"
+      },
+      "cost": {
+        "score": 0.0,
+        "reason": "$0.0099"
+      }
+    },
+    "output": "",
+    "latency_ms": 26492.404222488403,
+    "cost_usd": 0.009924,
+    "extra": {
+      "tool_calls": [
+        {
+          "tool_name": "get_weather",
+          "arguments": {
+            "location": "Boston",
+            "date": "tomorrow"
+          },
+          "result": {
+            "location": "Boston",
+            "date": "tomorrow",
+            "condition": "rain",
+            "precipitation": true
+          },
+          "timestamp": 1782082558.193269
+        },
+        {
+          "tool_name": "get_calendar_event",
+          "arguments": {
+            "date": "tomorrow",
+            "time": "3pm"
+          },
+          "result": {
+            "error": "Bad arguments: get_calendar_event() got an unexpected keyword argument 'date'"
+          },
+          "timestamp": 1782082559.967262
+        },
+        {
+          "tool_name": "get_calendar_event",
+          "arguments": {
+            "time": "3pm"
+          },
+          "result": {
+            "time": "3pm",
+            "title": "Team sync",
+            "attendees": 4
+          },
+          "timestamp": 1782082561.209576
+        },
+        {
+          "tool_name": "update_calendar_event",
+          "arguments": {
+            "title": "Team sync",
+            "old_time": "3pm",
+            "new_time": "5pm"
+          },
+          "result": {
+            "error": "Bad arguments: update_calendar_event() got an unexpected keyword argument 'title'"
+          },
+          "timestamp": 1782082562.690836
+        },
+        {
+          "tool_name": "update_calendar_event",
+          "arguments": {
+            "old_time": "3pm",
+            "new_time": "5pm"
+          },
+          "result": {
+            "error": "Bad arguments: update_calendar_event() got an unexpected keyword argument 'old_time'. Did you mean 'new_time'?"
+          },
+          "timestamp": 1782082574.080599
+        }
+      ]
+    }
+  }
+];
+
+  let sortKey = "composite_score";
+  let sortDir = -1; // -1 = descending (highest score first, matches CLI default)
+  const expandedIds = new Set();
+
+  function dimensionNames() {
+    if (RESULTS.length === 0) return [];
+    return Object.keys(RESULTS[0].dimensions);
+  }
+
+  function formatDimensionValue(dim, key) {
+    if (!dim) return "—";
+    // latency/cost dimensions carry a more readable raw value in `reason`
+    // (e.g. "1.8s", "$0.0098") — same convention as output/formatter.py.
+    // Show both: the normalized score (for sorting/comparison) and the
+    // raw value (so a viewer isn't left guessing what "100" means).
+    if ((key === "cost" || key === "latency") && dim.reason) {
+      return `${dim.score} <span class="raw-value">(${escapeHtml(dim.reason)})</span>`;
+    }
+    return dim.score;
+  }
+
+  function sortResults() {
+    RESULTS.sort((a, b) => {
+      let av = sortKey === "composite_score" ? a.composite_score
+             : sortKey in a ? a[sortKey]
+             : (a.dimensions[sortKey] ? a.dimensions[sortKey].score : 0);
+      let bv = sortKey === "composite_score" ? b.composite_score
+             : sortKey in b ? b[sortKey]
+             : (b.dimensions[sortKey] ? b.dimensions[sortKey].score : 0);
+      if (typeof av === "string") return sortDir * av.localeCompare(bv);
+      return sortDir * (av - bv);
+    });
+  }
+
+  function setSort(key) {
+    if (sortKey === key) {
+      sortDir *= -1;
+    } else {
+      sortKey = key;
+      sortDir = -1;
+    }
+    render();
+  }
+
+  function toggleExpand(id) {
+    if (expandedIds.has(id)) {
+      expandedIds.delete(id);
+    } else {
+      expandedIds.add(id);
+    }
+    render();
+  }
+
+  // --- Where a future "delete row" feature would hook in ---
+  // function deleteResult(id) {
+  //   RESULTS = RESULTS.filter(r => r.id !== id);
+  //   expandedIds.delete(id);
+  //   render();
+  // }
+  // A delete button in renderTable() below would call deleteResult(r.id).
+  // Remember: this only removes the row from THIS browser view — it does
+  // not modify the results.json file the dashboard was generated from.
+
+  // Some dimension keys need a clearer label than a simple underscore
+  // replace would give — "cost" and "latency" are 0-100 scores normalized
+  // *within this batch* (100 = cheapest/fastest row shown, not an
+  // absolute scale), which isn't obvious from the column alone. See the
+  // explanatory footer note in the static HTML (search _build_html for
+  // "About Cost Score").
+  const DIMENSION_LABELS = {
+    cost: "Cost Score",
+    latency: "Latency Score",
+  };
+
+  function dimensionLabel(key) {
+    return DIMENSION_LABELS[key] || key.replace(/_/g, " ");
+  }
+
+  function renderHead() {
+    const dims = dimensionNames();
+    const head = document.getElementById("table-head");
+    const cols = [
+      { key: "framework", label: "Framework" },
+      { key: "model_id", label: "Model" },
+      ...dims.map(d => ({ key: d, label: dimensionLabel(d) })),
+      { key: "composite_score", label: "Score" },
+    ];
+    head.innerHTML = "<tr>" + cols.map(c => {
+      const arrow = sortKey === c.key ? (sortDir === -1 ? "▼" : "▲") : "";
+      return `<th onclick="setSort('${c.key}')">${escapeHtml(c.label)}<span class="sort-arrow">${arrow}</span></th>`;
+    }).join("") + "</tr>";
+  }
+
+  function renderTable() {
+    const dims = dimensionNames();
+    const body = document.getElementById("table-body");
+    const emptyState = document.getElementById("empty-state");
+    document.getElementById("run-count").textContent = RESULTS.length;
+
+    if (RESULTS.length === 0) {
+      body.innerHTML = "";
+      emptyState.style.display = "block";
+      return;
+    }
+    emptyState.style.display = "none";
+
+    let rowsHtml = "";
+    RESULTS.forEach(r => {
+      const isOpen = expandedIds.has(r.id);
+      const dimCells = dims.map(d => `<td>${formatDimensionValue(r.dimensions[d], d)}</td>`).join("");
+
+      rowsHtml += `
+        <tr class="result-row ${isOpen ? 'expanded' : ''}" onclick="toggleExpand('${r.id}')">
+          <td class="framework"><span class="expand-caret">▶</span>${escapeHtml(r.framework)}</td>
+          <td>${escapeHtml(r.model_id)}</td>
+          ${dimCells}
+          <td class="score">${r.composite_score}</td>
+        </tr>
+        <tr class="detail-row ${isOpen ? 'open' : ''}" id="detail-${r.id}">
+          <td colspan="${3 + dims.length}">
+            <div class="detail-grid">
+              ${dims.map(d => {
+                const dim = r.dimensions[d] || {};
+                return `
+                  <div class="detail-card">
+                    <div class="detail-card-label">${escapeHtml(dimensionLabel(d))}</div>
+                    <div class="detail-card-score">${dim.score ?? "—"}</div>
+                    <div class="detail-card-reason">${escapeHtml(dim.reason ?? "")}</div>
+                  </div>`;
+              }).join("")}
+            </div>
+            <div class="detail-output-label">Output</div>
+            <div class="detail-output">${escapeHtml(r.output || "(empty)")}</div>
+          </td>
+        </tr>
+      `;
+    });
+    body.innerHTML = rowsHtml;
+  }
+
+  function escapeHtml(str) {
+    const div = document.createElement("div");
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  function render() {
+    sortResults();
+    renderHead();
+    renderTable();
+  }
+
+  render();
+
+</script>
+</body>
+</html>

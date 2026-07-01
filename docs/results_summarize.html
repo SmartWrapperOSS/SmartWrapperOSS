@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SmartWrapperOSS — Results (summarize)</title>
+<style>
+
+  :root {
+    --bg: #0d1117;
+    --bg-raised: #161b22;
+    --border: #30363d;
+    --text: #e6edf3;
+    --text-dim: #8b949e;
+    --accent: #7ee787;
+    --accent-dim: #2ea04326;
+    --mono: ui-monospace, "SF Mono", "Cascadia Code", "Fira Code", Consolas, monospace;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 32px 24px 64px;
+  }
+
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 16px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .brand { display: flex; align-items: baseline; gap: 8px; }
+  .brand-mark { color: var(--accent); font-weight: 700; }
+  .brand-name { font-weight: 600; letter-spacing: 0.02em; }
+
+  .meta { color: var(--text-dim); font-size: 13px; }
+  .meta-label { color: var(--text-dim); }
+  .meta-value { color: var(--text); }
+  .meta-sep { margin: 0 8px; opacity: 0.4; }
+
+  table { width: 100%; border-collapse: collapse; }
+
+  thead th {
+    text-align: left;
+    font-weight: 600;
+    color: var(--text-dim);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    user-select: none;
+    white-space: nowrap;
+  }
+  thead th:hover { color: var(--text); }
+  thead th .sort-arrow { opacity: 0.5; margin-left: 4px; font-size: 10px; }
+
+  tbody tr.result-row {
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+  }
+  tbody tr.result-row:hover { background: var(--bg-raised); }
+
+  tbody td {
+    padding: 10px 12px;
+    white-space: nowrap;
+  }
+
+  td.framework { color: var(--accent); font-weight: 600; }
+  td.score { font-weight: 700; }
+
+  tr.detail-row td {
+    background: var(--bg-raised);
+    padding: 16px;
+    white-space: normal;
+    border-bottom: 1px solid var(--border);
+  }
+  tr.detail-row { display: none; }
+  tr.detail-row.open { display: table-row; }
+
+  .detail-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .detail-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 10px 12px;
+  }
+  .detail-card-label {
+    color: var(--text-dim);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 4px;
+  }
+  .detail-card-score { font-size: 18px; font-weight: 700; color: var(--accent); }
+  .detail-card-reason { color: var(--text-dim); font-size: 12px; margin-top: 4px; }
+
+  .detail-output {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 12px;
+    white-space: pre-wrap;
+    font-size: 13px;
+    color: var(--text);
+    max-height: 240px;
+    overflow-y: auto;
+  }
+  .detail-output-label {
+    color: var(--text-dim);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 6px;
+  }
+
+  .row-actions { float: right; }
+  .row-actions button {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  .row-actions button:hover { color: var(--text); border-color: var(--text-dim); }
+
+  .empty-state {
+    color: var(--text-dim);
+    text-align: center;
+    padding: 48px 0;
+  }
+
+  .page-footer {
+    margin-top: 32px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    color: var(--text-dim);
+    font-size: 12px;
+  }
+
+  .footer-note {
+    margin-bottom: 12px;
+    line-height: 1.6;
+  }
+  .footer-note strong { color: var(--text); }
+
+  .raw-value {
+    color: var(--text-dim);
+    font-size: 12px;
+  }
+
+  .expand-caret {
+    display: inline-block;
+    margin-right: 6px;
+    color: var(--text-dim);
+    transition: transform 0.15s ease;
+  }
+  tr.result-row.expanded .expand-caret { transform: rotate(90deg); }
+
+</style>
+</head>
+<body>
+  <div class="page">
+    <header class="page-header">
+      <div class="brand">
+        <span class="brand-mark">&gt;_</span>
+        <span class="brand-name">SmartWrapperOSS</span>
+      </div>
+      <div class="meta">
+        <span class="meta-label">workflow</span>
+        <span class="meta-value">summarize</span>
+        <span class="meta-sep">·</span>
+        <span class="meta-label">runs</span>
+        <span class="meta-value" id="run-count">6</span>
+      </div>
+    </header>
+
+    <main>
+      <table id="results-table">
+        <thead id="table-head"></thead>
+        <tbody id="table-body"></tbody>
+      </table>
+      <p class="empty-state" id="empty-state" style="display:none;">
+        No results to show. Every row was removed from this view.
+      </p>
+    </main>
+
+    <footer class="page-footer">
+      <p class="footer-note">
+        <strong>About Cost Score and Latency Score:</strong> these columns
+        are not a fixed scale — they rank the rows in this table against
+        each other. The cheapest/fastest run shown here gets a score of
+        100; the most expensive/slowest run shown here gets a 0. A score
+        of 100 means "cheapest among the rows in this comparison," not
+        "free" — adding or removing a model from the comparison can change
+        these scores even though the underlying cost or latency didn't
+        change. Click a row to see the actual dollar cost and latency in
+        seconds.
+      </p>
+      <p>
+        Generated by SmartWrapperOSS. This is a static snapshot of one run —
+        it does not update live and does not write back to results.json.
+      </p>
+    </footer>
+  </div>
+
+<script>
+
+  // The full dataset for this run, embedded at generation time by
+  // output/dashboard.py. This is the single source of truth the page
+  // renders from — see the module docstring in dashboard.py for why.
+  let RESULTS = [
+  {
+    "id": "langgraph__gpt-4o__0",
+    "framework": "langgraph",
+    "model_id": "gpt-4o",
+    "composite_score": 91.0,
+    "dimensions": {
+      "quality": {
+        "score": 95,
+        "reason": "Summary is accurate and coherent with minor omission of certificate reference details."
+      },
+      "coverage": {
+        "score": 95,
+        "reason": "Summary captures all key points: parties, regulation, quarter, actions taken, and no requests received."
+      },
+      "conciseness": {
+        "score": 62,
+        "reason": "Summary is verbose with redundant details; could be significantly shorter while retaining meaning."
+      },
+      "latency": {
+        "score": 100.0,
+        "reason": "4.9s"
+      },
+      "cost": {
+        "score": 100.0,
+        "reason": "$0.0073"
+      }
+    },
+    "output": "The document is a formal communication regarding compliance with Regulation 74(5) of the SEBI (Depositories and Participants) Regulations, 2018, focused on share dematerialization. Choice International Limited has issued a certificate to both BSE and NSE for the quarter ending March 31, 2026, confirming that actions have been taken concerning share certificates. The certificate specifies that securities received for dematerialization were processed (accepted or rejected) and listed on stock exchanges. Additionally, any received security certificates were mutilated and cancelled after verification, with depositories' names updated in the register of members. Notably, no shareholder requests were received during the quarter. The confirmation is provided by MUFG Intime India Private Limited, formerly Link Intime India Private Limited, acting as the Registrar and Share Transfer Agent, and is issued upon the company's request for compliance purposes.",
+    "latency_ms": 4948.678970336914,
+    "cost_usd": 0.007265000000000001,
+    "extra": {}
+  },
+  {
+    "id": "langgraph__gemini-3.5-flash__1",
+    "framework": "langgraph",
+    "model_id": "gemini-3.5-flash",
+    "composite_score": 85.8,
+    "dimensions": {
+      "quality": {
+        "score": 95,
+        "reason": "Summary is accurate, coherent, and captures all key details without hallucinations."
+      },
+      "coverage": {
+        "score": 97,
+        "reason": "Summary captures all key points including nil requests, parties, dates, and compliance details."
+      },
+      "conciseness": {
+        "score": 72,
+        "reason": "Accurate but verbose; bullet points contain redundant details that could be condensed."
+      },
+      "latency": {
+        "score": 32.9,
+        "reason": "12.4s"
+      },
+      "cost": {
+        "score": 93.8,
+        "reason": "$0.0082"
+      }
+    },
+    "output": "* **Filing Overview:** On April 14, 2026, Choice International Limited submitted a regulatory filing to BSE Limited (Scrip Code: 531358) and the National Stock Exchange of India Limited (Scrip Code: CHOICEIN).\n* **Subject:** Compliance certificate under Regulation 74(5) of the SEBI (Depositories and Participants) Regulations, 2018, for the quarter ended March 31, 2026.\n* **Registrar & Share Transfer Agent (RTA) Certificate:** The filing encloses a confirmation letter dated April 13, 2026, from Choice's RTA, M/s. MUFG Intime India Private Limited (formerly known as Link Intime India Private Limited), signed by Ashok Shetty (Sr. Vice President - Corporate Registry).\n* **Key Compliance Confirmations:** \n  * Securities received for dematerialisation during the quarter were duly processed (accepted/rejected) and confirmed to the depositories, and the corresponding securities were listed on the stock exchanges.\n  * Verified security certificates were mutilated, cancelled, and the names of the depositories were substituted as the registered owners in the company\u2019s register of members within the prescribed timelines.\n* **Nil Request Status:** The RTA explicitly noted that no dematerialisation requests were received from shareholders during the quarter ended March 31, 2026, and the certificate was issued solely for regulatory compliance purposes.",
+    "latency_ms": 12361.89889907837,
+    "cost_usd": 0.008208,
+    "extra": {}
+  },
+  {
+    "id": "autogen__gpt-4o__2",
+    "framework": "autogen",
+    "model_id": "gpt-4o",
+    "composite_score": 83.0,
+    "dimensions": {
+      "quality": {
+        "score": 97,
+        "reason": "Summary is highly accurate, coherent, and contains no hallucinations from source."
+      },
+      "coverage": {
+        "score": 97,
+        "reason": "Summary captures nearly all key details including signatories, compliance notes, and contact info."
+      },
+      "conciseness": {
+        "score": 42,
+        "reason": "Summary is overly detailed and formatted; includes unnecessary contact info and redundant points."
+      },
+      "latency": {
+        "score": 76.2,
+        "reason": "7.6s"
+      },
+      "cost": {
+        "score": 60.5,
+        "reason": "$0.0133"
+      }
+    },
+    "output": "**Summary:**\n\n**Document Reference:**  \nCIL/CC/05/2026-27, dated April 14, 2026\n\n**To:**  \nDepartment of Corporate Services at BSE Limited and NSE Limited\n\n**Subject:**  \nCertificate under Regulation 74(5) of SEBI (Depositories and Participants) Regulations, 2018 for the quarter ending March 31, 2026.\n\n**Overview:**  \n- **Company:** Choice International Limited  \n- **Registrar and Share Transfer Agent:** M/s. MUFG Intime India Private Limited (formerly Link Intime India Private Limited).\n\n**Key Details:**  \n1. **Quarter Activities:**  \n   - Choice International Limited received a confirmation certificate from MUFG Intime India Pvt. Ltd. concerning requests for dematerialization, mutilation, and cancellation of share certificates for the quarter ended March 31, 2026.\n  \n2. **Compliance:**  \n   - Securities received from depository participants for dematerialization were processed and confirmations were sent to the depositories. These securities were listed on the stock exchanges where previously issued securities are also listed.\n   - Security certificates received for dematerialization were verified, mutilated, and canceled. The depositories have been registered as owners in the register of members within prescribed timelines.\n\n3. **Additional Note:**  \n   - No requests from shareholders were received for the quarter ended March 31, 2026.\n   - The confirmation is issued based on the company\u2019s request for compliance purposes.\n\n**Contact Information for MUFG Intime India Pvt. Ltd.:**  \n- Address: C-101, 247 Park, L.B.S. Marg, Vikhroli (West), Mumbai - 400 083  \n- Phone: +91 22 4918 6000  \n- Email: mumbai@linkintime.co.in  \n- Website: www.linkintime.co.in  \n\n**Signatories:**  \n- Karishma Shah, Company Secretary & Compliance Officer for Choice International Limited.  \n- Ashok Shetty, Sr. Vice President-Corporate Registry, MUFG Intime India Pvt. Ltd.",
+    "latency_ms": 7577.037811279297,
+    "cost_usd": 0.0132875,
+    "extra": {}
+  },
+  {
+    "id": "autogen__gemini-3.5-flash__3",
+    "framework": "autogen",
+    "model_id": "gemini-3.5-flash",
+    "composite_score": 82.7,
+    "dimensions": {
+      "quality": {
+        "score": 97,
+        "reason": "Summary is factually accurate, comprehensive, and coherent with no hallucinations detected."
+      },
+      "coverage": {
+        "score": 97,
+        "reason": "Summary captures all key entities, dates, declarations, and the critical 'no requests' note."
+      },
+      "conciseness": {
+        "score": 52,
+        "reason": "Summary is overly detailed with headers and bullets; much content adds little value."
+      },
+      "latency": {
+        "score": 34.3,
+        "reason": "12.2s"
+      },
+      "cost": {
+        "score": 83.9,
+        "reason": "$0.0097"
+      }
+    },
+    "output": "### **Overview**\nChoice International Limited (CIL) submitted a compliance certificate to the BSE and NSE for the quarter ended **March 31, 2026**, in accordance with **Regulation 74(5) of the SEBI (Depositories and Participants) Regulations, 2018**. \n\n---\n\n### **Key Entities & Details**\n* **Company:** Choice International Limited (Scrip Code: BSE - 531358 | NSE - CHOICEIN | ISIN: INE102B01014)\n* **Registrar and Share Transfer Agent (RTA):** MUFG Intime India Private Limited (formerly known as Link Intime India Private Limited)\n* **Reporting Period:** Quarter ended March 31, 2026\n* **Filing Date:** April 14, 2026 (RTA Certificate dated April 13, 2026)\n* **Document Reference:** CIL/CC/05/2026-27\n* **Signatories:** \n  * **CIL:** Karishma Shah (Company Secretary & Compliance Officer)\n  * **RTA:** Ashok Shetty (Sr. Vice President - Corporate Registry)\n\n---\n\n### **Key Information & Declarations**\n* **Compliance Confirmation:** The RTA confirmed that standard procedures were in place for securities received for dematerialization during the quarter, including processing (accepting/rejecting) within prescribed timelines and ensuring underlying securities are listed on the respective stock exchanges.\n* **Security Handling:** The RTA verified, mutilated, and cancelled the physical security certificates received, subsequently updating the register of members with the depositories' names as the registered owners.\n* **Important Note:** The RTA explicitly noted that **no dematerialization requests were actually received from shareholders** during the quarter ended March 31, 2026. The certificate was issued solely for regulatory compliance purposes.",
+    "latency_ms": 12205.941200256348,
+    "cost_usd": 0.009712499999999999,
+    "extra": {}
+  },
+  {
+    "id": "langgraph__claude-sonnet-4-6__4",
+    "framework": "langgraph",
+    "model_id": "claude-sonnet-4-6",
+    "composite_score": 80.9,
+    "dimensions": {
+      "quality": {
+        "score": 95,
+        "reason": "Accurate, coherent summary with minor duplicate details about submission date."
+      },
+      "coverage": {
+        "score": 95,
+        "reason": "Captures all key details; minor textual details omitted."
+      },
+      "conciseness": {
+        "score": 85,
+        "reason": "Clear, slightly verbose; could remove some redundancy for brevity."
+      },
+      "latency": {
+        "score": 36.1,
+        "reason": "12.0s"
+      },
+      "cost": {
+        "score": 27.6,
+        "reason": "$0.0183"
+      }
+    },
+    "output": "## Summary: Certificate under Regulation 74(5) \u2013 Choice International Limited (Q4 FY 2025-26)\n\n### Overview\nChoice International Limited (Scrip Code: 531358/CHOICEIN; ISIN: INE102B01014) submitted a compliance certificate to **BSE and NSE** on **April 14, 2026**, as required under **Regulation 74(5) of the SEBI (Depositories and Participants) Regulations, 2018**, for the **quarter ended March 31, 2026**.\n\n---\n\n### Key Points\n\n- **Purpose:** Compliance filing related to dematerialization of shares, and mutilation & cancellation of share certificates for Q4 (January\u2013March 2026).\n\n- **Registrar & Share Transfer Agent:** M/s. MUFG Intime India Private Limited *(formerly Link Intime India Private Limited)* issued the confirmation certificate on **April 13, 2026**.\n\n- **Confirmations Provided by the RTA:**\n  - Securities received from depository participants for dematerialization were duly confirmed (accepted/rejected) to the depositories.\n  - Dematerialized securities were confirmed as listed on the relevant stock exchanges.\n  - Share certificates received were mutilated and cancelled after due verification by the depository participant.\n  - Depository names were substituted in the register of members as registered owners within prescribed timelines.\n\n- **Important Note:** **No dematerialization requests were received from shareholders** during the quarter ended March 31, 2026.\n\n- **Signatories:**\n  - **Karishma Shah** \u2013 Company Secretary & Compliance Officer, Choice International Limited\n  - **Ashok Shetty** \u2013 Sr. Vice President, Corporate Registry, MUFG Intime India Pvt. Ltd.",
+    "latency_ms": 12002.93254852295,
+    "cost_usd": 0.0183,
+    "extra": {}
+  },
+  {
+    "id": "autogen__claude-sonnet-4-6__5",
+    "framework": "autogen",
+    "model_id": "claude-sonnet-4-6",
+    "composite_score": 74.5,
+    "dimensions": {
+      "quality": {
+        "score": 95,
+        "reason": "Accurate summary but minor wording differences exist."
+      },
+      "coverage": {
+        "score": 95,
+        "reason": "Covers most details; lacks minor specifics like company contact information."
+      },
+      "conciseness": {
+        "score": 85,
+        "reason": "Clear and concise, minor redundancy in document details."
+      },
+      "latency": {
+        "score": 0.0,
+        "reason": "16.0s"
+      },
+      "cost": {
+        "score": 0.0,
+        "reason": "$0.0225"
+      }
+    },
+    "output": "# Summary: Certificate under Regulation 74(5) \u2013 Choice International Limited\n\n## Document Overview\nA compliance certificate submitted by **Choice International Limited** to **BSE and NSE** regarding the dematerialization of shares for the **quarter ended March 31, 2026**.\n\n---\n\n## Key Details\n\n| Field | Information |\n|-------|-------------|\n| **Reference No.** | CIL/CC/05/2026-27 |\n| **Date** | April 14, 2026 |\n| **Company** | Choice International Limited |\n| **BSE Scrip Code** | 531358 |\n| **NSE Scrip Code** | CHOICEIN |\n| **ISIN** | INE102B01014 |\n| **Quarter Covered** | January \u2013 March 31, 2026 |\n\n---\n\n## Key Points\n\n- **Regulatory Compliance:** The document fulfills the requirement under **Regulation 74(5) of SEBI (Depositories and Participants) Regulations, 2018**.\n- **Registrar & Transfer Agent:** **MUFG Intime India Pvt. Ltd.** (formerly Link Intime India Pvt. Ltd.), a part of MUFG Corporate Markets, issued the confirmation certificate on **April 13, 2026**.\n- **Confirmation Provided:** All securities received from depository participants for dematerialization were confirmed (accepted/rejected) to the depositories, and the dematerialized securities have been listed on the same stock exchanges where previously issued securities are listed.\n- **Share Certificates:** Received certificates were **mutilated and cancelled** after due verification by the depository participant, and the depositories were substituted in the register of members as registered owners within prescribed timelines.\n- **No Requests Received:** There were **no shareholder requests** for dematerialization or mutilation and cancellation of share certificates during the quarter ended March 31, 2026. The certificate was issued on the company's request solely for compliance purposes.\n\n---\n\n## Signatories\n- **Karishma Shah** \u2013 Company Secretary & Compliance Officer, Choice International Limited\n- **Ashok Shetty** \u2013 Sr. Vice President, Corporate Registry, MUFG Intime India Pvt. Ltd.\n\n---\n\n## Purpose\nThis certificate is a **routine regulatory filing** confirming compliance with SEBI depository regulations for the said quarter, submitted for record purposes to both stock exchanges.",
+    "latency_ms": 15989.408016204834,
+    "cost_usd": 0.022509,
+    "extra": {}
+  }
+];
+
+  let sortKey = "composite_score";
+  let sortDir = -1; // -1 = descending (highest score first, matches CLI default)
+  const expandedIds = new Set();
+
+  function dimensionNames() {
+    if (RESULTS.length === 0) return [];
+    return Object.keys(RESULTS[0].dimensions);
+  }
+
+  function formatDimensionValue(dim, key) {
+    if (!dim) return "—";
+    // latency/cost dimensions carry a more readable raw value in `reason`
+    // (e.g. "1.8s", "$0.0098") — same convention as output/formatter.py.
+    // Show both: the normalized score (for sorting/comparison) and the
+    // raw value (so a viewer isn't left guessing what "100" means).
+    if ((key === "cost" || key === "latency") && dim.reason) {
+      return `${dim.score} <span class="raw-value">(${escapeHtml(dim.reason)})</span>`;
+    }
+    return dim.score;
+  }
+
+  function sortResults() {
+    RESULTS.sort((a, b) => {
+      let av = sortKey === "composite_score" ? a.composite_score
+             : sortKey in a ? a[sortKey]
+             : (a.dimensions[sortKey] ? a.dimensions[sortKey].score : 0);
+      let bv = sortKey === "composite_score" ? b.composite_score
+             : sortKey in b ? b[sortKey]
+             : (b.dimensions[sortKey] ? b.dimensions[sortKey].score : 0);
+      if (typeof av === "string") return sortDir * av.localeCompare(bv);
+      return sortDir * (av - bv);
+    });
+  }
+
+  function setSort(key) {
+    if (sortKey === key) {
+      sortDir *= -1;
+    } else {
+      sortKey = key;
+      sortDir = -1;
+    }
+    render();
+  }
+
+  function toggleExpand(id) {
+    if (expandedIds.has(id)) {
+      expandedIds.delete(id);
+    } else {
+      expandedIds.add(id);
+    }
+    render();
+  }
+
+  // --- Where a future "delete row" feature would hook in ---
+  // function deleteResult(id) {
+  //   RESULTS = RESULTS.filter(r => r.id !== id);
+  //   expandedIds.delete(id);
+  //   render();
+  // }
+  // A delete button in renderTable() below would call deleteResult(r.id).
+  // Remember: this only removes the row from THIS browser view — it does
+  // not modify the results.json file the dashboard was generated from.
+
+  // Some dimension keys need a clearer label than a simple underscore
+  // replace would give — "cost" and "latency" are 0-100 scores normalized
+  // *within this batch* (100 = cheapest/fastest row shown, not an
+  // absolute scale), which isn't obvious from the column alone. See the
+  // explanatory footer note in the static HTML (search _build_html for
+  // "About Cost Score").
+  const DIMENSION_LABELS = {
+    cost: "Cost Score",
+    latency: "Latency Score",
+  };
+
+  function dimensionLabel(key) {
+    return DIMENSION_LABELS[key] || key.replace(/_/g, " ");
+  }
+
+  function renderHead() {
+    const dims = dimensionNames();
+    const head = document.getElementById("table-head");
+    const cols = [
+      { key: "framework", label: "Framework" },
+      { key: "model_id", label: "Model" },
+      ...dims.map(d => ({ key: d, label: dimensionLabel(d) })),
+      { key: "composite_score", label: "Score" },
+    ];
+    head.innerHTML = "<tr>" + cols.map(c => {
+      const arrow = sortKey === c.key ? (sortDir === -1 ? "▼" : "▲") : "";
+      return `<th onclick="setSort('${c.key}')">${escapeHtml(c.label)}<span class="sort-arrow">${arrow}</span></th>`;
+    }).join("") + "</tr>";
+  }
+
+  function renderTable() {
+    const dims = dimensionNames();
+    const body = document.getElementById("table-body");
+    const emptyState = document.getElementById("empty-state");
+    document.getElementById("run-count").textContent = RESULTS.length;
+
+    if (RESULTS.length === 0) {
+      body.innerHTML = "";
+      emptyState.style.display = "block";
+      return;
+    }
+    emptyState.style.display = "none";
+
+    let rowsHtml = "";
+    RESULTS.forEach(r => {
+      const isOpen = expandedIds.has(r.id);
+      const dimCells = dims.map(d => `<td>${formatDimensionValue(r.dimensions[d], d)}</td>`).join("");
+
+      rowsHtml += `
+        <tr class="result-row ${isOpen ? 'expanded' : ''}" onclick="toggleExpand('${r.id}')">
+          <td class="framework"><span class="expand-caret">▶</span>${escapeHtml(r.framework)}</td>
+          <td>${escapeHtml(r.model_id)}</td>
+          ${dimCells}
+          <td class="score">${r.composite_score}</td>
+        </tr>
+        <tr class="detail-row ${isOpen ? 'open' : ''}" id="detail-${r.id}">
+          <td colspan="${3 + dims.length}">
+            <div class="detail-grid">
+              ${dims.map(d => {
+                const dim = r.dimensions[d] || {};
+                return `
+                  <div class="detail-card">
+                    <div class="detail-card-label">${escapeHtml(dimensionLabel(d))}</div>
+                    <div class="detail-card-score">${dim.score ?? "—"}</div>
+                    <div class="detail-card-reason">${escapeHtml(dim.reason ?? "")}</div>
+                  </div>`;
+              }).join("")}
+            </div>
+            <div class="detail-output-label">Output</div>
+            <div class="detail-output">${escapeHtml(r.output || "(empty)")}</div>
+          </td>
+        </tr>
+      `;
+    });
+    body.innerHTML = rowsHtml;
+  }
+
+  function escapeHtml(str) {
+    const div = document.createElement("div");
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  function render() {
+    sortResults();
+    renderHead();
+    renderTable();
+  }
+
+  render();
+
+</script>
+</body>
+</html>
