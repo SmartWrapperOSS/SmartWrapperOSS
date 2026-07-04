@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SmartWrapperOSS — Aggregate Results (summarize)</title>
+<style>
+
+  :root {
+    --bg: #0d1117;
+    --bg-raised: #161b22;
+    --border: #30363d;
+    --text: #e6edf3;
+    --text-dim: #8b949e;
+    --accent: #7ee787;
+    --accent-dim: #2ea04326;
+    --mono: ui-monospace, "SF Mono", "Cascadia Code", "Fira Code", Consolas, monospace;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 32px 24px 64px;
+  }
+
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 16px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .brand { display: flex; align-items: baseline; gap: 8px; }
+  .brand-mark { color: var(--accent); font-weight: 700; }
+  .brand-name { font-weight: 600; letter-spacing: 0.02em; }
+
+  .meta { color: var(--text-dim); font-size: 13px; }
+  .meta-label { color: var(--text-dim); }
+  .meta-value { color: var(--text); }
+  .meta-sep { margin: 0 8px; opacity: 0.4; }
+
+  table { width: 100%; border-collapse: collapse; }
+
+  thead th {
+    text-align: left;
+    font-weight: 600;
+    color: var(--text-dim);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    user-select: none;
+    white-space: nowrap;
+  }
+  thead th:hover { color: var(--text); }
+  thead th .sort-arrow { opacity: 0.5; margin-left: 4px; font-size: 10px; }
+
+  tbody tr.result-row {
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+  }
+  tbody tr.result-row:hover { background: var(--bg-raised); }
+
+  tbody td {
+    padding: 10px 12px;
+    white-space: nowrap;
+  }
+
+  td.framework { color: var(--accent); font-weight: 600; }
+  td.score { font-weight: 700; }
+
+  tr.detail-row td {
+    background: var(--bg-raised);
+    padding: 16px;
+    white-space: normal;
+    border-bottom: 1px solid var(--border);
+  }
+  tr.detail-row { display: none; }
+  tr.detail-row.open { display: table-row; }
+
+  .detail-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .detail-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 10px 12px;
+  }
+  .detail-card-label {
+    color: var(--text-dim);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 4px;
+  }
+  .detail-card-score { font-size: 18px; font-weight: 700; color: var(--accent); }
+  .detail-card-reason { color: var(--text-dim); font-size: 12px; margin-top: 4px; }
+
+  .detail-output {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 12px;
+    white-space: pre-wrap;
+    font-size: 13px;
+    color: var(--text);
+    max-height: 240px;
+    overflow-y: auto;
+  }
+  .detail-output-label {
+    color: var(--text-dim);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 6px;
+  }
+
+  .row-actions { float: right; }
+  .row-actions button {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  .row-actions button:hover { color: var(--text); border-color: var(--text-dim); }
+
+  .empty-state {
+    color: var(--text-dim);
+    text-align: center;
+    padding: 48px 0;
+  }
+
+  .page-footer {
+    margin-top: 32px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    color: var(--text-dim);
+    font-size: 12px;
+  }
+
+  .footer-note {
+    margin-bottom: 12px;
+    line-height: 1.6;
+  }
+  .footer-note strong { color: var(--text); }
+
+  .raw-value {
+    color: var(--text-dim);
+    font-size: 12px;
+  }
+
+  .expand-caret {
+    display: inline-block;
+    margin-right: 6px;
+    color: var(--text-dim);
+    transition: transform 0.15s ease;
+  }
+  tr.result-row.expanded .expand-caret { transform: rotate(90deg); }
+
+
+  .chart-wrap {
+    background: var(--bg-raised);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 16px 12px 8px;
+    margin-bottom: 20px;
+  }
+  .chart-wrap svg { width: 100%; height: auto; display: block; }
+  .svg-axis  { fill: var(--text-dim); font-family: var(--mono); font-size: 11px; }
+  .svg-label { fill: var(--text); font-family: var(--mono); font-size: 12px; }
+  .svg-value { fill: var(--text-dim); font-family: var(--mono); font-size: 12px; }
+  .svg-grid  { stroke: var(--border); stroke-width: 1; }
+  .svg-ci    { stroke-width: 2; }
+  .svg-best.svg-ci  { stroke: var(--accent); }
+  .svg-best.svg-dot { fill: var(--accent); }
+  .svg-other.svg-ci  { stroke: var(--text-dim); }
+  .svg-other.svg-dot { fill: var(--text-dim); }
+
+  .overlap-note {
+    color: var(--text-dim);
+    font-size: 13px;
+    margin: 0 0 20px;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 4px;
+    background: var(--accent-dim);
+  }
+  .overlap-note strong { color: var(--text); }
+
+  .runs-table { width: auto; min-width: 60%; }
+  .runs-table th, .runs-table td { padding: 6px 14px 6px 0; font-size: 12px; }
+  .runs-table thead th { cursor: default; }
+
+</style>
+</head>
+<body>
+  <div class="page">
+    <header class="page-header">
+      <div class="brand">
+        <span class="brand-mark">&gt;_</span>
+        <span class="brand-name">SmartWrapperOSS</span>
+      </div>
+      <div class="meta">
+        <span class="meta-label">workflow</span>
+        <span class="meta-value">summarize</span>
+        <span class="meta-sep">·</span>
+        <span class="meta-label">aggregated over</span>
+        <span class="meta-value">n=5 runs per combination</span>
+      </div>
+    </header>
+
+    <main>
+      <div class="chart-wrap"><svg viewBox="0 0 760 304" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Composite score with 95% confidence intervals"><text x="262" y="18" class="svg-axis">composite score (dot = mean over n runs, whiskers = 95% CI)</text><line x1="311.3" y1="28" x2="311.3" y2="282" class="svg-grid"/><text x="311.3" y="296" class="svg-axis" text-anchor="middle">70</text><line x1="401.5" y1="28" x2="401.5" y2="282" class="svg-grid"/><text x="401.5" y="296" class="svg-axis" text-anchor="middle">77</text><line x1="491.7" y1="28" x2="491.7" y2="282" class="svg-grid"/><text x="491.7" y="296" class="svg-axis" text-anchor="middle">84</text><line x1="581.9" y1="28" x2="581.9" y2="282" class="svg-grid"/><text x="581.9" y="296" class="svg-axis" text-anchor="middle">91</text><line x1="672.1" y1="28" x2="672.1" y2="282" class="svg-grid"/><text x="672.1" y="296" class="svg-axis" text-anchor="middle">98</text><text x="250" y="58.0" text-anchor="end" class="svg-label">langgraph + gpt-4o</text><line x1="529.9" y1="54.0" x2="621.4" y2="54.0" class="svg-best svg-ci"/><line x1="529.9" y1="48.0" x2="529.9" y2="60.0" class="svg-best svg-ci"/><line x1="621.4" y1="48.0" x2="621.4" y2="60.0" class="svg-best svg-ci"/><circle cx="575.7" cy="54.0" r="5" class="svg-best svg-dot"/><text x="686" y="58.0" class="svg-value">90.5 ±2.9</text><text x="250" y="98.0" text-anchor="end" class="svg-label">langgraph + gemini-3.5-flash</text><line x1="290.6" y1="94.0" x2="647.4" y2="94.0" class="svg-other svg-ci"/><line x1="290.6" y1="88.0" x2="290.6" y2="100.0" class="svg-other svg-ci"/><line x1="647.4" y1="88.0" x2="647.4" y2="100.0" class="svg-other svg-ci"/><circle cx="469.0" cy="94.0" r="5" class="svg-other svg-dot"/><text x="686" y="98.0" class="svg-value">82.2 ±11.2</text><text x="250" y="138.0" text-anchor="end" class="svg-label">autogen + gpt-4o</text><line x1="411.7" y1="134.0" x2="509.3" y2="134.0" class="svg-other svg-ci"/><line x1="411.7" y1="128.0" x2="411.7" y2="140.0" class="svg-other svg-ci"/><line x1="509.3" y1="128.0" x2="509.3" y2="140.0" class="svg-other svg-ci"/><circle cx="460.5" cy="134.0" r="5" class="svg-other svg-dot"/><text x="686" y="138.0" class="svg-value">81.6 ±3.0</text><text x="250" y="178.0" text-anchor="end" class="svg-label">autogen + gemini-3.5-flash</text><line x1="431.0" y1="174.0" x2="481.2" y2="174.0" class="svg-other svg-ci"/><line x1="431.0" y1="168.0" x2="431.0" y2="180.0" class="svg-other svg-ci"/><line x1="481.2" y1="168.0" x2="481.2" y2="180.0" class="svg-other svg-ci"/><circle cx="456.1" cy="174.0" r="5" class="svg-other svg-dot"/><text x="686" y="178.0" class="svg-value">81.2 ±1.6</text><text x="250" y="218.0" text-anchor="end" class="svg-label">langgraph + claude-sonnet-4-6</text><line x1="436.5" y1="214.0" x2="469.5" y2="214.0" class="svg-other svg-ci"/><line x1="436.5" y1="208.0" x2="436.5" y2="220.0" class="svg-other svg-ci"/><line x1="469.5" y1="208.0" x2="469.5" y2="220.0" class="svg-other svg-ci"/><circle cx="453.0" cy="214.0" r="5" class="svg-other svg-dot"/><text x="686" y="218.0" class="svg-value">81.0 ±1.0</text><text x="250" y="258.0" text-anchor="end" class="svg-label">autogen + claude-sonnet-4-6</text><line x1="364.1" y1="254.0" x2="430.1" y2="254.0" class="svg-other svg-ci"/><line x1="364.1" y1="248.0" x2="364.1" y2="260.0" class="svg-other svg-ci"/><line x1="430.1" y1="248.0" x2="430.1" y2="260.0" class="svg-other svg-ci"/><circle cx="397.1" cy="254.0" r="5" class="svg-other svg-dot"/><text x="686" y="258.0" class="svg-value">76.7 ±2.1</text></svg></div>
+      <p class="overlap-note">Note: the 95% CIs of the top two combinations overlap — this ranking is <strong>not statistically distinguishable</strong> at n=5. Add runs to tighten the intervals.</p>
+      <table id="results-table">
+        <thead><tr>
+          <th>Framework</th><th>Model</th><th>Quality</th><th>Coverage</th><th>Conciseness</th>
+          <th>Lat med/p95</th><th>Cost mean</th><th>Composite</th>
+        </tr></thead>
+        <tbody>
+        <tr class="result-row" onclick="toggleExpand('agg-0')">
+          <td class="framework"><span class="expand-caret">&#9654;</span>langgraph</td>
+          <td>gpt-4o</td>
+          <td>96.2 <span class='raw-value'>±1.1</span></td><td>95.0 <span class='raw-value'>±0.0</span></td><td>64.0 <span class='raw-value'>±4.5</span></td>
+          <td>4.0s <span class="raw-value">/ 9.1s</span></td>
+          <td>$0.0077</td>
+          <td class="score">90.5 <span class="raw-value">±2.9</span></td>
+        </tr>
+        <tr class="detail-row" id="detail-agg-0">
+          <td colspan="8">
+            <div class="detail-grid">
+              <div class="detail-card">
+                <div class="detail-card-label">Quality</div>
+                <div class="detail-card-score">96.2 <span class="raw-value">±1.1</span></div>
+                <div class="detail-card-reason">95% CI [94.8, 97.6] ·
+                range [95.0, 97.0]</div>
+              </div>
+              <div class="detail-card">
+                <div class="detail-card-label">Coverage</div>
+                <div class="detail-card-score">95.0 <span class="raw-value">±0.0</span></div>
+                <div class="detail-card-reason">95% CI [95.0, 95.0] ·
+                range [95.0, 95.0]</div>
+              </div>
+              <div class="detail-card">
+                <div class="detail-card-label">Conciseness</div>
+                <div class="detail-card-score">64.0 <span class="raw-value">±4.5</span></div>
+                <div class="detail-card-reason">95% CI [58.5, 69.5] ·
+                range [62.0, 72.0]</div>
+              </div>
+              <div class="detail-card">
+                <div class="detail-card-label">Composite</div>
+                <div class="detail-card-score">90.5 <span class="raw-value">±2.9</span></div>
+                <div class="detail-card-reason">95% CI [87.0, 94.1] ·
+                range [85.7, 93.2] · n=5 · total cost $0.0385</div>
+              </div>
+            </div>
+            <div class="detail-output-label">Individual runs (full outputs in the runs/ directory)</div>
+            <table class="runs-table">
+              <thead><tr><th>Run</th><th>Composite</th><th>Latency</th><th>Cost</th><th>Saved</th></tr></thead>
+              <tbody><tr><td>run 0</td><td>91.8</td><td>4.0s</td><td>$0.0075</td><td class='raw-value'>2026-07-04T21:43:57.197612+00:00</td></tr><tr><td>run 1</td><td>91.3</td><td>4.1s</td><td>$0.0081</td><td class='raw-value'>2026-07-04T21:43:57.198162+00:00</td></tr><tr><td>run 2</td><td>85.7</td><td>9.1s</td><td>$0.0081</td><td class='raw-value'>2026-07-04T21:59:27.629404+00:00</td></tr><tr><td>run 3</td><td>93.2</td><td>3.0s</td><td>$0.0072</td><td class='raw-value'>2026-07-04T21:59:27.626800+00:00</td></tr><tr><td>run 4</td><td>90.6</td><td>3.2s</td><td>$0.0076</td><td class='raw-value'>2026-07-04T21:59:27.627318+00:00</td></tr></tbody>
+            </table>
+          </td>
+        </tr>
+        <tr class="result-row" onclick="toggleExpand('agg-1')">
+          <td class="framework"><span class="expand-caret">&#9654;</span>langgraph</td>
+          <td>gemini-3.5-flash</td>
+          <td>97.0 <span class='raw-value'>±1.2</span></td><td>97.2 <span class='raw-value'>±0.5</span></td><td>62.0 <span class='raw-value'>±7.1</span></td>
+          <td>13.9s <span class="raw-value">/ 14.0s</span></td>
+          <td>$0.0092</td>
+          <td class="score">82.2 <span class="raw-value">±11.2</span></td>
+        </tr>
+        <tr class="detail-row" id="detail-agg-1">
+          <td colspan="8">
+            <div class="detail-grid">
+              <div class="detail-card">
+                <div class="detail-card-label">Quality</div>
+                <div class="detail-card-score">97.0 <span class="raw-value">±1.2</span></div>
+                <div class="detail-card-reason">95% CI [95.5, 98.5] ·
+                range [95.0, 98.0]</div>
+              </div>
+              <div class="detail-card">
+                <div class="detail-card-label">Coverage</div>
+                <div class="detail-card-score">97.2 <span class="raw-value">±0.5</span></div>
+                <div class="detail-card-reason">95% CI [96.6, 97.8] ·
+                range [97.0, 98.0]</div>
+              </div>
+              <div class="detail-card">
+                <div class="detail-card-label">Conciseness</div>
+                <div class="detail-card-score">62.0 <span class="raw-value">±7.1</span></div>
+                <div class="detail-card-reason">95% CI [53.2, 70.8] ·
+                range [52.0, 72.0]</div>
+              </div>
+              <div class="detail-card">
+                <div class="detail-card-label">Composite</div>
+                <div class="detail-card-score">82.2 <span class="raw-value">±11.2</span></div>
+                <div class="detail-card-reason">95% CI [68.4, 96.1] ·
+                range [70.1, 94.5] · n=5 · total cost $0.0460</div>
+              </div>
+            </div>
+            <div class="detail-output-label">Individual runs (full outputs in the runs/ directory)</div>
+            <table class="runs-table">
+              <thead><tr><th>Run</th><th>Composite</th><th>Latency</th><th>Cost</th><th>Saved</th></tr></thead>
+              <tbody><tr><td>run 0</td><td>72.3</td><td>14.0s</td><td>$0.0106</td><td class='raw-value'>2026-07-04T22:07:18.451973+00:00</td></tr><tr><td>run 1</td><td>70.1</td><td>14.0s</td><td>$0.0098</td><td class='raw-value'>2026-07-04T22:24:56.262378+00:00</td></tr><tr><td>run 2</td><td>82.0</td><td>13.9s</td><td>$0.0086</td><td class='raw-value'>2026-07-04T22:24:56.261744+00:00</td></tr><tr><td>run 3</td><td>92.3</td><td>12.0s</td><td>$0.0089</td><td class='raw-value'>2026-07-04T22:07:18.449889+00:00</td></tr><tr><td>run 4</td><td>94.5</td><td>13.4s</td><td>$0.0082</td><td class='raw-value'>2026-07-04T22:24:56.259309+00:00</td></tr></tbody>
+            </table>
+          </td>
+        </tr>
+        <tr class="result-row" onclick="toggleExpand('agg-2')">
+          <td class="framework"><span class="expand-caret">&#9654;</span>autogen</td>
+          <td>gpt-4o</td>
+          <td>91.4 <span class='raw-value'>±6.3</span></td><td>94.4 <span class='raw-value'>±1.3</span></td><td>46.0 <span class='raw-value'>±5.5</span></td>
+          <td>7.5s <span class="raw-value">/ 7.8s</span></td>
+          <td>$0.0121</td>
+          <td class="score">81.6 <span class="raw-value">±3.0</span></td>
+        </tr>
+        <tr class="detail-row" id="detail-agg-2">
+          <td colspan="8">
+            <div class="detail-grid">
+              <div class="detail-card">
+                <div class="detail-card-label">Quality</div>
+                <div class="detail-card-score">91.4 <span class="raw-value">±6.3</span></div>
+                <div class="detail-card-reason">95% CI [83.6, 99.2] ·
+                range [82.0, 97.0]</div>
+              </div>
+              <div class="detail-card">
+                <div class="detail-card-label">Coverage</div>
+                <div class="detail-card-score">94.4 <span class="raw-value">±1.3</span></div>
+                <div class="detail-card-reason">95% CI [92.7, 96.1] ·
+                range [92.0, 95.0]</div>
+              </div>
+              <div class="detail-card">
+                <div class="detail-card-label">Conciseness</div>
+                <div class="detail-card-score">46.0 <span class="raw-value">±5.5</span></div>
+                <div class="detail-card-reason">95% CI [39.2, 52.8] ·
+                range [42.0, 52.0]</div>
+              </div>
+              <div class="detail-card">
+                <div class="detail-card-label">Composite</div>
+                <div class="detail-card-score">81.6 <span class="raw-value">±3.0</span></div>
+                <div class="detail-card-reason">95% CI [77.8, 85.4] ·
+                range [78.2, 84.6] · n=5 · total cost $0.0604</div>
+              </div>
+            </div>
+            <div class="detail-output-label">Individual runs (full outputs in the runs/ directory)</div>
+            <table class="runs-table">
+              <thead><tr><th>Run</th><th>Composite</th><th>Latency</th><th>Cost</th><th>Saved</th></tr></thead>
+              <tbody><tr><td>run 0</td><td>82.2</td><td>7.6s</td><td>$0.0128</td><td class='raw-value'>2026-07-04T21:43:57.195134+00:00</td></tr><tr><td>run 1</td><td>78.6</td><td>7.8s</td><td>$0.0119</td><td class='raw-value'>2026-07-04T21:43:57.196945+00:00</td></tr><tr><td>run 2</td><td>78.2</td><td>7.5s</td><td>$0.0133</td><td class='raw-value'>2026-07-04T21:59:27.624170+00:00</td></tr><tr><td>run 3</td><td>84.3</td><td>5.4s</td><td>$0.0113</td><td class='raw-value'>2026-07-04T21:59:27.621259+00:00</td></tr><tr><td>run 4</td><td>84.6</td><td>6.2s</td><td>$0.0111</td><td class='raw-value'>2026-07-04T21:59:27.623354+00:00</td></tr></tbody>
+            </table>
+          </td>
+        </tr>
+        <tr class="result-row" onclick="toggleExpand('agg-3')">
+          <td class="framework"><span class="expand-caret">&#9654;</span>autogen</td>
+          <td>gemini-3.5-flash</td>
+          <td>97.2 <span class='raw-value'>±0.5</span></td><td>97.0 <span class='raw-value'>±1.2</span></td><td>54.0 <span class='raw-value'>±4.5</span></td>
+          <td>15.0s <span class="raw-value">/ 16.4s</span></td>
+          <td>$0.0099</td>
+          <td class="score">81.2 <span class="raw-value">±1.6</span></td>
+        </tr>
+        <tr class="detail-row" id="detail-agg-3">
+          <td colspan="8">
+            <div class="detail-grid">
+              <div class="detail-card">
+                <div class="detail-card-label">Quality</div>
+                <div class="detail-card-score">97.2 <span class="raw-value">±0.5</span></div>
+                <div class="detail-card-reason">95% CI [96.6, 97.8] ·
+                range [97.0, 98.0]</div>
+              </div>
+              <div class="detail-card">
+                <div class="detail-card-label">Coverage</div>
+                <div class="detail-card-score">97.0 <span class="raw-value">±1.2</span></div>
+                <div class="detail-card-reason">95% CI [95.5, 98.5] ·
+                range [95.0, 98.0]</div>
+              </div>
+              <div class="detail-card">
+                <div class="detail-card-label">Conciseness</div>
+                <div class="detail-card-score">54.0 <span class="raw-value">±4.5</span></div>
+                <div class="detail-card-reason">95% CI [48.5, 59.5] ·
+                range [52.0, 62.0]</div>
+              </div>
+              <div class="detail-card">
+                <div class="detail-card-label">Composite</div>
+                <div class="detail-card-score">81.2 <span class="raw-value">±1.6</span></div>
+                <div class="detail-card-reason">95% CI [79.3, 83.2] ·
+                range [79.5, 82.9] · n=5 · total cost $0.0495</div>
+              </div>
+            </div>
+            <div class="detail-output-label">Individual runs (full outputs in the runs/ directory)</div>
+            <table class="runs-table">
+              <thead><tr><th>Run</th><th>Composite</th><th>Latency</th><th>Cost</th><th>Saved</th></tr></thead>
+              <tbody><tr><td>run 0</td><td>80.2</td><td>16.4s</td><td>$0.0103</td><td class='raw-value'>2026-07-04T21:43:57.199590+00:00</td></tr><tr><td>run 1</td><td>82.9</td><td>15.5s</td><td>$0.0094</td><td class='raw-value'>2026-07-04T21:43:57.199020+00:00</td></tr><tr><td>run 2</td><td>80.7</td><td>13.5s</td><td>$0.0109</td><td class='raw-value'>2026-07-04T21:59:27.627858+00:00</td></tr><tr><td>run 3</td><td>82.9</td><td>11.5s</td><td>$0.0093</td><td class='raw-value'>2026-07-04T21:59:27.626289+00:00</td></tr><tr><td>run 4</td><td>79.5</td><td>15.0s</td><td>$0.0096</td><td class='raw-value'>2026-07-04T21:59:27.628806+00:00</td></tr></tbody>
+            </table>
+          </td>
+        </tr>
+        <tr class="result-row" onclick="toggleExpand('agg-4')">
+          <td class="framework"><span class="expand-caret">&#9654;</span>langgraph</td>
+          <td>claude-sonnet-4-6</td>
+          <td>95.0 <span class='raw-value'>±0.0</span></td><td>97.0 <span class='raw-value'>±2.7</span></td><td>85.0 <span class='raw-value'>±0.0</span></td>
+          <td>12.4s <span class="raw-value">/ 14.3s</span></td>
+          <td>$0.0187</td>
+          <td class="score">81.0 <span class="raw-value">±1.0</span></td>
+        </tr>
+        <tr class="detail-row" id="detail-agg-4">
+          <td colspan="8">
+            <div class="detail-grid">
+              <div class="detail-card">
+                <div class="detail-card-label">Quality</div>
+                <div class="detail-card-score">95.0 <span class="raw-value">±0.0</span></div>
+                <div class="detail-card-reason">95% CI [95.0, 95.0] ·
+                range [95.0, 95.0]</div>
+              </div>
+              <div class="detail-card">
+                <div class="detail-card-label">Coverage</div>
+                <div class="detail-card-score">97.0 <span class="raw-value">±2.7</span></div>
+                <div class="detail-card-reason">95% CI [93.6, 100.4] ·
+                range [95.0, 100.0]</div>
+              </div>
+              <div class="detail-card">
+                <div class="detail-card-label">Conciseness</div>
+                <div class="detail-card-score">85.0 <span class="raw-value">±0.0</span></div>
+                <div class="detail-card-reason">95% CI [85.0, 85.0] ·
+                range [85.0, 85.0]</div>
+              </div>
+              <div class="detail-card">
+                <div class="detail-card-label">Composite</div>
+                <div class="detail-card-score">81.0 <span class="raw-value">±1.0</span></div>
+                <div class="detail-card-reason">95% CI [79.7, 82.3] ·
+                range [80.0, 82.1] · n=5 · total cost $0.0933</div>
+              </div>
+            </div>
+            <div class="detail-output-label">Individual runs (full outputs in the runs/ directory)</div>
+            <table class="runs-table">
+              <thead><tr><th>Run</th><th>Composite</th><th>Latency</th><th>Cost</th><th>Saved</th></tr></thead>
+              <tbody><tr><td>run 0</td><td>82.0</td><td>11.7s</td><td>$0.0187</td><td class='raw-value'>2026-07-04T21:43:57.200822+00:00</td></tr><tr><td>run 1</td><td>80.9</td><td>14.3s</td><td>$0.0198</td><td class='raw-value'>2026-07-04T21:43:57.201454+00:00</td></tr><tr><td>run 2</td><td>80.0</td><td>12.5s</td><td>$0.0183</td><td class='raw-value'>2026-07-04T21:59:27.629868+00:00</td></tr><tr><td>run 3</td><td>80.0</td><td>12.4s</td><td>$0.0185</td><td class='raw-value'>2026-07-04T21:59:27.630750+00:00</td></tr><tr><td>run 4</td><td>82.1</td><td>11.9s</td><td>$0.0180</td><td class='raw-value'>2026-07-04T21:59:27.630341+00:00</td></tr></tbody>
+            </table>
+          </td>
+        </tr>
+        <tr class="result-row" onclick="toggleExpand('agg-5')">
+          <td class="framework"><span class="expand-caret">&#9654;</span>autogen</td>
+          <td>claude-sonnet-4-6</td>
+          <td>97.0 <span class='raw-value'>±2.7</span></td><td>95.0 <span class='raw-value'>±0.0</span></td><td>86.0 <span class='raw-value'>±2.2</span></td>
+          <td>15.6s <span class="raw-value">/ 17.3s</span></td>
+          <td>$0.0224</td>
+          <td class="score">76.7 <span class="raw-value">±2.1</span></td>
+        </tr>
+        <tr class="detail-row" id="detail-agg-5">
+          <td colspan="8">
+            <div class="detail-grid">
+              <div class="detail-card">
+                <div class="detail-card-label">Quality</div>
+                <div class="detail-card-score">97.0 <span class="raw-value">±2.7</span></div>
+                <div class="detail-card-reason">95% CI [93.6, 100.4] ·
+                range [95.0, 100.0]</div>
+              </div>
+              <div class="detail-card">
+                <div class="detail-card-label">Coverage</div>
+                <div class="detail-card-score">95.0 <span class="raw-value">±0.0</span></div>
+                <div class="detail-card-reason">95% CI [95.0, 95.0] ·
+                range [95.0, 95.0]</div>
+              </div>
+              <div class="detail-card">
+                <div class="detail-card-label">Conciseness</div>
+                <div class="detail-card-score">86.0 <span class="raw-value">±2.2</span></div>
+                <div class="detail-card-reason">95% CI [83.2, 88.8] ·
+                range [85.0, 90.0]</div>
+              </div>
+              <div class="detail-card">
+                <div class="detail-card-label">Composite</div>
+                <div class="detail-card-score">76.7 <span class="raw-value">±2.1</span></div>
+                <div class="detail-card-reason">95% CI [74.1, 79.2] ·
+                range [74.5, 79.9] · n=5 · total cost $0.1118</div>
+              </div>
+            </div>
+            <div class="detail-output-label">Individual runs (full outputs in the runs/ directory)</div>
+            <table class="runs-table">
+              <thead><tr><th>Run</th><th>Composite</th><th>Latency</th><th>Cost</th><th>Saved</th></tr></thead>
+              <tbody><tr><td>run 0</td><td>74.5</td><td>17.3s</td><td>$0.0243</td><td class='raw-value'>2026-07-04T21:43:57.200163+00:00</td></tr><tr><td>run 1</td><td>79.9</td><td>14.6s</td><td>$0.0215</td><td class='raw-value'>2026-07-04T21:43:57.198611+00:00</td></tr><tr><td>run 2</td><td>75.5</td><td>15.6s</td><td>$0.0227</td><td class='raw-value'>2026-07-04T21:59:27.625224+00:00</td></tr><tr><td>run 3</td><td>76.2</td><td>15.9s</td><td>$0.0228</td><td class='raw-value'>2026-07-04T21:59:27.625735+00:00</td></tr><tr><td>run 4</td><td>77.2</td><td>14.4s</td><td>$0.0204</td><td class='raw-value'>2026-07-04T21:59:27.624729+00:00</td></tr></tbody>
+            </table>
+          </td>
+        </tr></tbody>
+      </table>
+    </main>
+
+    <footer class="page-footer">
+      <p class="footer-note">
+        <strong>How to read this:</strong> score cells are mean ± sample std
+        dev over the runs shown; the chart's whiskers are 95% confidence
+        intervals (Student's t). Latency is reported as median / p95 of raw
+        seconds and cost as mean dollars per run — their normalized 0–100
+        scores are relative to a single comparison batch and are therefore
+        never averaged across runs. Overlapping CIs mean the ranking is not
+        established at this sample size; they do not mean the combinations
+        are equal.
+      </p>
+      <p>
+        Generated by SmartWrapperOSS. Static snapshot — raw per-run records
+        (including full model outputs) live in the runs/ directory and can be
+        used to independently re-derive every number on this page.
+      </p>
+    </footer>
+  </div>
+
+<script>
+  function toggleExpand(id) {
+    const row = document.getElementById("detail-" + id);
+    const trigger = row.previousElementSibling;
+    row.classList.toggle("open");
+    trigger.classList.toggle("expanded");
+  }
+</script>
+</body>
+</html>
