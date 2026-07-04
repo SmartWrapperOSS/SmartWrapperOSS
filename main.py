@@ -123,63 +123,146 @@ WORKFLOW_REGISTRY = {
 # it only talks to the generic Workflow/Evaluator interfaces. That's what
 # keeps it short and unchanged as new workflows are added.
 
+def _task_tag(workflow_name: str, args) -> str:
+    """A short identifier for WHICH task was run, so repeated runs of
+    different tasks are never aggregated together as if they were
+    repeats of the same experiment (see core/runstore.py layout)."""
+    import os
+    if workflow_name == "summarize":
+        return os.path.splitext(os.path.basename(args.file))[0]
+    if workflow_name == "tool-use":
+        return os.path.splitext(os.path.basename(args.task))[0]
+    return "default"
+
+
 def run(workflow_name: str, frameworks: list, model_ids: list, config: dict, args):
     print(f"\nSmartWrapperOSS — workflow: {workflow_name}")
     print(f"Frameworks: {', '.join(frameworks)}")
     print(f"Models:     {', '.join(model_ids)}")
+    if args.runs > 1:
+        print(f"Runs:       {args.runs} per combination (mean ± std dev, 95% CI)")
     print()
 
     router = ModelRouter(config["models"])
     build_fn = WORKFLOW_REGISTRY[workflow_name]
     runners, evaluator, task_input, scoring_reference = build_fn(config, router, args)
 
-    print("\nRunning task across all (framework, model) combinations...")
-    task_results = []  # list of (framework, model_id, TaskResult)
+    from core.runstore import RunStore
+    from core.stats import aggregate_runs
+    store = RunStore(args.runs_dir, workflow_name, _task_tag(workflow_name, args))
+
     combos = [
         (fw, model_id)
         for fw in frameworks
         for model_id in model_ids
-        if model_id in router.configs
+        if model_id in router.configs and fw in runners
     ]
 
-    with concurrent.futures.ThreadPoolExecutor(max_workers=6) as executor:
-        futures = {
-            executor.submit(runners[fw].run, model_id, task_input): (fw, model_id)
-            for fw, model_id in combos
-            if fw in runners
-        }
-        for future in concurrent.futures.as_completed(futures):
-            fw, model_id = futures[future]
-            try:
-                task_result = future.result()
-                task_results.append((fw, model_id, task_result))
-                print(f"  done: {fw} + {model_id}")
-            except Exception as e:
-                print(f"  failed: {fw} + {model_id}: {e}")
+    # Which (framework, model, run_index) still need executing? Runs
+    # already persisted on disk are skipped — this makes --runs N both
+    # RESUMABLE (a crash at run 4/5 never re-pays for runs 1-3) and
+    # INCREMENTAL (--runs 3 today, --runs 10 next week just adds 7).
+    pending = []
+    for fw, model_id in combos:
+        done = store.completed_indices(fw, model_id)
+        resumed = len(done & set(range(args.runs)))
+        if resumed:
+            print(f"  resume: {fw} + {model_id}: {resumed}/{args.runs} runs already on disk")
+        pending.extend((fw, model_id, i) for i in range(args.runs) if i not in done)
 
-    print("\nEvaluating...")
-    scored = evaluator.score_all(task_results, scoring_reference)
+    completed = []  # (framework, model_id, run_index, TaskResult)
+    spent = 0.0     # cumulative API cost of THIS session, for --max-cost
+    if pending:
+        print(f"\nRunning {len(pending)} executions "
+              f"({len(combos)} combos x {args.runs} run(s), minus resumed)...")
+        with concurrent.futures.ThreadPoolExecutor(max_workers=6) as executor:
+            futures = {
+                executor.submit(runners[fw].run, model_id, task_input): (fw, model_id, i)
+                for fw, model_id, i in pending
+            }
+            for future in concurrent.futures.as_completed(futures):
+                fw, model_id, i = futures[future]
+                if future.cancelled():
+                    continue
+                try:
+                    task_result = future.result()
+                    completed.append((fw, model_id, i, task_result))
+                    spent += task_result.cost_usd
+                    print(f"  done: {fw} + {model_id} (run {i + 1})"
+                          f"   session cost so far: ${spent:.4f}")
+                except Exception as e:
+                    print(f"  failed: {fw} + {model_id} (run {i + 1}): {e}"
+                          f" — rerun the same command to retry just this run")
+                if args.max_cost is not None and spent >= args.max_cost:
+                    cancelled = sum(1 for f in futures if f.cancel())
+                    if cancelled:
+                        print(f"  --max-cost ${args.max_cost:.2f} reached: cancelled "
+                              f"{cancelled} unstarted run(s). Completed runs are saved; "
+                              f"rerun the same command to resume.")
+    else:
+        print("\nAll requested runs already on disk — skipping to aggregation.")
 
+    if completed:
+        print("\nEvaluating...")
+        # score_all() preserves input order in both existing evaluators
+        # (they iterate the input list), which lets us zip run indices
+        # back onto the scored rows. The assert guards that contract.
+        scored = evaluator.score_all(
+            [(fw, m, tr) for fw, m, _, tr in completed], scoring_reference
+        )
+        for (fw, model_id, run_idx, _), (fw2, m2, tr, sr) in zip(completed, scored):
+            assert (fw, model_id) == (fw2, m2), "Evaluator.score_all reordered results"
+            store.save(fw, model_id, run_idx, {
+                "workflow": workflow_name,
+                "output": tr.output,
+                "input_tokens": tr.input_tokens,
+                "output_tokens": tr.output_tokens,
+                "latency_ms": tr.latency_ms,
+                "cost_usd": tr.cost_usd,
+                "extra": tr.extra,
+                "dimensions": sr.dimensions,
+                "composite_score": sr.composite_score,
+            })
+        print(f"Raw run records saved to {store.dir}/ — publish these alongside "
+              f"results so anyone can independently re-derive the numbers.")
+
+    json_path = f"results_{workflow_name}.json"
+    html_path = f"results_{workflow_name}.html"
+    show_reasons = config["output"].get("show_reasons", True)
+
+    records = store.load_all()
+    max_n = max(
+        (sum(1 for r in records
+             if (r["framework"], r["model_id"]) == (fw, m)) for fw, m in combos),
+        default=0,
+    )
+
+    if max_n > 1:
+        # Multi-run mode: the headline output is the aggregate table.
+        # Latency/cost dimension scores are batch-normalized per session,
+        # so the aggregate reports RAW latency (median/p95) and cost
+        # (mean) instead — see core/stats.py for the full rationale.
+        aggs = aggregate_runs(records)
+        from output.formatter import print_aggregate_table, save_aggregate_json
+        print_aggregate_table(aggs)
+        save_aggregate_json(aggs, f"results_{workflow_name}_aggregate.json")
+        if config["output"].get("html_dashboard", True):
+            from output.dashboard import save_aggregate_html
+            save_aggregate_html(aggs, records,
+                                f"results_{workflow_name}_aggregate.html",
+                                workflow_name=workflow_name)
+        return
+
+    # Single-run mode: original behavior, unchanged.
     from core.types import EvalResult
     results = [
         EvalResult(framework=fw, model_id=model_id, task_result=tr, score_result=sr)
-        for fw, model_id, tr, sr in scored
-    ]
+        for (fw, model_id, _, tr), (_, _, _, sr) in zip(completed, scored)
+    ] if completed else []
     results.sort(key=lambda r: r.composite_score, reverse=True)
 
-    # Output filenames always include the workflow name (e.g.
-    # "results_summarize.json", "results_tool-use.html") so that running
-    # both workflows doesn't overwrite one's output with the other's.
-    json_path = f"results_{workflow_name}.json"
-    html_path = f"results_{workflow_name}.html"
-
-    show_reasons = config["output"].get("show_reasons", True)
     print_table(results, show_reasons=show_reasons)
     save_json(results, json_path)
-
-    # HTML dashboard is opt-out, not opt-in — it costs nothing extra to
-    # generate (same data as results.json, just rendered) and most people
-    # testing locally will want something easier to skim than raw JSON.
     if config["output"].get("html_dashboard", True):
         save_html(results, html_path, workflow_name=workflow_name)
 
@@ -195,12 +278,27 @@ def main():
     parser.add_argument("--models", nargs="+", default=["gpt-4o", "claude-3-5-sonnet"])
     parser.add_argument("--config", default="config/config.yaml")
 
+    # Multi-run / statistics flags
+    parser.add_argument("--runs", type=int, default=1,
+                        help="Repeat each (framework, model) combination N times and "
+                             "report mean ± std dev with 95%% confidence intervals. "
+                             "Raw runs are persisted to --runs-dir and resumable: "
+                             "rerunning the same command only executes missing runs.")
+    parser.add_argument("--runs-dir", default="runs",
+                        help="Directory for raw per-run JSON records (default: runs/).")
+    parser.add_argument("--max-cost", type=float, default=None,
+                        help="Stop launching new runs once this session's cumulative "
+                             "API cost (USD) exceeds this value. Completed runs are "
+                             "kept; rerun to resume.")
+
     # Workflow-specific inputs — only one is required depending on --workflow
     parser.add_argument("--file", help="GCS URI, required for --workflow summarize")
     parser.add_argument("--task", help="Path to a benchmark task YAML, required for --workflow tool-use")
 
     args = parser.parse_args()
 
+    if args.runs < 1:
+        parser.error("--runs must be >= 1")
     if args.workflow == "summarize" and not args.file:
         parser.error("--workflow summarize requires --file")
     if args.workflow == "tool-use" and not args.task:

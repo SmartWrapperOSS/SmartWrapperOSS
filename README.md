@@ -8,7 +8,9 @@ An open-source model and workflow evaluation framework.
 Run the same task — document summarization, or a tool-calling agent
 benchmark — through multiple orchestration frameworks (AutoGen-style,
 LangGraph-style) and multiple LLMs, and compare quality, latency, and
-cost side by side, in one command.
+cost side by side, in one command. Repeat runs with `--runs N` and get
+mean ± std dev with 95% confidence intervals instead of single-sample
+numbers.
 
 ## What this is
 
@@ -41,8 +43,8 @@ drifting:
 ## Quickstart
 
 ```bash
-git clone https://github.com/yourname/smartwrappeross
-cd smartwrappeross
+git clone https://github.com/SmartWrapperOSS/SmartWrapperOSS
+cd SmartWrapperOSS
 python3 -m venv venv && source venv/bin/activate
 pip install -r requirements.txt
 cp config/config.yaml.example config/config.yaml   # add your API keys
@@ -69,40 +71,169 @@ python main.py --workflow summarize \
     --models gpt-4o claude-sonnet-4-6 gemini-3.5-flash
 ```
 
+### Run with statistics (recommended for any published comparison)
+
+The `--runs`, `--runs-dir`, and `--max-cost` flags work identically for
+every workflow — they belong to the shared pipeline, not to any one task
+type.
+
+```bash
+# Tool-use, 5 runs per (framework, model) combination
+python main.py --workflow tool-use \
+    --task benchmarks/tool_use/weather_and_calendar.yaml \
+    --frameworks autogen langgraph \
+    --models gpt-4o claude-sonnet-4-6 \
+    --runs 5 --max-cost 2.50
+
+# Summarization, same flags
+python main.py --workflow summarize \
+    --file gs://your-bucket/document.pdf \
+    --frameworks autogen langgraph \
+    --models gpt-4o claude-sonnet-4-6 gemini-3.5-flash \
+    --runs 5 --max-cost 5.00
+```
+
+Note for summarization: multi-run variance is especially informative
+there, because its Quality/Coverage/Conciseness scores come from an
+LLM-as-judge and are inherently noisier run-to-run than the tool-use
+workflow's mostly mechanical scoring. Raw runs are stored per task under
+`runs/summarize/<document-name>/`, so repeated runs of *different*
+documents are never mixed into one aggregate. Also budget accordingly:
+summarization runs typically cost more per run than tool-use benchmarks
+(hence the higher `--max-cost` in the example).
+
+- **`--runs N`** repeats every (framework, model) combination N times and
+  reports **mean ± std dev** per dimension and a **95% confidence
+  interval** (Student's t, appropriate for small N) on the composite
+  score, instead of a single-sample number.
+- **Resumable.** Every run is persisted to `runs/<workflow>/<task>/` as
+  one JSON file the moment it's scored. If run 4 of 5 dies on a rate
+  limit, rerunning the same command executes only the missing run — you
+  never pay for the same run twice.
+- **Incremental.** `--runs 3` today and `--runs 10` next week just adds
+  the 7 new runs; the aggregate grows to n=10 automatically.
+- **`--max-cost X`** stops launching new runs once the session's
+  cumulative API cost exceeds X dollars. Completed runs are kept.
+- **Verifiable.** The raw per-run records (full outputs, token counts,
+  latency, cost, scores) are plain JSON. Publishing the `runs/`
+  directory alongside a results table lets anyone independently
+  re-derive — or dispute — the numbers.
+
+With `--runs 5` the comparison table becomes (real output, tool-use
+benchmark, top two rows):
+
+```
+Aggregated over repeated runs (n=5); score cells are mean ±std dev; 95% CI on composite.
+Framework    Model               Tool Selection   Arg Correctness   Task Completion   Efficiency   Lat med/p95   Cost mean    Composite
+langgraph    gpt-4o                 100.0 ±0.0       100.0 ±0.0        100.0 ±0.0      53.3 ±7.5    4.1s/4.4s     $0.0063     91.4 ±1.2
+    composite 95% CI: [89.9, 93.0]   range: [90.4, 93.5]   n=5
+autogen      gpt-4o                 100.0 ±0.0        85.0 ±22.4       100.0 ±0.0      50.0 ±0.0    4.2s/4.4s     $0.0061     87.4 ±5.7
+    composite 95% CI: [80.4, 94.5]   range: [78.4, 91.4]   n=5
+
+Best (by mean composite): langgraph + gpt-4o (91.4 ±1.2, n=5)
+Note: 95% CIs of the top two overlap — this ranking is NOT statistically
+distinguishable at n=5. Add runs to tighten.
+```
+
+That last line is deliberate: when the data can't support a ranking, the
+tool says so instead of implying a winner. A one-point lead at n=5 is
+noise more often than signal, and pretending otherwise is exactly the
+kind of benchmark theater this project exists to avoid.
+
+Two statistical notes:
+
+1. **Latency and cost aggregate on raw values** (median/p95 seconds,
+   mean dollars), never on their 0–100 scores — those scores are
+   normalized within a single comparison (see the note under Output
+   below) and are mathematically invalid to average across runs.
+2. Latency uses **median and p95** rather than mean because API latency
+   is long-tailed; one slow call would otherwise skew the whole cell.
+
+Aggregate results are also saved to
+`results_<workflow>_aggregate.json` and, unless disabled via
+`output.html_dashboard`, to `results_<workflow>_aggregate.html` — a
+self-contained dashboard whose headline is an **error-bar chart**
+(dot = mean composite, whiskers = 95% CI), with expandable per-combination
+rows showing per-dimension stats and a per-run breakdown. No server
+needed; it opens by double-clicking, same as the single-run dashboard.
+
 ## Output
 
-**Tool-Use Workflow**
+The numbers below are **real, published results**: mean ± sample std dev
+over **n=5 runs** per (framework, model) combination, produced with
+`--runs 5`. The raw per-run records that generated them are committed in
+[`runs/`](./runs) — every number in these tables can be independently
+re-derived from those files.
 
-| Framework | Model             | Tool Selection | Argument Correctness | Task Completion | Efficiency | Latency Score | Cost Score     | Score |
-|-----------|-------------------|-----------------|------------------------|-------------------|------------|----------------|------------------|-------|
-| autogen   | gpt-4o            | 100             | 100                    | 100               | 50         | 99.9 (5.0s)    | 100 ($0.0058)    | 95    |
-| langgraph | gpt-4o            | 100             | 100                    | 100               | 50         | 100 (5.0s)     | 94.1 ($0.0061)   | 94.6  |
-| autogen   | claude-sonnet-4-6 | 100             | 100                    | 100               | 66.7       | 76.8 (10.0s)   | 0 ($0.0099)      | 87.4  |
-| langgraph | claude-sonnet-4-6 | 100             | 100                    | 100               | 66.7       | 0 (26.5s)      | 0 ($0.0099)      | 81.7  |
+**Tool-Use Workflow** (`benchmarks/tool_use/weather_and_calendar.yaml`, n=5)
 
-**Summarization Workflow**
+| Framework | Model | Tool Selection | Argument Correctness | Task Completion | Efficiency | Latency med/p95 | Cost mean | Composite |
+|-----------|-------|----------------|----------------------|-----------------|------------|-----------------|-----------|-----------|
+| langgraph | gpt-4o | 100.0 ±0.0 | 100.0 ±0.0 | 100.0 ±0.0 | 53.3 ±7.5 | 4.1s / 4.4s | $0.0063 | **91.4 ±1.2** |
+| autogen | gpt-4o | 100.0 ±0.0 | 85.0 ±22.4 | 100.0 ±0.0 | 50.0 ±0.0 | 4.2s / 4.4s | $0.0061 | 87.4 ±5.7 |
+| autogen | claude-sonnet-4-6 | 100.0 ±0.0 | 100.0 ±0.0 | 100.0 ±0.0 | 66.7 ±0.0 | 10.2s / 11.0s | $0.0103 | 83.9 ±0.8 |
+| langgraph | claude-sonnet-4-6 | 86.7 ±29.8 | 100.0 ±0.0 | 86.7 ±29.8 | 73.4 ±14.9 | 10.4s / 12.4s | $0.0087 | 80.0 ±7.6 |
 
-| Framework | Model             | Quality | Coverage | Conciseness | Latency Score | Cost Score      | Score |
-|-----------|-------------------|---------|----------|--------------|-----------------|-------------------|-------|
-| langgraph | gpt-4o            | 95      | 95       | 62           | 100 (4.9s)      | 100 ($0.0073)     | 91    |
-| langgraph | gemini-3.5-flash  | 95      | 97       | 72           | 32.9 (12.4s)    | 93.8 ($0.0082)    | 85.8  |
-| autogen   | gpt-4o            | 97      | 97       | 42           | 76.2 (7.6s)     | 60.5 ($0.0133)    | 83    |
-| autogen   | gemini-3.5-flash  | 97      | 97       | 52           | 34.3 (12.2s)    | 83.9 ($0.0097)    | 82.7  |
-| langgraph | claude-sonnet-4-6 | 95      | 95       | 85           | 36.1 (12.0s)    | 27.6 ($0.0183)    | 80.9  |
-| autogen   | claude-sonnet-4-6 | 95      | 95       | 85           | 0 (16.0s)       | 0 ($0.0225)       | 74.5  |
+What the error bars reveal that a single run cannot:
 
-> **About Cost Score and Latency Score:** these columns aren't a fixed
-> scale — they rank the rows in each table against each other. The
-> cheapest/fastest run shown gets a score of 100; the most
-> expensive/slowest gets a 0. A score of 100 means "cheapest among the
-> rows in this comparison," not "free" — adding or removing a model can
-> change these scores even though the underlying cost or latency didn't
-> change. Raw dollar cost and latency in seconds are shown in
-> parentheses.
+- **autogen + gpt-4o, Argument Correctness 85.0 ±22.4** — the arguments
+  are perfect in most runs and badly wrong occasionally. A single-run
+  benchmark would have reported either "100" or a failure depending
+  purely on which run it happened to catch.
+- **langgraph + claude-sonnet-4-6, 86.7 ±29.8 on Tool Selection and Task
+  Completion** — four clean runs and one failed one. Intermittent
+  failure is exactly the behavior repetition exists to surface, and it
+  is invisible at n=1.
+- The top two composites (91.4 ±1.2 vs 87.4 ±5.7) have **overlapping 95%
+  CIs**, and the tool says so rather than declaring a winner.
 
-Results from either workflow are also saved to `results_tool-use.html` /
-`.json` and `results_summarize.html` / `.json`, with full outputs and
-scoring reasons.
+**Summarization Workflow** (n=5)
+
+| Framework | Model | Quality | Coverage | Conciseness | Latency med/p95 | Cost mean | Composite |
+|-----------|-------|---------|----------|-------------|-----------------|-----------|-----------|
+| langgraph | gpt-4o | 96.2 ±1.1 | 95.0 ±0.0 | 64.0 ±4.5 | 4.0s / 9.1s | $0.0077 | **90.5 ±2.9** |
+| langgraph | gemini-3.5-flash | 97.0 ±1.2 | 97.2 ±0.5 | 62.0 ±7.1 | 13.9s / 14.0s | $0.0092 | 82.2 ±11.2 |
+| autogen | gpt-4o | 91.4 ±6.3 | 94.4 ±1.3 | 46.0 ±5.5 | 7.5s / 7.8s | $0.0121 | 81.6 ±3.0 |
+| autogen | gemini-3.5-flash | 97.2 ±0.5 | 97.0 ±1.2 | 54.0 ±4.5 | 15.0s / 16.4s | $0.0099 | 81.2 ±1.6 |
+| langgraph | claude-sonnet-4-6 | 95.0 ±0.0 | 97.0 ±2.7 | 85.0 ±0.0 | 12.4s / 14.3s | $0.0187 | 81.0 ±1.0 |
+| autogen | claude-sonnet-4-6 | 97.0 ±2.7 | 95.0 ±0.0 | 86.0 ±2.2 | 15.6s / 17.3s | $0.0224 | 76.7 ±2.1 |
+
+Two things worth noticing here, because they illustrate how to read any
+benchmark of this kind:
+
+- **The composite winner is not everyone's winner.**
+  claude-sonnet-4-6 ranks near the bottom on composite — driven largely
+  by latency and cost — yet wins Conciseness by ~20+ points with almost
+  zero variance (85.0 ±0.0, 86.0 ±2.2). If concise output is the thing
+  your task actually needs, the "best" row in this table is not your
+  best choice. This is precisely why we say these results scope the
+  right capability tier for *your* task rather than rank models in the
+  abstract.
+- **A mean without its spread is misleading.**
+  langgraph + gemini-3.5-flash ranks second by mean composite
+  (82.2), but at ±11.2 its 95% CI spans [68.4, 96.1] — nearly the whole
+  field. Its rank is real; its *stability* at that rank is not
+  established. The four combos below it at ±3.0 or tighter are far more
+  predictable.
+
+> **About Latency and Cost in these tables:** the aggregate tables show
+> **raw values** — median / p95 seconds and mean dollars per run.
+> Internally, each comparison batch also computes normalized 0–100
+> Latency/Cost *scores* that feed the composite; those scores rank the
+> rows in one batch against each other (100 = cheapest/fastest shown,
+> not "free") and are therefore never averaged across runs. Single-run
+> output (`--runs 1`) displays those normalized scores with the raw
+> value in parentheses.
+
+Results are saved to `results_<workflow>.json` / `.html` for single
+runs, and to `results_<workflow>_aggregate.json` /
+`results_<workflow>_aggregate.html` (error-bar chart + per-run
+breakdown) for multi-run mode, with raw per-run records in `runs/`.
+
+Live, interactive versions of the published dashboards — error-bar
+charts, per-run breakdowns, and the earlier single-run dashboards they
+supersede — are at the
+[results index](https://smartwrappeross.github.io/SmartWrapperOSS/results/).
 
 ## Architecture
 
@@ -139,9 +270,16 @@ table, or model router.
             │                                      │
             └──────────────────┬──────────────────┘
                                │
-                Comparison Table + results.json
-                  (generic — renders whatever
-                   dimensions the workflow scored)
+                    Run Store (runs/*.json)
+                 every run persisted raw — this is
+                what makes --runs N resumable and the
+                    published stats auditable
+                               │
+       Comparison Table + results/dashboards (.json / .html,
+                  plus *_aggregate.json / *_aggregate.html)
+             (generic — renders whatever dimensions the
+              workflow scored; multi-run mode adds mean,
+                 std dev, and 95% confidence intervals)
 ```
 
 ## Configuration
@@ -229,17 +367,22 @@ of any kind — see [LICENSE](./LICENSE) for full terms.
   independently audited this benchmark for either form of residual
   bias.
 
-- **Published results reflect a small, fixed sample — not a
-  statistically validated benchmark.** Scores shown here come from a
-  limited number of runs against a fixed set of benchmark tasks defined
-  by the SmartWrapperOSS maintainer. They have not been repeated across
-  multiple trials, multiple document types, or multiple prompt
-  variations, and have not been independently reviewed. Small
-  differences in score (for example, a few points) should not be read
-  as a meaningful or reproducible difference in real-world performance.
-  Treat published comparisons as illustrative of how the tool works,
-  not as a vendor ranking you should act on without running your own
-  evaluation against your own tasks.
+- **Read the error bars — and be suspicious of results without them.**
+  The tool supports repeated trials via `--runs N`, reporting mean ±
+  std dev and 95% confidence intervals, and it explicitly flags when
+  the top-ranked combinations are not statistically distinguishable at
+  the current sample size. Raw per-run records are written to `runs/`
+  so any published aggregate can be independently re-derived. That
+  said: the example tables in this README report mean ± std dev over
+  five runs of a single fixed benchmark task each; results still
+  reflect a fixed set of benchmark tasks defined by the maintainer, not
+  multiple document types or prompt variations; and confidence
+  intervals quantify run-to-run sampling noise only — they do not
+  correct for judge bias, task selection, or how representative the
+  benchmark is of your workload. Treat any comparison (ours or anyone
+  else's) that shows single-run point scores with no variance as
+  illustrative at best, and run your own evaluation against your own
+  tasks before acting on a ranking.
 
 - **This compares capability tiers, not equivalent models.** The models
   listed in any given table may differ substantially in size, training,
@@ -300,5 +443,3 @@ of any kind — see [LICENSE](./LICENSE) for full terms.
 
 - **No SLA.** This is a community project with no uptime, support, or
   reliability guarantees.
-
-- **No affiliation with model providers**.

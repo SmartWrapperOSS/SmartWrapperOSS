@@ -478,3 +478,282 @@ _JS = """
 
   render();
 """
+
+
+# --- Aggregate (multi-run) dashboard -----------------------------------------
+#
+# Same philosophy as save_html above: one self-contained file, no server,
+# works by double-clicking. Differences from the single-run dashboard:
+#
+#   - The headline visual is an SVG ERROR-BAR CHART of composite scores
+#     (dot = mean, whiskers = 95% CI). This is deliberately the first
+#     thing on the page: error bars are the whole point of multi-run
+#     mode, and this chart is the screenshot people share.
+#   - Rows are (framework, model) AGGREGATES, not individual runs.
+#     Expanding a row shows per-dimension stats and a per-run breakdown.
+#   - Mostly rendered server-side (Python builds the HTML); JS is only
+#     used for expand/collapse. Aggregates don't need client-side
+#     sorting/deleting the way exploratory single-run views do.
+
+import html as _html
+from core.stats import ComboAggregate
+
+
+def save_aggregate_html(aggs: List[ComboAggregate], records: list,
+                        path: str, workflow_name: str = ""):
+    """Write a self-contained aggregate dashboard for `aggs` to `path`.
+
+    `records` are the raw run dicts (from RunStore.load_all()) used to
+    render the per-run breakdown inside each expanded row."""
+    out = _build_aggregate_html(aggs, records, workflow_name)
+    with open(path, "w") as f:
+        f.write(out)
+    print(f"Aggregate dashboard saved to {path} (open it directly in a browser)")
+
+
+def _esc(s) -> str:
+    return _html.escape(str(s), quote=True)
+
+
+def _svg_ci_chart(aggs: List[ComboAggregate]) -> str:
+    """Horizontal error-bar chart: composite mean (dot) with 95% CI
+    (whiskers) per (framework, model) combination."""
+    if not aggs:
+        return ""
+
+    width, row_h, pad_top = 760, 40, 34
+    label_w, value_w = 250, 84
+    plot_x0, plot_x1 = label_w + 12, width - value_w
+    height = pad_top + row_h * len(aggs) + 30
+
+    lows = [a.composite.ci_low for a in aggs]
+    highs = [a.composite.ci_high for a in aggs]
+    span = max(highs) - min(lows) or 1.0
+    d0, d1 = min(lows) - 0.08 * span, max(highs) + 0.08 * span
+
+    def x(v):
+        return plot_x0 + (v - d0) / (d1 - d0) * (plot_x1 - plot_x0)
+
+    parts = [
+        f'<svg viewBox="0 0 {width} {height}" xmlns="http://www.w3.org/2000/svg" '
+        f'role="img" aria-label="Composite score with 95% confidence intervals">',
+        f'<text x="{plot_x0}" y="18" class="svg-axis">composite score '
+        f'(dot = mean over n runs, whiskers = 95% CI)</text>',
+    ]
+    # light vertical gridlines at round values
+    step = max(1, round(span / 4))
+    v = int(d0) - int(d0) % step
+    while v <= d1:
+        if v >= d0:
+            parts.append(f'<line x1="{x(v):.1f}" y1="{pad_top - 6}" x2="{x(v):.1f}" '
+                         f'y2="{height - 22}" class="svg-grid"/>')
+            parts.append(f'<text x="{x(v):.1f}" y="{height - 8}" class="svg-axis" '
+                         f'text-anchor="middle">{v}</text>')
+        v += step
+
+    for i, a in enumerate(aggs):
+        cy = pad_top + row_h * i + row_h / 2
+        c = a.composite
+        cls = "svg-best" if i == 0 else "svg-other"
+        label = f"{a.framework} + {a.model_id}"
+        parts.append(f'<text x="{label_w}" y="{cy + 4:.1f}" text-anchor="end" '
+                     f'class="svg-label">{_esc(label)}</text>')
+        if a.n > 1:
+            parts.append(f'<line x1="{x(c.ci_low):.1f}" y1="{cy:.1f}" '
+                         f'x2="{x(c.ci_high):.1f}" y2="{cy:.1f}" class="{cls} svg-ci"/>')
+            for vv in (c.ci_low, c.ci_high):  # whisker end ticks
+                parts.append(f'<line x1="{x(vv):.1f}" y1="{cy - 6:.1f}" '
+                             f'x2="{x(vv):.1f}" y2="{cy + 6:.1f}" class="{cls} svg-ci"/>')
+        parts.append(f'<circle cx="{x(c.mean):.1f}" cy="{cy:.1f}" r="5" class="{cls} svg-dot"/>')
+        parts.append(f'<text x="{plot_x1 + 10}" y="{cy + 4:.1f}" class="svg-value">'
+                     f'{c.mean:.1f} ±{c.std:.1f}</text>')
+
+    parts.append("</svg>")
+    return "".join(parts)
+
+
+def _overlap_note(aggs: List[ComboAggregate]) -> str:
+    if len(aggs) < 2 or aggs[0].n < 2 or aggs[1].n < 2:
+        return ""
+    a, b = aggs[0], aggs[1]
+    if a.composite.overlaps(b.composite):
+        return (f'<p class="overlap-note">Note: the 95% CIs of the top two combinations '
+                f'overlap — this ranking is <strong>not statistically distinguishable</strong> '
+                f'at n={a.n}. Add runs to tighten the intervals.</p>')
+    return (f'<p class="overlap-note">The 95% CIs of the top two combinations do not '
+            f'overlap — the lead of <strong>{_esc(a.framework)} + {_esc(a.model_id)}</strong> '
+            f'holds at this sample size.</p>')
+
+
+def _build_aggregate_html(aggs: List[ComboAggregate], records: list,
+                          workflow_name: str) -> str:
+    dims = list(aggs[0].dimensions.keys()) if aggs else []
+    n_values = sorted({a.n for a in aggs}) or [0]
+    n_desc = f"n={n_values[0]}" if len(n_values) == 1 else f"n={n_values[0]}..{n_values[-1]}"
+
+    # group raw runs per combo for the expandable per-run breakdown
+    runs_by_combo = {}
+    for r in records:
+        runs_by_combo.setdefault((r["framework"], r["model_id"]), []).append(r)
+
+    head_cells = "".join(
+        f"<th>{_esc(d.replace('_', ' ').title())}</th>" for d in dims)
+    rows = []
+    for i, a in enumerate(aggs):
+        rid = f"agg-{i}"
+        dim_cells = "".join(
+            f"<td>{a.dimensions[d].mean:.1f} <span class='raw-value'>"
+            f"±{a.dimensions[d].std:.1f}</span></td>" for d in dims)
+        c = a.composite
+        rows.append(f"""
+        <tr class="result-row" onclick="toggleExpand('{rid}')">
+          <td class="framework"><span class="expand-caret">&#9654;</span>{_esc(a.framework)}</td>
+          <td>{_esc(a.model_id)}</td>
+          {dim_cells}
+          <td>{a.latency_ms_median / 1000:.1f}s <span class="raw-value">/ {a.latency_ms_p95 / 1000:.1f}s</span></td>
+          <td>${a.cost_usd_mean:.4f}</td>
+          <td class="score">{c.mean:.1f} <span class="raw-value">±{c.std:.1f}</span></td>
+        </tr>""")
+
+        dim_cards = "".join(f"""
+              <div class="detail-card">
+                <div class="detail-card-label">{_esc(d.replace('_', ' ').title())}</div>
+                <div class="detail-card-score">{a.dimensions[d].mean:.1f} <span class="raw-value">±{a.dimensions[d].std:.1f}</span></div>
+                <div class="detail-card-reason">95% CI [{a.dimensions[d].ci_low:.1f}, {a.dimensions[d].ci_high:.1f}] ·
+                range [{a.dimensions[d].min:.1f}, {a.dimensions[d].max:.1f}]</div>
+              </div>""" for d in dims)
+
+        run_rows = "".join(
+            f"<tr><td>run {r.get('run_index', '?')}</td>"
+            f"<td>{float(r['composite_score']):.1f}</td>"
+            f"<td>{float(r['latency_ms']) / 1000:.1f}s</td>"
+            f"<td>${float(r['cost_usd']):.4f}</td>"
+            f"<td class='raw-value'>{_esc(r.get('saved_at', ''))}</td></tr>"
+            for r in sorted(runs_by_combo.get((a.framework, a.model_id), []),
+                            key=lambda r: r.get("run_index", 0)))
+
+        rows.append(f"""
+        <tr class="detail-row" id="detail-{rid}">
+          <td colspan="{5 + len(dims)}">
+            <div class="detail-grid">{dim_cards}
+              <div class="detail-card">
+                <div class="detail-card-label">Composite</div>
+                <div class="detail-card-score">{c.mean:.1f} <span class="raw-value">±{c.std:.1f}</span></div>
+                <div class="detail-card-reason">95% CI [{c.ci_low:.1f}, {c.ci_high:.1f}] ·
+                range [{c.min:.1f}, {c.max:.1f}] · n={a.n} · total cost ${a.cost_usd_total:.4f}</div>
+              </div>
+            </div>
+            <div class="detail-output-label">Individual runs (full outputs in the runs/ directory)</div>
+            <table class="runs-table">
+              <thead><tr><th>Run</th><th>Composite</th><th>Latency</th><th>Cost</th><th>Saved</th></tr></thead>
+              <tbody>{run_rows}</tbody>
+            </table>
+          </td>
+        </tr>""")
+
+    return f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SmartWrapperOSS — Aggregate Results{f' ({workflow_name})' if workflow_name else ''}</title>
+<style>
+{_CSS}
+{_AGG_CSS}
+</style>
+</head>
+<body>
+  <div class="page">
+    <header class="page-header">
+      <div class="brand">
+        <span class="brand-mark">&gt;_</span>
+        <span class="brand-name">SmartWrapperOSS</span>
+      </div>
+      <div class="meta">
+        <span class="meta-label">workflow</span>
+        <span class="meta-value">{_esc(workflow_name) or 'unknown'}</span>
+        <span class="meta-sep">·</span>
+        <span class="meta-label">aggregated over</span>
+        <span class="meta-value">{n_desc} runs per combination</span>
+      </div>
+    </header>
+
+    <main>
+      <div class="chart-wrap">{_svg_ci_chart(aggs)}</div>
+      {_overlap_note(aggs)}
+      <table id="results-table">
+        <thead><tr>
+          <th>Framework</th><th>Model</th>{head_cells}
+          <th>Lat med/p95</th><th>Cost mean</th><th>Composite</th>
+        </tr></thead>
+        <tbody>{''.join(rows)}</tbody>
+      </table>
+    </main>
+
+    <footer class="page-footer">
+      <p class="footer-note">
+        <strong>How to read this:</strong> score cells are mean ± sample std
+        dev over the runs shown; the chart's whiskers are 95% confidence
+        intervals (Student's t). Latency is reported as median / p95 of raw
+        seconds and cost as mean dollars per run — their normalized 0–100
+        scores are relative to a single comparison batch and are therefore
+        never averaged across runs. Overlapping CIs mean the ranking is not
+        established at this sample size; they do not mean the combinations
+        are equal.
+      </p>
+      <p>
+        Generated by SmartWrapperOSS. Static snapshot — raw per-run records
+        (including full model outputs) live in the runs/ directory and can be
+        used to independently re-derive every number on this page.
+      </p>
+    </footer>
+  </div>
+
+<script>
+  function toggleExpand(id) {{
+    const row = document.getElementById("detail-" + id);
+    const trigger = row.previousElementSibling;
+    row.classList.toggle("open");
+    trigger.classList.toggle("expanded");
+  }}
+</script>
+</body>
+</html>
+"""
+
+
+_AGG_CSS = """
+  .chart-wrap {
+    background: var(--bg-raised);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 16px 12px 8px;
+    margin-bottom: 20px;
+  }
+  .chart-wrap svg { width: 100%; height: auto; display: block; }
+  .svg-axis  { fill: var(--text-dim); font-family: var(--mono); font-size: 11px; }
+  .svg-label { fill: var(--text); font-family: var(--mono); font-size: 12px; }
+  .svg-value { fill: var(--text-dim); font-family: var(--mono); font-size: 12px; }
+  .svg-grid  { stroke: var(--border); stroke-width: 1; }
+  .svg-ci    { stroke-width: 2; }
+  .svg-best.svg-ci  { stroke: var(--accent); }
+  .svg-best.svg-dot { fill: var(--accent); }
+  .svg-other.svg-ci  { stroke: var(--text-dim); }
+  .svg-other.svg-dot { fill: var(--text-dim); }
+
+  .overlap-note {
+    color: var(--text-dim);
+    font-size: 13px;
+    margin: 0 0 20px;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 4px;
+    background: var(--accent-dim);
+  }
+  .overlap-note strong { color: var(--text); }
+
+  .runs-table { width: auto; min-width: 60%; }
+  .runs-table th, .runs-table td { padding: 6px 14px 6px 0; font-size: 12px; }
+  .runs-table thead th { cursor: default; }
+"""

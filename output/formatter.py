@@ -95,3 +95,87 @@ def save_json(results: List[EvalResult], path: str):
         json.dump(data, f, indent=2)
 
     print(f"Results saved to {path}")
+
+
+# --- Aggregated (multi-run) rendering ---------------------------------------
+#
+# Same design rule as print_table above: no dimension names are hardcoded.
+# Whatever absolute-scale dimensions exist in the aggregates become columns,
+# rendered as "mean ±std". Latency and cost get raw-value columns
+# (median / p95 ms, mean $) because their 0-100 scores are batch-normalized
+# and cannot be averaged across runs — see core/stats.py.
+
+from core.stats import ComboAggregate  # noqa: E402
+
+
+def print_aggregate_table(aggs: "List[ComboAggregate]"):
+    if not aggs:
+        print("No results to display.")
+        return
+
+    n_values = sorted({a.n for a in aggs})
+    n_desc = f"n={n_values[0]}" if len(n_values) == 1 else f"n={n_values[0]}..{n_values[-1]}"
+    dimension_names = list(aggs[0].dimensions.keys())
+
+    columns = [f"{'Framework':<12}", f"{'Model':<22}"]
+    for name in dimension_names:
+        columns.append(f"{name.replace('_', ' ').title():>16}")
+    columns += [f"{'Lat med/p95':>16}", f"{'Cost mean':>11}", f"{'Composite':>16}"]
+    header = " ".join(columns)
+    divider = "─" * len(header)
+
+    print()
+    print(f"Aggregated over repeated runs ({n_desc}); score cells are mean ±std dev; 95% CI on composite.")
+    print(divider)
+    print(header)
+    print(divider)
+
+    for a in aggs:
+        row = [f"{a.framework:<12}", f"{a.model_id:<22}"]
+        for name in dimension_names:
+            m = a.dimensions[name]
+            row.append(f"{f'{m.mean:.1f} ±{m.std:.1f}':>16}")
+        row.append(f"{f'{a.latency_ms_median/1000:.1f}s/{a.latency_ms_p95/1000:.1f}s':>16}")
+        row.append(f"{f'${a.cost_usd_mean:.4f}':>11}")
+        c = a.composite
+        row.append(f"{f'{c.mean:.1f} ±{c.std:.1f}':>16}")
+        print(" ".join(row))
+        print(f"    composite 95% CI: [{c.ci_low:.1f}, {c.ci_high:.1f}]"
+              f"   range: [{c.min:.1f}, {c.max:.1f}]   n={a.n}")
+
+    print(divider)
+
+    best = aggs[0]
+    print(f"\nBest (by mean composite): {best.framework} + {best.model_id} "
+          f"({best.composite.mean:.1f} ±{best.composite.std:.1f}, n={best.n})")
+
+    # Honest significance note: CI overlap between the top two rows.
+    # Non-overlap is a conservative "this difference looks real" signal;
+    # overlap means "cannot distinguish at this n" — NOT "they're equal".
+    if len(aggs) >= 2 and best.n >= 2 and aggs[1].n >= 2:
+        runner_up = aggs[1]
+        if best.composite.overlaps(runner_up.composite):
+            print(f"Note: 95% CIs of the top two overlap — this ranking is NOT "
+                  f"statistically distinguishable at n={best.n}. Add runs to tighten.")
+        else:
+            print(f"Note: 95% CIs of the top two do not overlap — the lead of "
+                  f"{best.framework}+{best.model_id} over {runner_up.framework}+"
+                  f"{runner_up.model_id} holds at this sample size.")
+    print()
+
+
+def save_aggregate_json(aggs: "List[ComboAggregate]", path: str):
+    data = []
+    for a in aggs:
+        data.append({
+            "framework": a.framework,
+            "model_id": a.model_id,
+            "n_runs": a.n,
+            "composite": vars(a.composite),
+            "dimensions": {k: vars(v) for k, v in a.dimensions.items()},
+            "latency_ms": {"median": a.latency_ms_median, "p95": a.latency_ms_p95},
+            "cost_usd": {"mean": a.cost_usd_mean, "total": a.cost_usd_total},
+        })
+    with open(path, "w") as f:
+        json.dump(data, f, indent=2)
+    print(f"Aggregate results saved to {path}")
