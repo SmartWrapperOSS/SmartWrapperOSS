@@ -1,0 +1,47 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "smartwrappeross"
+version = "0.1.0"
+description = "An open-source model and workflow evaluation framework"
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.10"
+authors = [
+    { name = "Aditi Jain" }
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+dynamic = ["dependencies"]
+
+[tool.setuptools.dynamic]
+dependencies = { file = ["requirements.txt"] }
+
+[project.urls]
+Homepage = "https://github.com/SmartWrapperOSS/SmartWrapperOSS"
+Changelog = "https://github.com/SmartWrapperOSS/SmartWrapperOSS/blob/main/CHANGELOG.md"
+Issues = "https://github.com/SmartWrapperOSS/SmartWrapperOSS/issues"
+
+[project.scripts]
+smartwrappeross = "main:main"
+
+[tool.setuptools]
+py-modules = ["main"]
+
+# Flat layout (no src/), and no __init__.py existed before v0.1.0 packaging
+# work — see the new __init__.py files added alongside this. Listing the
+# top-level packages explicitly avoids setuptools' flat-layout ambiguity
+# error ("multiple top-level packages discovered").
+[tool.setuptools.packages.find]
+include = ["core*", "workflows*", "ingestion*", "output*"]
+exclude = ["benchmarks*", "config*", "tests*"]
+
+

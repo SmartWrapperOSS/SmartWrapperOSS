@@ -53,6 +53,50 @@ cp config/config.yaml.example config/config.yaml   # add your API keys
 See [TESTING.md](./TESTING.md) for a full setup walkthrough, including a
 no-API-key smoke test.
 
+## Installation
+
+For local development, or to contribute, use the Quickstart above.
+
+SmartWrapperOSS is not yet published to PyPI, but it can still be
+installed with pip in either of these ways:
+
+**From a local clone** (recommended if you also want the example config
+and benchmark task files on disk):
+
+```bash
+git clone https://github.com/SmartWrapperOSS/SmartWrapperOSS
+cd SmartWrapperOSS
+pip install .
+```
+
+**Directly from GitHub, without cloning first** — useful for adding
+SmartWrapperOSS as a dependency of another project:
+
+```bash
+pip install git+https://github.com/SmartWrapperOSS/SmartWrapperOSS.git@v0.1.0
+```
+
+The `@v0.1.0` pins to a specific release tag so the installed version
+won't change under you later; drop it (or swap in a different tag) to
+track `main` instead. This same line can also go directly in another
+project's `requirements.txt`:
+
+```
+smartwrappeross @ git+https://github.com/SmartWrapperOSS/SmartWrapperOSS.git@v0.1.0
+```
+
+Either install method gives you the `core`, `workflows`, `ingestion`,
+and `output` packages plus a `smartwrappeross` command on your PATH.
+**Note:** `config/` and `benchmarks/` ship as data, not as part of the
+installed Python package. Installing from a local clone (first option)
+means those files are right there next to your checkout; installing
+directly from GitHub (second option) does not include them, since pip
+discards its internal clone after building the package. Either way, pass
+`--config` / `--task` with paths to your own copies of
+`config/config.yaml` and the benchmark task YAML if they're not in your
+working directory already. A future release may remove this
+restriction; see [ENHANCEMENTS.md](ENHANCEMENTS.md).
+
 ### Run the Tool-Use evaluator
 
 ```bash
@@ -70,6 +114,7 @@ python main.py --workflow summarize \
     --frameworks autogen langgraph \
     --models gpt-4o claude-sonnet-4-6 gemini-3.5-flash
 ```
+
 
 ### Run with statistics (recommended for any published comparison)
 
@@ -164,6 +209,8 @@ over **n=5 runs** per (framework, model) combination, produced with
 `--runs 5`. The raw per-run records that generated them are committed in
 [`runs/`](./runs) — every number in these tables can be independently
 re-derived from those files.
+
+Workflow also generates an HTML dashboard, not just results.json
 
 **Tool-Use Workflow** (`benchmarks/tool_use/weather_and_calendar.yaml`, n=5)
 

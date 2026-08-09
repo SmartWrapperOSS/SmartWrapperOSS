@@ -7,6 +7,11 @@ results.json
 .env.*.local
 *.pem
 *.key
+
+# --- Pip install folders
+dist/
+build/
+*.egg-info
  
 # --- Python ---
 __pycache__/

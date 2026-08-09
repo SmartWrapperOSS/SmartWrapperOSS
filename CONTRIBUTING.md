@@ -38,7 +38,7 @@ are exactly what this project is built to welcome.
 ## Local setup
 
 ```bash
-git clone https://github.com/yourname/smartwrappeross
+git clone https://github.com/SmartWrapperOSS/SmartWrapperOSS
 cd smartwrappeross
 cp config/config.yaml.example config/config.yaml   # add your API keys
 docker compose up
