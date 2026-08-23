@@ -20,9 +20,80 @@ models:
     provider: google
     api_key: "YOUR_GOOGLE_API_KEY"
 
-  - id: mistral
-    provider: mistral
-    base_url: "http://localhost:11434"   # only needed for local Mistral models
+  # --- Open-weight / local / third-party models ---
+  # `provider: openai_compatible` works with ANY endpoint that implements
+  # the OpenAI chat-completions wire format. That covers local runtimes
+  # (Ollama, vLLM, LM Studio, llama.cpp server, text-generation-webui) and
+  # hosted OSS-model APIs (Together, Groq, Fireworks, OpenRouter) alike —
+  # so Mistral, Qwen, DeepSeek, etc. are all just an entry here,
+  # not new code. Fields:
+  #   base_url            required. The endpoint's OpenAI-compatible root
+  #                        (must include the /v1 suffix most runtimes use).
+  #   api_model            optional. The model name to send on the wire, if
+  #                        different from `id` above (e.g. Ollama's
+  #                        "llama3.3:70b" tag vs. a friendlier `id` here).
+  #                        Defaults to `id` if omitted.
+  #   api_key              optional. Most local servers ignore it; hosted
+  #                        APIs (Together, Groq, OpenRouter, ...) require a
+  #                        real key. Omit for a no-auth local server.
+  #   cost_per_1k_input/
+  #   cost_per_1k_output   optional. Overrides the router's built-in price
+  #                        table. Set both to 0 for a local model with no
+  #                        API cost (the default if omitted); set real
+  #                        rates for a hosted OSS-model API that charges.
+  #   max_tokens           optional. Defaults to 1000.
+  #   timeout              optional, in seconds. Defaults to 120. Local
+  #                        models on modest hardware can be much slower
+  #                        to respond than a cloud API — raise this for
+  #                        large models rather than have runs fail.
+  #   extra_params         optional dict, passed straight through into the
+  #                        request body. For runtime-specific fields the
+  #                        OpenAI spec doesn't have, e.g. Ollama's
+  #                        `keep_alive` (how long it keeps the model
+  #                        loaded in memory between calls).
+  #
+  # Any number of local models can be listed side by side, each scored as
+  # its own row — they don't have to share one entry or one name.
+
+  # Example: several local models served by Ollama (`ollama serve`, then
+  # `ollama pull <model>` for each one first). All share the same default
+  # Ollama port, so only `api_model` differs.
+  #
+  # NOTE for memory-constrained machines (e.g. 16GB unified memory): don't
+  # pass more than one of these in the same --models run, and start Ollama
+  # with OLLAMA_MAX_LOADED_MODELS=1 so it evicts the previous model before
+  # loading the next rather than trying to hold several in RAM at once —
+  # SmartWrapperOSS's thread pool can otherwise fire several models'
+  # worth of requests concurrently. `keep_alive` below is set low (not
+  # the "10m" you might otherwise want) so a model is actually freed
+  # between calls instead of competing with the next one for memory.
+  - id: qwen2.5:7b
+    provider: openai_compatible
+    base_url: "http://localhost:11434/v1"
+    api_model: "qwen2.5:7b"
+    cost_per_1k_input: 0.0
+    cost_per_1k_output: 0.0
+    extra_params:
+      keep_alive: "1m"
+
+  - id: mistral:7b
+    provider: openai_compatible
+    base_url: "http://localhost:11434/v1"
+    api_model: "mistral:7b"
+    cost_per_1k_input: 0.0
+    cost_per_1k_output: 0.0
+    extra_params:
+      keep_alive: "1m"
+
+  - id: gemma2:9b
+    provider: openai_compatible
+    base_url: "http://localhost:11434/v1"
+    api_model: "gemma2:9b"
+    cost_per_1k_input: 0.0
+    cost_per_1k_output: 0.0
+    extra_params:
+      keep_alive: "1m"
+
 
 # --- GCS settings (only used by the "summarize" workflow) ---
 gcs:
