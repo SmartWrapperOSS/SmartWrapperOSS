@@ -171,6 +171,99 @@
     computed from. If a claim here can't be reproduced from its raw runs,
     that's a bug — <a href="https://github.com/SmartWrapperOSS/SmartWrapperOSS/issues" style="color:inherit">file it</a>.</p>
 
+    <!-- ============ 2026-09-08 : MCP tool provider comparison (current) ============ -->
+    <section class="release">
+      <div class="release-date">2026&#8209;09&#8209;08</div>
+      <div class="release-body">
+        <p class="release-title">Tool-use: mock vs. MCP tool provider<span class="chip current">current</span></p>
+        <p class="release-method">n=5 runs per (framework, model) &middot; same task (<code>weather_and_calendar</code>), two tool sources &middot; mean &plusmn; sample std dev &middot; 95% CI (Student's t)</p>
+
+        <div class="card">
+          <div class="card-head">
+            <span class="card-title">Tool-use &middot; weather_and_calendar (MCP-backed)</span>
+            <span class="card-links">
+              <a href="2026-09-08_tool-use_aggregate_mcp_n5.html">dashboard</a><span class="sep">&middot;</span><a href="https://github.com/SmartWrapperOSS/SmartWrapperOSS/tree/main/runs/tool-use">raw runs</a>
+            </span>
+          </div>
+          <p class="headline"><span class="k">leader</span> autogen + gpt-4o &middot; composite 95.0 &plusmn;5.3 <span class="k">&middot; runner-up</span> langgraph + gpt-4o &middot; 91.6 &plusmn;6.1</p>
+          <p class="verdict">95% CIs of the top two overlap — ranking not statistically distinguishable at n=5. Tools sourced from a real (pinned, local) MCP server, including its real argument schema.</p>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <span class="card-title">Tool-use &middot; weather_and_calendar (mock tools)</span>
+            <span class="card-links">
+              <a href="2026-09-08_tool-use_aggregate_mock_n5.html">dashboard</a><span class="sep">&middot;</span><a href="https://github.com/SmartWrapperOSS/SmartWrapperOSS/tree/main/runs/tool-use">raw runs</a>
+            </span>
+          </div>
+          <p class="headline"><span class="k">leader</span> autogen + gpt-4o &middot; composite 91.0 &plusmn;4.2 <span class="k">&middot; runner-up</span> langgraph + gpt-4o &middot; 87.7 &plusmn;4.0</p>
+          <p class="verdict">Efficiency scored a flat 50.0 &plusmn;0.0 across every run on this side — traced to mock tool docstrings not naming their own arguments (e.g. <code>update_calendar_event</code>'s <code>new_time</code>), causing systematic guess-then-retry double calls. A related fix is included alongside the MCP tool provider change but has not yet been independently re-verified with a fresh run — treat Efficiency on this side as unreliable pending that follow-up.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 2026-08-27 : open-source models, GPU (current) ============ -->
+    <section class="release">
+      <div class="release-date">2026&#8209;08&#8209;27</div>
+      <div class="release-body">
+        <p class="release-title">Open-source models, on GPU<span class="chip current">current</span></p>
+        <p class="release-method">n=5 runs per (framework, model) &middot; local open-source models (gemma2:9b, qwen2.5:7b, mistral:7b) &middot; mean &plusmn; sample std dev &middot; 95% CI (Student's t)</p>
+
+        <div class="card">
+          <div class="card-head">
+            <span class="card-title">Tool-use &middot; weather_and_calendar</span>
+            <span class="card-links">
+              <a href="2026-08-27_results_tool-use_aggregate_opensource_models_gpu.html">dashboard</a><span class="sep">&middot;</span><a href="https://github.com/SmartWrapperOSS/SmartWrapperOSS/tree/main/runs/tool-use">raw runs</a>
+            </span>
+          </div>
+          <p class="headline"><span class="k">leader</span> langgraph + qwen2.5:7b &middot; composite 75.9 &plusmn;9.3 <span class="k">&middot; runner-up</span> autogen + qwen2.5:7b &middot; 74.5 &plusmn;7.1</p>
+          <p class="verdict">95% CIs of the top two overlap — ranking not statistically distinguishable at n=5. Real median latency for the leader was 94.9s here vs 210.0s on CPU (see below) — that latency comparison is valid across the two runs; the composite scores are not, since Latency/Cost normalize within their own batch.</p>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <span class="card-title">Summarization</span>
+            <span class="card-links">
+              <a href="2026-08-27_results_summarize_aggregate_opensource_models_gpu.html">dashboard</a><span class="sep">&middot;</span><a href="https://github.com/SmartWrapperOSS/SmartWrapperOSS/tree/main/runs/summarize">raw runs</a>
+            </span>
+          </div>
+          <p class="headline"><span class="k">leader</span> langgraph + gemma2:9b &middot; composite 85.7 &plusmn;4.7 <span class="k">&middot; runner-up</span> autogen + mistral:7b &middot; 82.8 &plusmn;8.2</p>
+          <p class="verdict">95% CIs of the top two overlap — ranking not statistically distinguishable at n=5.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 2026-08-22 : open-source models, CPU (superseded by the GPU run above) ============ -->
+    <section class="release superseded">
+      <div class="release-date">2026&#8209;08&#8209;22</div>
+      <div class="release-body">
+        <p class="release-title">Open-source models, on CPU<span class="chip superseded">superseded</span></p>
+        <p class="release-method">n=5 runs per (framework, model) &middot; same open-source models as the GPU run above, run on CPU instead &middot; kept for the historical record &middot; composite scores below are <strong>not directly comparable</strong> to the GPU run's, since Latency/Cost scores normalize within their own batch (see the README's note on this) — only the raw latency figures are safely comparable across the two runs</p>
+
+        <div class="card">
+          <div class="card-head">
+            <span class="card-title">Tool-use &middot; weather_and_calendar</span>
+            <span class="card-links">
+              <a href="2026-08-22_results_tool-use_aggregate_opensource_models_cpu.html">dashboard</a><span class="sep">&middot;</span><a href="https://github.com/SmartWrapperOSS/SmartWrapperOSS/tree/main/runs/tool-use">raw runs</a>
+            </span>
+          </div>
+          <p class="headline"><span class="k">leader</span> langgraph + qwen2.5:7b &middot; composite 84.9 &plusmn;6.0 <span class="k">&middot; runner-up</span> autogen + gemma2:9b &middot; 81.3 &plusmn;5.9</p>
+          <p class="verdict">real median latency for this same (framework, model) pair was 210.0s here vs 94.9s on GPU — the higher composite shown here reflects being the best of a slower batch, not better absolute performance. Read latency, not composite, when comparing to the GPU run.</p>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <span class="card-title">Summarization</span>
+            <span class="card-links">
+              <a href="2026-08-22_results_summarize_aggregate_opensource_models_cpu.html">dashboard</a><span class="sep">&middot;</span><a href="https://github.com/SmartWrapperOSS/SmartWrapperOSS/tree/main/runs/summarize">raw runs</a>
+            </span>
+          </div>
+          <p class="headline"><span class="k">leader</span> autogen + gemma2:9b &middot; composite 84.5 &plusmn;7.2 <span class="k">&middot; runner-up</span> langgraph + gemma2:9b &middot; 82.8 &plusmn;12.8</p>
+          <p class="verdict">as with the tool-use card above, this composite isn't directly comparable to the GPU run's — see the dashboard's raw latency figures for the safely-comparable number.</p>
+        </div>
+      </div>
+    </section>
+
     <!-- ============ 2026-07-04 : n=5 aggregates (current) ============ -->
     <section class="release">
       <div class="release-date">2026&#8209;07&#8209;04</div>
@@ -182,7 +275,7 @@
           <div class="card-head">
             <span class="card-title">Tool-use &middot; weather_and_calendar</span>
             <span class="card-links">
-              <a href="2026-07-04_tool-use_aggregate_n5.html">dashboard</a><span class="sep">&middot;</span><a href="https://github.com/SmartWrapperOSS/SmartWrapperOSS/tree/main/runs/tool-use">raw runs</a>
+              <a href="2026-07-04_results_tool-use_aggregate.html">dashboard</a><span class="sep">&middot;</span><a href="https://github.com/SmartWrapperOSS/SmartWrapperOSS/tree/main/runs/tool-use">raw runs</a>
             </span>
           </div>
           <p class="headline"><span class="k">leader</span> langgraph + gpt-4o &middot; composite 91.4 &plusmn;1.2 <span class="k">&middot; runner-up</span> autogen + gpt-4o &middot; 87.4 &plusmn;5.7</p>
@@ -193,7 +286,7 @@
           <div class="card-head">
             <span class="card-title">Summarization</span>
             <span class="card-links">
-              <a href="2026-07-04_summarize_aggregate_n5.html">dashboard</a><span class="sep">&middot;</span><a href="https://github.com/SmartWrapperOSS/SmartWrapperOSS/tree/main/runs/summarize">raw runs</a>
+              <a href="2026-07-04_results_summarize_aggregate.html">dashboard</a><span class="sep">&middot;</span><a href="https://github.com/SmartWrapperOSS/SmartWrapperOSS/tree/main/runs/summarize">raw runs</a>
             </span>
           </div>
           <p class="headline"><span class="k">leader</span> langgraph + gpt-4o &middot; composite 90.5 &plusmn;2.9 <span class="k">&middot; conciseness winner</span> claude-sonnet-4-6 &middot; 85&ndash;86 &plusmn;&le;2.2</p>
