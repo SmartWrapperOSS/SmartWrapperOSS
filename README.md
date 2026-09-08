@@ -106,6 +106,12 @@ python main.py --workflow tool-use \
     --models gpt-4o claude-sonnet-4-6
 ```
 
+Tasks can also source their tools from a real (but pinned, local) MCP
+server instead of the built-in mocks — see
+`benchmarks/tool_use/weather_and_calendar_mcp.yaml` for an example, and
+`workflows/tool_use/tool_provider.py` for how a task opts in via an
+`mcp_server:` block.
+
 ### Run the Summarization evaluator
 
 ```bash
@@ -303,6 +309,11 @@ table, or model router.
    AutoGen      LangGraph                  AutoGen      LangGraph
    runner        runner                    runner        runner
             │                                      │
+            │                             ┌────────┴────────┐
+            │                        Mock Tools      MCP Server
+            │                       (TOOL_REGISTRY)  (real protocol,
+            │                                          pinned & local)
+            │                                      │
             └──────────────────┬──────────────────┘
                                │
                       Model Router (shared)
@@ -476,9 +487,12 @@ of any kind — see [LICENSE](./LICENSE) for full terms.
   - Documents you upload (summarization workflow) are sent to **your
     own** Google Cloud Storage bucket and to whichever LLM APIs you
     configure.
-  - Tool-use benchmark tasks run entirely against mock, local tool
-    implementations — no external services are called by the tools
-    themselves.
+  - Tool-use benchmark tasks run against either built-in mock tools or a
+    local MCP server you configure — both execute entirely on your own
+    machine. A task's `mcp_server` block may only point at a pinned,
+    local, deterministic server (enforced at load time); it may never
+    point at a live external endpoint, so no external services are
+    called by the tools themselves either way.
   - No data is sent to or stored by the SmartWrapperOSS maintainers.
   - You are solely responsible for ensuring your use complies with
     applicable data protection laws and obligations (e.g., GDPR, CCPA,

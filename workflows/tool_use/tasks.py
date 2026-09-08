@@ -20,7 +20,7 @@ benchmarks/tool_use/weather_and_calendar.yaml for a worked example.
 """
 
 from dataclasses import dataclass, field
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Optional
 import yaml
 
 
@@ -35,11 +35,26 @@ class ExpectedCall:
 @dataclass
 class ToolUseTask:
     """One benchmark task: a prompt, the tools available, and what a
-    correct agent run should look like."""
+    correct agent run should look like.
+
+    mcp_server is optional. When set, the runner gets its tools from a
+    real MCP server (see workflows/tool_use/tool_provider.py) instead of
+    the built-in mock TOOL_REGISTRY, and available_tools is ignored in
+    favor of whatever the MCP server reports via list_tools(). Any task
+    using this MUST point at a pinned, local, deterministic server —
+    never a live external endpoint — see testing/mcp_fixture_server.py
+    for the reference example. Expected shape in YAML:
+
+        mcp_server:
+          command: python
+          args: ["testing/mcp_fixture_server.py"]
+          pinned: true   # required — CI rejects mcp_server blocks without this
+    """
     task_id: str
     prompt: str
     available_tools: List[str]
     expected_calls: List[ExpectedCall]
+    mcp_server: Optional[Dict[str, Any]] = None
 
 
 def load_task(yaml_path: str) -> ToolUseTask:
@@ -56,11 +71,20 @@ def load_task(yaml_path: str) -> ToolUseTask:
         for c in data.get("expected_calls", [])
     ]
 
+    mcp_server = data.get("mcp_server")
+    if mcp_server and not mcp_server.get("pinned"):
+        raise ValueError(
+            f"{yaml_path}: mcp_server block must set `pinned: true` — "
+            f"tasks may only point at a local, deterministic MCP server, "
+            f"never a live external endpoint. See testing/mcp_fixture_server.py."
+        )
+
     return ToolUseTask(
         task_id=data["task_id"],
         prompt=data["prompt"],
         available_tools=data["available_tools"],
         expected_calls=expected_calls,
+        mcp_server=mcp_server,
     )
 
 

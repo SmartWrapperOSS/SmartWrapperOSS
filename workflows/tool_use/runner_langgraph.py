@@ -24,7 +24,8 @@ from typing import TypedDict, List
 from core.types import TaskResult
 from core.model_router import ModelRouter
 from workflows.base import Workflow
-from workflows.tool_use.tasks import ToolUseTask, TOOL_REGISTRY
+from workflows.tool_use.tasks import ToolUseTask
+from workflows.tool_use.tool_provider import build_tool_provider
 
 MAX_TURNS = 6
 
@@ -61,6 +62,7 @@ class GraphState(TypedDict):
     total_latency_ms: float
     total_cost_usd: float
     agent_prompt: str
+    tool_provider: object  # ToolProvider — set once in run(), read by both nodes
 
 
 class ToolUseLangGraphRunner(Workflow):
@@ -75,27 +77,33 @@ class ToolUseLangGraphRunner(Workflow):
         self.agent_prompt = agent_prompt
 
     def run(self, model_id: str, task_input: ToolUseTask) -> TaskResult:
-        state: GraphState = {
-            "task": task_input,
-            "model_id": model_id,
-            "history": [],
-            "tool_calls": [],
-            "final_answer": "",
-            "done": False,
-            "total_input_tokens": 0,
-            "total_output_tokens": 0,
-            "total_latency_ms": 0.0,
-            "total_cost_usd": 0.0,
-            "agent_prompt": self.agent_prompt,
-        }
+        # A fresh provider per call: main.py runs multiple (framework,
+        # model, run_index) combinations concurrently via a
+        # ThreadPoolExecutor, so each call gets its own subprocess/session
+        # rather than sharing one across threads.
+        with build_tool_provider(task_input) as provider:
+            state: GraphState = {
+                "task": task_input,
+                "model_id": model_id,
+                "history": [],
+                "tool_calls": [],
+                "final_answer": "",
+                "done": False,
+                "total_input_tokens": 0,
+                "total_output_tokens": 0,
+                "total_latency_ms": 0.0,
+                "total_cost_usd": 0.0,
+                "agent_prompt": self.agent_prompt,
+                "tool_provider": provider,
+            }
 
-        # The graph loop: decide_node runs, and if it decided to call a
-        # tool (not done yet), call_tool_node runs before looping back.
-        for turn in range(MAX_TURNS):
-            state = self._decide_node(state)
-            if state["done"]:
-                break
-            state = self._call_tool_node(state)
+            # The graph loop: decide_node runs, and if it decided to call a
+            # tool (not done yet), call_tool_node runs before looping back.
+            for turn in range(MAX_TURNS):
+                state = self._decide_node(state)
+                if state["done"]:
+                    break
+                state = self._call_tool_node(state)
 
         return TaskResult(
             output=state["final_answer"],
@@ -111,7 +119,7 @@ class ToolUseLangGraphRunner(Workflow):
         task = state["task"]
         prompt = state["agent_prompt"].format(
             prompt=task.prompt,
-            tool_descriptions=self._describe_tools(task.available_tools),
+            tool_descriptions=self._describe_tools(state["tool_provider"]),
             history="\n".join(state["history"]) if state["history"] else "(nothing yet)",
         )
 
@@ -152,7 +160,7 @@ class ToolUseLangGraphRunner(Workflow):
 
         tool_name = decision.get("tool")
         args = decision.get("args", {})
-        result = self._execute_tool(tool_name, args)
+        result = self._execute_tool(state["tool_provider"], tool_name, args)
 
         state["tool_calls"].append({
             "tool_name": tool_name,
@@ -163,13 +171,8 @@ class ToolUseLangGraphRunner(Workflow):
         state["history"].append(f"Assistant called {tool_name}({args}) -> {result}")
         return state
 
-    def _describe_tools(self, tool_names: list) -> str:
-        lines = []
-        for name in tool_names:
-            fn = TOOL_REGISTRY.get(name)
-            doc = fn.__doc__.strip() if fn and fn.__doc__ else "(no description)"
-            lines.append(f"- {name}: {doc}")
-        return "\n".join(lines)
+    def _describe_tools(self, provider) -> str:
+        return "\n".join(f"- {s.name}: {s.description}" for s in provider.list_tools())
 
     def _parse_decision(self, raw_text: str):
         text = raw_text.strip()
@@ -182,11 +185,5 @@ class ToolUseLangGraphRunner(Workflow):
         except (json.JSONDecodeError, IndexError):
             return None
 
-    def _execute_tool(self, tool_name: str, args: dict) -> dict:
-        fn = TOOL_REGISTRY.get(tool_name)
-        if fn is None:
-            return {"error": f"Unknown tool: {tool_name}"}
-        try:
-            return fn(**args)
-        except TypeError as e:
-            return {"error": f"Bad arguments: {e}"}
+    def _execute_tool(self, provider, tool_name: str, args: dict) -> dict:
+        return provider.call_tool(tool_name, args)
