@@ -1,0 +1,44 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 Aditi Jain (SmartWrapperOSS)
+
+# Same task as weather_and_calendar.yaml, but tools come from a real MCP
+# server instead of the built-in mock TOOL_REGISTRY. The server is
+# testing/mcp_fixture_server.py, which wraps the identical mock functions
+# — so this task's correct answer is exactly as deterministic as the
+# original, but now exercises the real MCP client/server protocol.
+#
+# `pinned: true` is required — load_task() raises if it's missing. Only
+# local, deterministic servers are allowed here; never a live endpoint.
+
+task_id: weather_calendar_001_mcp
+
+prompt: >
+  Check the weather in Boston tomorrow. If it's raining, move my 3pm
+  meeting to 5pm. If it's not raining, leave the meeting as is.
+
+available_tools:
+  - get_weather
+  - get_calendar_event
+  - update_calendar_event
+
+mcp_server:
+  command: python
+  args: ["testing/mcp_fixture_server.py"]
+  pinned: true
+
+expected_calls:
+  - tool: get_weather
+    args:
+      location: "Boston"
+      date: "tomorrow"
+    required: true
+
+  - tool: get_calendar_event
+    args:
+      time: "3pm"
+    required: true
+
+  - tool: update_calendar_event
+    args:
+      new_time: "5pm"
+    required: true

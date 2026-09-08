@@ -27,7 +27,8 @@ import time
 from core.types import TaskResult
 from core.model_router import ModelRouter
 from workflows.base import Workflow
-from workflows.tool_use.tasks import ToolUseTask, TOOL_REGISTRY
+from workflows.tool_use.tasks import ToolUseTask
+from workflows.tool_use.tool_provider import build_tool_provider
 
 MAX_TURNS = 6  # safety cap so a confused agent can't loop forever
 
@@ -69,57 +70,65 @@ class ToolUseAutoGenRunner(Workflow):
 
     def run(self, model_id: str, task_input: ToolUseTask) -> TaskResult:
         task = task_input
-        tool_descriptions = self._describe_tools(task.available_tools)
 
-        history = []          # human-readable log, shown back to the model each turn
-        tool_calls = []       # structured trace, used for scoring later
-        total_input_tokens = 0
-        total_output_tokens = 0
-        total_latency_ms = 0.0
-        total_cost_usd = 0.0
-        final_answer = ""
+        # build_tool_provider() reads task.mcp_server: a real MCP server
+        # (spawned fresh for this call) if set, otherwise MockToolProvider
+        # wrapping the built-in registry. A fresh provider per call matters
+        # because main.py runs multiple (framework, model, run_index)
+        # combinations concurrently via a ThreadPoolExecutor — sharing one
+        # subprocess/session across threads would be unsafe.
+        with build_tool_provider(task) as provider:
+            tool_descriptions = self._describe_tools(provider)
 
-        for turn in range(MAX_TURNS):
-            prompt = self.agent_prompt.format(
-                prompt=task.prompt,
-                tool_descriptions=tool_descriptions,
-                history="\n".join(history) if history else "(nothing yet)",
-            )
+            history = []          # human-readable log, shown back to the model each turn
+            tool_calls = []       # structured trace, used for scoring later
+            total_input_tokens = 0
+            total_output_tokens = 0
+            total_latency_ms = 0.0
+            total_cost_usd = 0.0
+            final_answer = ""
 
-            response = self.router.call(model_id, prompt)
-            total_input_tokens += response.input_tokens
-            total_output_tokens += response.output_tokens
-            total_latency_ms += response.latency_ms
-            total_cost_usd += response.cost_usd
-
-            decision = self._parse_decision(response.text)
-
-            if decision is None:
-                history.append("(unparseable response, stopping)")
-                break
-
-            if decision.get("action") == "final_answer":
-                final_answer = decision.get("answer", "")
-                history.append(f"Assistant gave final answer: {final_answer}")
-                break
-
-            elif decision.get("action") == "call_tool":
-                tool_name = decision.get("tool")
-                args = decision.get("args", {})
-                result, latency_ms = self._execute_tool(tool_name, args)
-
-                tool_calls.append({
-                    "tool_name": tool_name,
-                    "arguments": args,
-                    "result": result,
-                    "timestamp": time.time(),
-                })
-                history.append(
-                    f"Assistant called {tool_name}({args}) -> {result}"
+            for turn in range(MAX_TURNS):
+                prompt = self.agent_prompt.format(
+                    prompt=task.prompt,
+                    tool_descriptions=tool_descriptions,
+                    history="\n".join(history) if history else "(nothing yet)",
                 )
-            else:
-                history.append("(unrecognized action, stopping)")
-                break
+
+                response = self.router.call(model_id, prompt)
+                total_input_tokens += response.input_tokens
+                total_output_tokens += response.output_tokens
+                total_latency_ms += response.latency_ms
+                total_cost_usd += response.cost_usd
+
+                decision = self._parse_decision(response.text)
+
+                if decision is None:
+                    history.append("(unparseable response, stopping)")
+                    break
+
+                if decision.get("action") == "final_answer":
+                    final_answer = decision.get("answer", "")
+                    history.append(f"Assistant gave final answer: {final_answer}")
+                    break
+
+                elif decision.get("action") == "call_tool":
+                    tool_name = decision.get("tool")
+                    args = decision.get("args", {})
+                    result, latency_ms = self._execute_tool(provider, tool_name, args)
+
+                    tool_calls.append({
+                        "tool_name": tool_name,
+                        "arguments": args,
+                        "result": result,
+                        "timestamp": time.time(),
+                    })
+                    history.append(
+                        f"Assistant called {tool_name}({args}) -> {result}"
+                    )
+                else:
+                    history.append("(unrecognized action, stopping)")
+                    break
 
         return TaskResult(
             output=final_answer,
@@ -130,13 +139,8 @@ class ToolUseAutoGenRunner(Workflow):
             extra={"tool_calls": tool_calls},
         )
 
-    def _describe_tools(self, tool_names: list) -> str:
-        lines = []
-        for name in tool_names:
-            fn = TOOL_REGISTRY.get(name)
-            doc = fn.__doc__.strip() if fn and fn.__doc__ else "(no description)"
-            lines.append(f"- {name}: {doc}")
-        return "\n".join(lines)
+    def _describe_tools(self, provider) -> str:
+        return "\n".join(f"- {s.name}: {s.description}" for s in provider.list_tools())
 
     def _parse_decision(self, raw_text: str):
         text = raw_text.strip()
@@ -149,15 +153,8 @@ class ToolUseAutoGenRunner(Workflow):
         except (json.JSONDecodeError, IndexError):
             return None
 
-    def _execute_tool(self, tool_name: str, args: dict):
+    def _execute_tool(self, provider, tool_name: str, args: dict):
         start = time.time()
-        fn = TOOL_REGISTRY.get(tool_name)
-        if fn is None:
-            result = {"error": f"Unknown tool: {tool_name}"}
-        else:
-            try:
-                result = fn(**args)
-            except TypeError as e:
-                result = {"error": f"Bad arguments: {e}"}
+        result = provider.call_tool(tool_name, args)
         latency_ms = (time.time() - start) * 1000
         return result, latency_ms
