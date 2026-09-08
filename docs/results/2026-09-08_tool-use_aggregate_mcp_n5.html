@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SmartWrapperOSS — Aggregate Results (tool-use)</title>
+<style>
+
+  :root {
+    --bg: #0d1117;
+    --bg-raised: #161b22;
+    --border: #30363d;
+    --text: #e6edf3;
+    --text-dim: #8b949e;
+    --accent: #7ee787;
+    --accent-dim: #2ea04326;
+    --mono: ui-monospace, "SF Mono", "Cascadia Code", "Fira Code", Consolas, monospace;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 32px 24px 64px;
+  }
+
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 16px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .brand { display: flex; align-items: baseline; gap: 8px; }
+  .brand-mark { color: var(--accent); font-weight: 700; }
+  .brand-name { font-weight: 600; letter-spacing: 0.02em; }
+
+  .meta { color: var(--text-dim); font-size: 13px; }
+  .meta-label { color: var(--text-dim); }
+  .meta-value { color: var(--text); }
+  .meta-sep { margin: 0 8px; opacity: 0.4; }
+
+  table { width: 100%; border-collapse: collapse; }
+
+  thead th {
+    text-align: left;
+    font-weight: 600;
+    color: var(--text-dim);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    user-select: none;
+    white-space: nowrap;
+  }
+  thead th:hover { color: var(--text); }
+  thead th .sort-arrow { opacity: 0.5; margin-left: 4px; font-size: 10px; }
+
+  tbody tr.result-row {
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+  }
+  tbody tr.result-row:hover { background: var(--bg-raised); }
+
+  tbody td {
+    padding: 10px 12px;
+    white-space: nowrap;
+  }
+
+  td.framework { color: var(--accent); font-weight: 600; }
+  td.score { font-weight: 700; }
+
+  tr.detail-row td {
+    background: var(--bg-raised);
+    padding: 16px;
+    white-space: normal;
+    border-bottom: 1px solid var(--border);
+  }
+  tr.detail-row { display: none; }
+  tr.detail-row.open { display: table-row; }
+
+  .detail-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .detail-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 10px 12px;
+  }
+  .detail-card-label {
+    color: var(--text-dim);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 4px;
+  }
+  .detail-card-score { font-size: 18px; font-weight: 700; color: var(--accent); }
+  .detail-card-reason { color: var(--text-dim); font-size: 12px; margin-top: 4px; }
+
+  .detail-output {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 12px;
+    white-space: pre-wrap;
+    font-size: 13px;
+    color: var(--text);
+    max-height: 240px;
+    overflow-y: auto;
+  }
+  .detail-output-label {
+    color: var(--text-dim);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 6px;
+  }
+
+  .row-actions { float: right; }
+  .row-actions button {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  .row-actions button:hover { color: var(--text); border-color: var(--text-dim); }
+
+  .empty-state {
+    color: var(--text-dim);
+    text-align: center;
+    padding: 48px 0;
+  }
+
+  .page-footer {
+    margin-top: 32px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    color: var(--text-dim);
+    font-size: 12px;
+  }
+
+  .footer-note {
+    margin-bottom: 12px;
+    line-height: 1.6;
+  }
+  .footer-note strong { color: var(--text); }
+
+  .raw-value {
+    color: var(--text-dim);
+    font-size: 12px;
+  }
+
+  .expand-caret {
+    display: inline-block;
+    margin-right: 6px;
+    color: var(--text-dim);
+    transition: transform 0.15s ease;
+  }
+  tr.result-row.expanded .expand-caret { transform: rotate(90deg); }
+
+
+  .chart-wrap {
+    background: var(--bg-raised);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 16px 12px 8px;
+    margin-bottom: 20px;
+  }
+  .chart-wrap svg { width: 100%; height: auto; display: block; }
+  .svg-axis  { fill: var(--text-dim); font-family: var(--mono); font-size: 11px; }
+  .svg-label { fill: var(--text); font-family: var(--mono); font-size: 12px; }
+  .svg-value { fill: var(--text-dim); font-family: var(--mono); font-size: 12px; }
+  .svg-grid  { stroke: var(--border); stroke-width: 1; }
+  .svg-ci    { stroke-width: 2; }
+  .svg-best.svg-ci  { stroke: var(--accent); }
+  .svg-best.svg-dot { fill: var(--accent); }
+  .svg-other.svg-ci  { stroke: var(--text-dim); }
+  .svg-other.svg-dot { fill: var(--text-dim); }
+
+  .overlap-note {
+    color: var(--text-dim);
+    font-size: 13px;
+    margin: 0 0 20px;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 4px;
+    background: var(--accent-dim);
+  }
+  .overlap-note strong { color: var(--text); }
+
+  .runs-table { width: auto; min-width: 60%; }
+  .runs-table th, .runs-table td { padding: 6px 14px 6px 0; font-size: 12px; }
+  .runs-table thead th { cursor: default; }
+
+</style>
+</head>
+<body>
+  <div class="page">
+    <header class="page-header">
+      <div class="brand">
+        <span class="brand-mark">&gt;_</span>
+        <span class="brand-name">SmartWrapperOSS</span>
+      </div>
+      <div class="meta">
+        <span class="meta-label">workflow</span>
+        <span class="meta-value">tool-use</span>
+        <span class="meta-sep">·</span>
+        <span class="meta-label">aggregated over</span>
+        <span class="meta-value">n=5 runs per combination</span>
+      </div>
+    </header>
+
+    <main>
+      <div class="chart-wrap"><svg viewBox="0 0 760 144" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Composite score with 95% confidence intervals"><text x="262" y="18" class="svg-axis">composite score (dot = mean over n runs, whiskers = 95% CI)</text><line x1="291.4" y1="28" x2="291.4" y2="122" class="svg-grid"/><text x="291.4" y="136" class="svg-axis" text-anchor="middle">84</text><line x1="372.0" y1="28" x2="372.0" y2="122" class="svg-grid"/><text x="372.0" y="136" class="svg-axis" text-anchor="middle">88</text><line x1="452.6" y1="28" x2="452.6" y2="122" class="svg-grid"/><text x="452.6" y="136" class="svg-axis" text-anchor="middle">92</text><line x1="533.2" y1="28" x2="533.2" y2="122" class="svg-grid"/><text x="533.2" y="136" class="svg-axis" text-anchor="middle">96</text><line x1="613.8" y1="28" x2="613.8" y2="122" class="svg-grid"/><text x="613.8" y="136" class="svg-axis" text-anchor="middle">100</text><text x="250" y="58.0" text-anchor="end" class="svg-label">autogen + gpt-4o</text><line x1="380.2" y1="54.0" x2="647.4" y2="54.0" class="svg-best svg-ci"/><line x1="380.2" y1="48.0" x2="380.2" y2="60.0" class="svg-best svg-ci"/><line x1="647.4" y1="48.0" x2="647.4" y2="60.0" class="svg-best svg-ci"/><circle cx="513.8" cy="54.0" r="5" class="svg-best svg-dot"/><text x="686" y="58.0" class="svg-value">95.0 ±5.3</text><text x="250" y="98.0" text-anchor="end" class="svg-label">langgraph + gpt-4o</text><line x1="290.6" y1="94.0" x2="596.9" y2="94.0" class="svg-other svg-ci"/><line x1="290.6" y1="88.0" x2="290.6" y2="100.0" class="svg-other svg-ci"/><line x1="596.9" y1="88.0" x2="596.9" y2="100.0" class="svg-other svg-ci"/><circle cx="443.7" cy="94.0" r="5" class="svg-other svg-dot"/><text x="686" y="98.0" class="svg-value">91.6 ±6.1</text></svg></div>
+      <p class="overlap-note">Note: the 95% CIs of the top two combinations overlap — this ranking is <strong>not statistically distinguishable</strong> at n=5. Add runs to tighten the intervals.</p>
+      <table id="results-table">
+        <thead><tr>
+          <th>Framework</th><th>Model</th><th>Tool Selection</th><th>Argument Correctness</th><th>Task Completion</th><th>Efficiency</th>
+          <th>Lat med/p95</th><th>Cost mean</th><th>Composite</th>
+        </tr></thead>
+        <tbody>
+        <tr class="result-row" onclick="toggleExpand('agg-0')">
+          <td class="framework"><span class="expand-caret">&#9654;</span>autogen</td>
+          <td>gpt-4o</td>
+          <td>100.0 <span class='raw-value'>±0.0</span></td><td>100.0 <span class='raw-value'>±0.0</span></td><td>100.0 <span class='raw-value'>±0.0</span></td><td>96.7 <span class='raw-value'>±7.5</span></td>
+          <td>3.6s <span class="raw-value">/ 4.8s</span></td>
+          <td>$0.0043</td>
+          <td class="score">95.0 <span class="raw-value">±5.3</span></td>
+        </tr>
+        <tr class="detail-row" id="detail-agg-0">
+          <td colspan="9">
+            <div class="detail-grid">
+              <div class="detail-card">
+                <div class="detail-card-label">Tool Selection</div>
+                <div class="detail-card-score">100.0 <span class="raw-value">±0.0</span></div>
+                <div class="detail-card-reason">95% CI [100.0, 100.0] ·
+                range [100.0, 100.0]</div>
+              </div>
+              <div class="detail-card">
+                <div class="detail-card-label">Argument Correctness</div>
+                <div class="detail-card-score">100.0 <span class="raw-value">±0.0</span></div>
+                <div class="detail-card-reason">95% CI [100.0, 100.0] ·
+                range [100.0, 100.0]</div>
+              </div>
+              <div class="detail-card">
+                <div class="detail-card-label">Task Completion</div>
+                <div class="detail-card-score">100.0 <span class="raw-value">±0.0</span></div>
+                <div class="detail-card-reason">95% CI [100.0, 100.0] ·
+                range [100.0, 100.0]</div>
+              </div>
+              <div class="detail-card">
+                <div class="detail-card-label">Efficiency</div>
+                <div class="detail-card-score">96.7 <span class="raw-value">±7.5</span></div>
+                <div class="detail-card-reason">95% CI [87.4, 105.9] ·
+                range [83.3, 100.0]</div>
+              </div>
+              <div class="detail-card">
+                <div class="detail-card-label">Composite</div>
+                <div class="detail-card-score">95.0 <span class="raw-value">±5.3</span></div>
+                <div class="detail-card-reason">95% CI [88.4, 101.7] ·
+                range [87.0, 100.0] · n=5 · total cost $0.0213</div>
+              </div>
+            </div>
+            <div class="detail-output-label">Individual runs (full outputs in the runs/ directory)</div>
+            <table class="runs-table">
+              <thead><tr><th>Run</th><th>Composite</th><th>Latency</th><th>Cost</th><th>Saved</th></tr></thead>
+              <tbody><tr><td>run 0</td><td>100.0</td><td>4.8s</td><td>$0.0041</td><td class='raw-value'>2026-09-08T02:13:58.656447+00:00</td></tr><tr><td>run 1</td><td>87.0</td><td>3.6s</td><td>$0.0054</td><td class='raw-value'>2026-09-08T02:33:52.052957+00:00</td></tr><tr><td>run 2</td><td>98.4</td><td>3.0s</td><td>$0.0039</td><td class='raw-value'>2026-09-08T02:33:52.052429+00:00</td></tr><tr><td>run 3</td><td>92.3</td><td>4.4s</td><td>$0.0039</td><td class='raw-value'>2026-09-08T02:33:52.053203+00:00</td></tr><tr><td>run 4</td><td>97.5</td><td>2.9s</td><td>$0.0041</td><td class='raw-value'>2026-09-08T02:33:52.052109+00:00</td></tr></tbody>
+            </table>
+          </td>
+        </tr>
+        <tr class="result-row" onclick="toggleExpand('agg-1')">
+          <td class="framework"><span class="expand-caret">&#9654;</span>langgraph</td>
+          <td>gpt-4o</td>
+          <td>100.0 <span class='raw-value'>±0.0</span></td><td>90.0 <span class='raw-value'>±22.4</span></td><td>100.0 <span class='raw-value'>±0.0</span></td><td>93.3 <span class='raw-value'>±9.2</span></td>
+          <td>3.1s <span class="raw-value">/ 3.7s</span></td>
+          <td>$0.0045</td>
+          <td class="score">91.6 <span class="raw-value">±6.1</span></td>
+        </tr>
+        <tr class="detail-row" id="detail-agg-1">
+          <td colspan="9">
+            <div class="detail-grid">
+              <div class="detail-card">
+                <div class="detail-card-label">Tool Selection</div>
+                <div class="detail-card-score">100.0 <span class="raw-value">±0.0</span></div>
+                <div class="detail-card-reason">95% CI [100.0, 100.0] ·
+                range [100.0, 100.0]</div>
+              </div>
+              <div class="detail-card">
+                <div class="detail-card-label">Argument Correctness</div>
+                <div class="detail-card-score">90.0 <span class="raw-value">±22.4</span></div>
+                <div class="detail-card-reason">95% CI [62.2, 117.8] ·
+                range [50.0, 100.0]</div>
+              </div>
+              <div class="detail-card">
+                <div class="detail-card-label">Task Completion</div>
+                <div class="detail-card-score">100.0 <span class="raw-value">±0.0</span></div>
+                <div class="detail-card-reason">95% CI [100.0, 100.0] ·
+                range [100.0, 100.0]</div>
+              </div>
+              <div class="detail-card">
+                <div class="detail-card-label">Efficiency</div>
+                <div class="detail-card-score">93.3 <span class="raw-value">±9.2</span></div>
+                <div class="detail-card-reason">95% CI [82.0, 104.7] ·
+                range [83.3, 100.0]</div>
+              </div>
+              <div class="detail-card">
+                <div class="detail-card-label">Composite</div>
+                <div class="detail-card-score">91.6 <span class="raw-value">±6.1</span></div>
+                <div class="detail-card-reason">95% CI [84.0, 99.2] ·
+                range [86.4, 98.3] · n=5 · total cost $0.0227</div>
+              </div>
+            </div>
+            <div class="detail-output-label">Individual runs (full outputs in the runs/ directory)</div>
+            <table class="runs-table">
+              <thead><tr><th>Run</th><th>Composite</th><th>Latency</th><th>Cost</th><th>Saved</th></tr></thead>
+              <tbody><tr><td>run 0</td><td>98.1</td><td>3.1s</td><td>$0.0039</td><td class='raw-value'>2026-09-08T02:33:52.052708+00:00</td></tr><tr><td>run 1</td><td>98.3</td><td>2.9s</td><td>$0.0040</td><td class='raw-value'>2026-09-08T02:33:52.051453+00:00</td></tr><tr><td>run 2</td><td>86.4</td><td>3.7s</td><td>$0.0054</td><td class='raw-value'>2026-09-08T02:33:52.053877+00:00</td></tr><tr><td>run 3</td><td>86.5</td><td>2.6s</td><td>$0.0041</td><td class='raw-value'>2026-09-08T02:33:52.053431+00:00</td></tr><tr><td>run 4</td><td>88.5</td><td>3.2s</td><td>$0.0054</td><td class='raw-value'>2026-09-08T02:33:52.053641+00:00</td></tr></tbody>
+            </table>
+          </td>
+        </tr></tbody>
+      </table>
+    </main>
+
+    <footer class="page-footer">
+      <p class="footer-note">
+        <strong>How to read this:</strong> score cells are mean ± sample std
+        dev over the runs shown; the chart's whiskers are 95% confidence
+        intervals (Student's t). Latency is reported as median / p95 of raw
+        seconds and cost as mean dollars per run — their normalized 0–100
+        scores are relative to a single comparison batch and are therefore
+        never averaged across runs. Overlapping CIs mean the ranking is not
+        established at this sample size; they do not mean the combinations
+        are equal.
+      </p>
+      <p>
+        Generated by SmartWrapperOSS. Static snapshot — raw per-run records
+        (including full model outputs) live in the runs/ directory and can be
+        used to independently re-derive every number on this page.
+      </p>
+    </footer>
+  </div>
+
+<script>
+  function toggleExpand(id) {
+    const row = document.getElementById("detail-" + id);
+    const trigger = row.previousElementSibling;
+    row.classList.toggle("open");
+    trigger.classList.toggle("expanded");
+  }
+</script>
+</body>
+</html>
