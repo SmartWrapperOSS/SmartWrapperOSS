@@ -116,7 +116,7 @@ server instead of the built-in mocks — see
 
 ```bash
 python main.py --workflow summarize \
-    --file gs://your-bucket/document.pdf \
+    --file path/to/document.pdf \
     --frameworks autogen langgraph \
     --models gpt-4o claude-sonnet-4-6 gemini-3.5-flash
 ```
@@ -138,7 +138,7 @@ python main.py --workflow tool-use \
 
 # Summarization, same flags
 python main.py --workflow summarize \
-    --file gs://your-bucket/document.pdf \
+    --file path/to/document.pdf \
     --frameworks autogen langgraph \
     --models gpt-4o claude-sonnet-4-6 gemini-3.5-flash \
     --runs 5 --max-cost 5.00
@@ -303,7 +303,7 @@ table, or model router.
             ┌──────────────────┴──────────────────┐
             │                                      │
    Summarization Workflow                 Tool-Use Workflow
-   (Document → chunks via GCS)            (YAML benchmark task)
+   (local document → chunks)              (YAML benchmark task)
             │                                      │
      ┌──────┴──────┐                         ┌──────┴──────┐
    AutoGen      LangGraph                  AutoGen      LangGraph
@@ -342,7 +342,7 @@ table, or model router.
 
 ## Configuration
 
-Edit `config/config.yaml` to set API keys, model list, GCS bucket
+Edit `config/config.yaml` to set API keys, model list, chunking
 (summarization only), and per-workflow scoring weights.
 
 ## Adding a new workflow
@@ -484,9 +484,9 @@ of any kind — see [LICENSE](./LICENSE) for full terms.
   or statement from any of these companies.
 
 - **Data handling.**
-  - Documents you upload (summarization workflow) are sent to **your
-    own** Google Cloud Storage bucket and to whichever LLM APIs you
-    configure.
+  - Documents you summarize are read from your local disk (or a URL you
+    provide) and sent only to whichever LLM APIs you configure. No
+    cloud storage account is required.
   - Tool-use benchmark tasks run against either built-in mock tools or a
     local MCP server you configure — both execute entirely on your own
     machine. A task's `mcp_server` block may only point at a pinned,

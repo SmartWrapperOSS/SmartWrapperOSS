@@ -58,17 +58,15 @@ add keys for the models you actually plan to run.
 **Never commit `config/config.yaml`** — it's already in `.gitignore`,
 since it holds real secrets.
 
-### 1.4 (Summarization workflow only) GCS credentials
+### 1.4 (Summarization workflow only) A test document
 
 If you want to test the summarization workflow against a real document,
-you'll need:
-- A Google Cloud Storage bucket with a document uploaded to it (PDF,
-  DOCX, TXT, or CSV)
-- A service account JSON key with read access to that bucket, saved as
-  `gcp-credentials.json` in the project root (also gitignored)
+you just need a PDF, DOCX, TXT, or CSV file on your machine. No cloud
+account or credentials are required — pass its local path to `--file`
+(an `http(s)://` URL also works).
 
 If you only want to test the **tool-use workflow**, you can skip this
-entirely — it doesn't touch GCS at all.
+entirely.
 
 ---
 
@@ -173,11 +171,11 @@ python main.py --workflow tool-use \
 
 ## 4. Testing the Summarization workflow for real
 
-Requires GCS setup from step 1.4.
+Requires a local document from step 1.4.
 
 ```bash
 python main.py --workflow summarize \
-    --file gs://your-bucket/your-document.pdf \
+    --file path/to/your-document.pdf \
     --frameworks autogen langgraph \
     --models gpt-4o claude-3-5-sonnet
 ```

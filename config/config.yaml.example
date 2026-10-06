@@ -95,10 +95,6 @@ models:
       keep_alive: "1m"
 
 
-# --- GCS settings (only used by the "summarize" workflow) ---
-gcs:
-  credentials_path: "gcp-credentials.json"   # path to your service account key
-
 # --- Chunking settings (only used by the "summarize" workflow) ---
 chunking:
   chunk_size: 1000      # words per chunk

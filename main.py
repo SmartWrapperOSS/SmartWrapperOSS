@@ -6,7 +6,7 @@ main.py
 SmartWrapperOSS CLI entry point.
 
 Usage (summarization):
-    python main.py --workflow summarize --file gs://bucket/doc.pdf \
+    python main.py --workflow summarize --file path/to/doc.pdf \
                    --frameworks autogen langgraph \
                    --models gpt-4o claude-3-5-sonnet gemini-pro
 
@@ -51,7 +51,7 @@ def build_summarize(config: dict, router: ModelRouter, args):
     from workflows.summarization.evaluator import SummarizationEvaluator
 
     print("Ingesting document...")
-    loader = DocumentLoader(credentials_path=config["gcs"].get("credentials_path"))
+    loader = DocumentLoader()
     chunks = loader.load(
         args.file,
         chunk_size=config["chunking"]["chunk_size"],
@@ -292,7 +292,8 @@ def main():
                              "kept; rerun to resume.")
 
     # Workflow-specific inputs — only one is required depending on --workflow
-    parser.add_argument("--file", help="GCS URI, required for --workflow summarize")
+    parser.add_argument("--file", help="Local path (or http(s) URL) of a PDF/DOCX/TXT/CSV document, "
+                             "required for --workflow summarize")
     parser.add_argument("--task", help="Path to a benchmark task YAML, required for --workflow tool-use")
 
     args = parser.parse_args()

@@ -4,8 +4,11 @@
 """
 ingestion/document_loader.py
 
-Downloads a file from Google Cloud Storage, extracts its text, and splits
-it into overlapping chunks.
+Reads a document from the local filesystem (or an http(s) URL), extracts
+its text, and splits it into overlapping chunks.
+
+No cloud SDK or credentials are needed. If your documents live in a cloud
+bucket, download them first (or pass a public / pre-signed https URL).
 
 This is only used by the Summarization workflow. The Tool-Use workflow
 doesn't load documents — it loads benchmark task definitions instead (see
@@ -14,11 +17,10 @@ every piece of infrastructure, and that's fine.
 """
 
 import io
-import os
 from dataclasses import dataclass
+from pathlib import Path
 from typing import List
-
-from google.cloud import storage
+from urllib.parse import urlparse
 
 
 @dataclass
@@ -30,30 +32,46 @@ class Chunk:
 
 
 class DocumentLoader:
-    def __init__(self, credentials_path: str = None):
-        if credentials_path:
-            os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = credentials_path
-        self.client = storage.Client()
+    def __init__(self, timeout: float = 60.0):
+        # `timeout` only applies to http(s) sources.
+        self.timeout = timeout
 
-    def load(self, gcs_uri: str, chunk_size: int = 1000, overlap: int = 100) -> List[Chunk]:
-        """Download `gcs_uri`, extract its text, and return it as chunks."""
-        bucket_name, blob_name = self._parse_uri(gcs_uri)
-        raw_bytes = self._download(bucket_name, blob_name)
-        text = self._extract_text(blob_name, raw_bytes)
-        return self._split_into_chunks(text, chunk_size, overlap, source=gcs_uri)
+    def load(self, source: str, chunk_size: int = 1000, overlap: int = 100) -> List[Chunk]:
+        """Read `source` (a local path or http(s) URL), extract its text, and return it as chunks."""
+        if chunk_size <= 0:
+            raise ValueError("chunk_size must be > 0")
+        if not 0 <= overlap < chunk_size:
+            raise ValueError("chunk_overlap must be >= 0 and smaller than chunk_size")
 
-    def _parse_uri(self, uri: str):
-        assert uri.startswith("gs://"), "URI must start with gs://"
-        bucket_name, blob_name = uri[5:].split("/", 1)
-        return bucket_name, blob_name
+        name, raw_bytes = self._read(source)
+        text = self._extract_text(name, raw_bytes)
+        return self._split_into_chunks(text, chunk_size, overlap, source=source)
 
-    def _download(self, bucket_name: str, blob_name: str) -> bytes:
-        bucket = self.client.bucket(bucket_name)
-        blob = bucket.blob(blob_name)
-        return blob.download_as_bytes()
+    def _read(self, source: str):
+        """Return (file_name, raw_bytes) for a local path or http(s) URL."""
+        scheme = urlparse(source).scheme.lower()
 
-    def _extract_text(self, blob_name: str, raw: bytes) -> str:
-        extension = blob_name.rsplit(".", 1)[-1].lower()
+        if scheme in ("http", "https"):
+            import requests
+            response = requests.get(source, timeout=self.timeout)
+            response.raise_for_status()
+            name = Path(urlparse(source).path).name or "document.txt"
+            return name, response.content
+
+        if scheme in ("gs", "s3", "az", "abfs"):
+            raise ValueError(
+                f"Cloud storage URIs ({scheme}://) are no longer supported. "
+                "Download the file locally and pass its path to --file, "
+                "or pass a public/pre-signed https:// URL instead."
+            )
+
+        path = Path(source).expanduser()
+        if not path.is_file():
+            raise FileNotFoundError(f"Document not found: {path}")
+        return path.name, path.read_bytes()
+
+    def _extract_text(self, file_name: str, raw: bytes) -> str:
+        extension = file_name.rsplit(".", 1)[-1].lower()
         if extension == "pdf":
             return self._extract_pdf_text(raw)
         elif extension == "docx":
