@@ -45,7 +45,7 @@ docker compose up
 ```
 
 See [`docs/setup.md`](./docs/setup.md) for environment variables (model
-API keys, GCS bucket config) and local-only setup without Docker.
+API keys, chunking config) and local-only setup without Docker.
 
 ## Where the easy wins are right now
 

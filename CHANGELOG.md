@@ -10,6 +10,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- **Removed the Google Cloud Storage dependency.** The summarization
+  workflow now reads documents from a local file path (or an `http(s)://`
+  URL) passed to `--file`. `google-cloud-storage` is no longer a
+  requirement, and the `gcs:` section of `config.yaml` is no longer used
+  (it is safely ignored if still present). `gs://` URIs now fail with a
+  clear message — download the file first or use a pre-signed https URL.
+
 ## [0.1.0] - 2026-08-08
 
 Initial public release.
