@@ -1,44 +1,48 @@
-# SPDX-License-Identifier: Apache-2.0
-# Copyright 2026 Aditi Jain (SmartWrapperOSS)
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<!-- Copyright 2026 Aditi Jain (SmartWrapperOSS) -->
 
 # SmartWrapperOSS
 
-An open-source model and workflow evaluation framework.
+**Find out which LLM and agent setup actually fits a task (with error bars, cost, and latency) before you commit to it.**
 
-Run the same task — document summarization, or a tool-calling agent
-benchmark — through multiple orchestration frameworks (AutoGen-style,
-LangGraph-style) and multiple LLMs, and compare quality, latency, and
-cost side by side, in one command. Repeat runs with `--runs N` and get
-mean ± std dev with 95% confidence intervals instead of single-sample
-numbers.
+Run the same task through multiple models and frameworks, repeat it N times,
+and get mean ± std dev, 95% confidence intervals, and dollar cost per run in
+one table. When the data can't separate two options, the tool says so instead
+of declaring a winner.
 
-## What this is
+### Why "best overall" is often the wrong answer
 
-A neutral benchmarking tool. You give it a task, it runs that task
-multiple ways, and it tells you — with real scores, not vibes — which
-combination of framework and model actually performed best for that
-task.
+Real results, summarization task, n=5 runs each:
 
-## What this is **not**
+| Framework | Model             | Conciseness   | Latency (median) | Cost / run | Composite     |
+|-----------|-------------------|---------------|------------------|------------|---------------|
+| langgraph | gpt-4o            | 64.0 ±4.5     | 4.0s             | $0.0077    | **90.5 ±2.9** |
+| langgraph | claude-sonnet-4-6 | **85.0 ±0.0** | 12.4s            | $0.0187    | 81.0 ±1.0     |
 
-To keep expectations accurate, and to keep the project's scope from
-drifting:
+Claude ranks lower overall because of cost and latency, but wins on
+conciseness by 20+ points with no variance. If concise output is what your
+task needs, the "winner" is the wrong pick.
+[See all results →](https://smartwrappeross.github.io/SmartWrapperOSS/results/)
 
-- **Not an agent product.** SmartWrapperOSS does not run autonomous
-  workflows on your behalf, manage your files, or act as a personal or
-  team assistant. It runs a defined task once, scores the result, and
-  stops.
-- **Not tied to any single AI vendor.** It is intentionally
-  model-agnostic and has no special integration with any one provider's
-  desktop or platform tools. This is what makes its comparisons
-  trustworthy — it has no reason to favor one model over another.
-- **Not a production orchestration framework.** AutoGen and LangGraph
-  here are represented in simplified, illustrative form to make a fair,
-  readable comparison — this project is not a substitute for either
-  framework's actual SDK in a production system.
-- **Not a source of ground truth.** Its LLM-as-judge scores (used in the
-  summarization workflow) are model-generated assessments, not objective
-  measurements — see the Disclaimer section below.
+### Try it on your own task
+
+1. **Clone and add your API keys:** see [Quickstart](#quickstart) below.
+2. **Point it at your task:** any document (`--file your_doc.pdf`) for
+   summarization, or a YAML task file for tool-calling agents (copy
+   `benchmarks/tool_use/weather_and_calendar.yaml` as a template).
+3. **Run with repeats and a budget cap:**
+
+   ```bash
+   python main.py --workflow summarize --file your_doc.pdf \
+       --models gpt-4o claude-sonnet-4-6 --runs 5 --max-cost 5.00
+   ```
+
+You get a results table, a self-contained HTML dashboard you can share,
+and raw per-run JSON so anyone can re-check the numbers.
+
+**Useful for:** teams choosing or switching models, consultancies that need
+to justify a model recommendation to a client, and anyone publishing a
+comparison who wants it to hold up.
 
 ## Quickstart
 
@@ -287,6 +291,34 @@ Live, interactive versions of the published dashboards — error-bar
 charts, per-run breakdowns, and the earlier single-run dashboards they
 supersede — are at the
 [results index](https://smartwrappeross.github.io/SmartWrapperOSS/results/).
+
+## What this is
+
+A neutral benchmarking tool. You give it a task, it runs that task
+multiple ways, and it tells you — with real scores, not vibes — which
+combination of framework and model actually performed best for that
+task.
+
+## What this is **not**
+
+To keep expectations accurate, and to keep the project's scope from
+drifting:
+
+- **Not an agent product.** SmartWrapperOSS does not run autonomous
+  workflows on your behalf, manage your files, or act as a personal or
+  team assistant. It runs a defined task once, scores the result, and
+  stops.
+- **Not tied to any single AI vendor.** It is intentionally
+  model-agnostic and has no special integration with any one provider's
+  desktop or platform tools. This is what makes its comparisons
+  trustworthy — it has no reason to favor one model over another.
+- **Not a production orchestration framework.** AutoGen and LangGraph
+  here are represented in simplified, illustrative form to make a fair,
+  readable comparison — this project is not a substitute for either
+  framework's actual SDK in a production system.
+- **Not a source of ground truth.** Its LLM-as-judge scores (used in the
+  summarization workflow) are model-generated assessments, not objective
+  measurements — see the Disclaimer section below.
 
 ## Architecture
 
