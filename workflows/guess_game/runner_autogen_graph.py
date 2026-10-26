@@ -44,7 +44,9 @@ from workflows.guess_game.game import (
     CORRECT_MARK, WRONG_MARK, GameMachine, GuessGameTask, Phase,
     host_system_prompt, make_card_tools,
 )
-from workflows.guess_game.runner_autogen import _make_player_agent, _version
+from workflows.guess_game.runner_autogen import (
+    _chat_delivering_client, _make_player_agent, _version,
+)
 
 MESSAGES_PER_ROUND = 5
 MESSAGE_SLACK = 14
@@ -123,12 +125,13 @@ class GuessGameAutoGenGraphRunner(Workflow):
             if msg.source in ROLES and isinstance(msg, TextMessage):
                 machine.host_said(msg.content)
 
+        delivering = _chat_delivering_client(client, machine)
         agents = {}
         for name, (tool, iterations, role) in ROLES.items():
             agent_tools = (list(tools.values()) if tool == "ALL"
                            else [tools[tool]] if tool else [])
             agents[name] = AssistantAgent(
-                name, model_client=client, tools=agent_tools or None,
+                name, model_client=delivering, tools=agent_tools or None,
                 system_message=f"{base_prompt}\n\n{role}",
                 max_tool_iterations=iterations, reflect_on_tool_use=False,
             )

@@ -58,7 +58,8 @@ def feedback(mark):
                                   else "Not this time, try again next round."))
 
 
-# --- scripted steps: ("tool", name, args) or ("text", str) ---------------------
+# --- scripted steps: ("tool", name, args), ("text", str), or
+#     ("both", text, name, args) for text sent together with a tool call ------
 #
 # Graph-driven runners (langgraph, autogen-graph) make one model call per
 # step; agent-driven runners (autogen, langgraph-agent) chain steps inside a
@@ -79,10 +80,22 @@ def graph_script(sloppy: bool):
 
 
 def agent_script(sloppy: bool):
-    steps = [("tool", "show_intro_card", INTRO)]
-    for r, mark in enumerate(SLOPPY_MARKS if sloppy else TRUE_MARKS, start=1):
-        steps += [("tool", "show_image", {"image_id": IDS[r - 1]}), ("text", "Who do you think this is?")]
-        steps += [("tool", "reveal_answer", {"image_id": IDS[r - 1]}), feedback(mark)]
+    # Like GPT-4o often does, the agent sends its feedback in the SAME
+    # response as the next show_image call ("both"); that text must still
+    # reach the player as feedback before the image is shown.
+    marks = SLOPPY_MARKS if sloppy else TRUE_MARKS
+    steps = [("tool", "show_intro_card", INTRO),
+             ("tool", "show_image", {"image_id": IDS[0]}), ("text", "Who do you think this is?")]
+    for r, mark in enumerate(marks, start=1):
+        steps.append(("tool", "reveal_answer", {"image_id": IDS[r - 1]}))
+        text = feedback(mark)[1]
+        if sloppy and r == 2:
+            text += " Here's the next one: ![Image 3](img-003)"   # image pasted into chat
+        if r < len(marks):
+            steps += [("both", text, "show_image", {"image_id": IDS[r]}),
+                      ("text", "Who do you think this is?")]
+        else:
+            steps.append(("text", text))
     if sloppy:
         # Peeks at the answer before the guess in round 1: rejected.
         steps.insert(2, ("tool", "reveal_answer", {"image_id": "img-001"}))
@@ -119,6 +132,9 @@ def fake_langchain_model(steps):
             if kind == "tool":
                 msg = AIMessage(content="", usage_metadata=usage,
                                 tool_calls=[{"name": rest[0], "args": rest[1], "id": f"call_{i}"}])
+            elif kind == "both":
+                msg = AIMessage(content=rest[0], usage_metadata=usage,
+                                tool_calls=[{"name": rest[1], "args": rest[2], "id": f"call_{i}"}])
             else:
                 msg = AIMessage(content=rest[0], usage_metadata=usage)
             return ChatResult(generations=[ChatGeneration(message=msg)])
@@ -138,6 +154,10 @@ def fake_autogen_client(steps):
             content = [FunctionCall(id=f"call_{i}", name=rest[0], arguments=json.dumps(rest[1]))]
             results.append(CreateResult(finish_reason="function_calls", content=content,
                                         usage=usage, cached=False))
+        elif kind == "both":   # text + tool call: AutoGen puts the text in `thought`
+            content = [FunctionCall(id=f"call_{i}", name=rest[1], arguments=json.dumps(rest[2]))]
+            results.append(CreateResult(finish_reason="function_calls", content=content,
+                                        thought=rest[0], usage=usage, cached=False))
         else:
             results.append(CreateResult(finish_reason="stop", content=rest[0], usage=usage, cached=False))
     return ReplayChatCompletionClient(results, model_info={
@@ -184,6 +204,8 @@ def main():
                 assert scores["critical_invariants"] == 0.0, (fw, sr.dimensions)
                 for k in ("state_and_flow", "tool_use", "answer_handling"):
                     assert scores[k] < 100, (fw, k, sr.dimensions)
+                if sr.dimensions and "agent" in (tr.extra.get("pattern") or ""):
+                    assert scores["ui_control"] < 100, (fw, "image pasted into chat", sr.dimensions)
 
     print("\nGuess-the-person smoke test passed (real AutoGen + LangGraph, scripted models).")
 

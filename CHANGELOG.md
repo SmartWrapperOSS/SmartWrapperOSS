@@ -10,6 +10,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- **guess-game: feedback sent together with a tool call now reaches the
+  player.** In the first real GPT-4o runs, three of four runners stalled in
+  round 1: the model wrote "✅ Correct!" in the same response as its next
+  tool call, and the engine treated that text as internal and ignored it.
+  All four runners now deliver such text as chat before the tool runs
+  (AutoGen's `thought`, LangGraph's AIMessage content via the node or a
+  `post_model_hook`), and the trace marks it `with_tool_call`.
+- The simulated player no longer answers "Okay!" when no guess is due; it
+  reacts to what's on screen (e.g. "I don't see a picture on screen yet"),
+  so an agent that forgot to show the image gets realistic pushback.
+- Rejected calls during judging now tell the agent that no ✅/❌ feedback
+  has reached the player yet, instead of a generic "can't do that now".
+- New UI-control check: an image pasted into chat (Markdown/HTML) instead of
+  the image card fails "no images pasted into chat".
+
 ### Added
 
 - **New `guess-game` workflow (`guess_the_person` eval), run on the real

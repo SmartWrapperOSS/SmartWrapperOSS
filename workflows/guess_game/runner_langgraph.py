@@ -95,13 +95,19 @@ class GuessGameLangGraphRunner(Workflow):
                 usage["in"] += meta.get("input_tokens", 0)
                 usage["out"] += meta.get("output_tokens", 0)
                 usage["calls"] += 1
-                if not ai.tool_calls:
-                    machine.host_said(_text(ai.content))
+                # Text is chat whether or not a tool call comes with it; it is
+                # delivered now, before the ToolNode runs the call.
+                text = _text(ai.content)
+                if ai.tool_calls:
+                    if text.strip():
+                        machine.host_said(text, with_tool_call=True)
+                else:
+                    machine.host_said(text)
                 return {"messages": [ai]}
             return node
 
         def player_node(state: State):
-            return {"messages": [HumanMessage(machine.player_reply() or "Okay!")]}
+            return {"messages": [HumanMessage(machine.player_reply())]}
 
         def route(_state: State = None) -> str:
             return {Phase.INTRO: "intro", Phase.SHOW_IMAGE: "show_image", Phase.ASK: "ask",

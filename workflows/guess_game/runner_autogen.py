@@ -18,9 +18,11 @@ conversation, so this measures how well the agent keeps to the flow by
 itself. Each host turn may chain up to MAX_TOOL_ITERATIONS tool calls
 before replying in chat (e.g. show an image card, then ask "who is it?").
 
-As in AutoGen generally, text the model writes ALONGSIDE a tool call is a
-ThoughtEvent, not a chat message, so only a turn's final text reaches the
-player. The LangGraph runner treats it the same way.
+Text the model writes ALONGSIDE a tool call (AutoGen calls it a
+"thought") is delivered to the player as chat before the tool runs, the
+way a chat UI streaming the agent's output would show it. Every runner
+does the same, so e.g. "✅ Correct!" sent together with the next
+show_image call counts as feedback.
 """
 
 import asyncio
@@ -41,6 +43,48 @@ MAX_TOOL_ITERATIONS = 3
 # plot still stops.
 MESSAGES_PER_ROUND = 4
 MESSAGE_SLACK = 10
+
+
+def _chat_delivering_client(client, machine: GameMachine):
+    """Wraps an AutoGen model client so that text the model writes together
+    with tool calls reaches the game as chat BEFORE AutoGen runs the tools.
+    (Plain-text replies arrive later as normal chat messages.)"""
+    from autogen_core.models import ChatCompletionClient
+
+    class ChatDeliveringClient(ChatCompletionClient):
+        async def create(self, *args, **kwargs):
+            result = await client.create(*args, **kwargs)
+            if isinstance(result.content, list) and result.thought and result.thought.strip():
+                machine.host_said(result.thought, with_tool_call=True)
+            return result
+
+        def create_stream(self, *args, **kwargs):
+            return client.create_stream(*args, **kwargs)
+
+        async def close(self):
+            await client.close()
+
+        def actual_usage(self):
+            return client.actual_usage()
+
+        def total_usage(self):
+            return client.total_usage()
+
+        def count_tokens(self, *args, **kwargs):
+            return client.count_tokens(*args, **kwargs)
+
+        def remaining_tokens(self, *args, **kwargs):
+            return client.remaining_tokens(*args, **kwargs)
+
+        @property
+        def capabilities(self):
+            return client.capabilities
+
+        @property
+        def model_info(self):
+            return client.model_info
+
+    return ChatDeliveringClient()
 
 
 def _make_player_agent(machine: GameMachine, feed_host_message=None):
@@ -67,8 +111,8 @@ def _make_player_agent(machine: GameMachine, feed_host_message=None):
                     feed_host_message(m)
                 elif m.source == "host" and isinstance(m, TextMessage):
                     machine.host_said(m.content)
-            guess = machine.player_reply()
-            return Response(chat_message=TextMessage(content=guess or "Okay!", source=self.name))
+            return Response(chat_message=TextMessage(content=machine.player_reply(),
+                                                     source=self.name))
 
         async def on_reset(self, cancellation_token) -> None:
             pass
@@ -95,7 +139,7 @@ class GuessGameAutoGenRunner(Workflow):
 
         host = AssistantAgent(
             "host",
-            model_client=client,
+            model_client=_chat_delivering_client(client, machine),
             tools=make_card_tools(machine),
             system_message=host_system_prompt(task),
             max_tool_iterations=MAX_TOOL_ITERATIONS,

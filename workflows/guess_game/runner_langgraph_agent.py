@@ -22,6 +22,7 @@ by itself.
 """
 
 import time
+import warnings
 
 from core.framework_clients import make_langchain_model
 from core.model_router import ModelRouter
@@ -51,8 +52,27 @@ class GuessGameLangGraphAgentRunner(Workflow):
         config = self.router.configs[model_id]
         model = make_langchain_model(model_id, config)
         machine = GameMachine(task)
-        agent = create_react_agent(model, make_card_tools(machine),
-                                   prompt=host_system_prompt(task))
+
+        def deliver_chat(state):
+            # Runs after every model call and BEFORE any tool executes, so
+            # text sent together with a tool call reaches the player first.
+            last = state["messages"][-1]
+            if isinstance(last, AIMessage):
+                text = _text(last.content)
+                if last.tool_calls:
+                    if text.strip():
+                        machine.host_said(text, with_tool_call=True)
+                else:
+                    machine.host_said(text)
+            return {}
+
+        with warnings.catch_warnings():
+            # create_react_agent is deprecated in favor of langchain.agents
+            # but still ships (and is pinned) in langgraph 1.x.
+            warnings.simplefilter("ignore")
+            agent = create_react_agent(model, make_card_tools(machine),
+                                       prompt=host_system_prompt(task),
+                                       post_model_hook=deliver_chat)
 
         usage = {"in": 0, "out": 0, "calls": 0}
         messages = [HumanMessage(task.opening_message)]
@@ -70,15 +90,10 @@ class GuessGameLangGraphAgentRunner(Workflow):
                         usage["in"] += meta.get("input_tokens", 0)
                         usage["out"] += meta.get("output_tokens", 0)
                         usage["calls"] += 1
-                # Text sent alongside a tool call isn't chat (same rule as
-                # every runner); the agent's final reply is.
-                last = messages[-1]
-                if isinstance(last, AIMessage) and not last.tool_calls:
-                    machine.host_said(_text(last.content))
                 if machine.done:
                     stop_reason = "finished"
                     break
-                messages = messages + [HumanMessage(machine.player_reply() or "Okay!")]
+                messages = messages + [HumanMessage(machine.player_reply())]
         except GraphRecursionError:
             stop_reason = f"stopped before finishing (step limit {STEPS_PER_REPLY} in one reply)"
         except Exception as e:  # a framework/provider error ends this run, scored as-is

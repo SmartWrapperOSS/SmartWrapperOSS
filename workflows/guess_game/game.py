@@ -147,6 +147,15 @@ NEXT_STEP = {
 
 GAME_OVER_PHASES = (Phase.AWAIT_POST_GAME, Phase.POST_GAME, Phase.DONE)
 
+# What the player says when no guess is due, based on what's on screen.
+PLAYER_FILLER = {
+    Phase.INTRO: "Sounds fun! How does it work?",
+    Phase.SHOW_IMAGE: "I'm ready, but I don't see a picture on screen yet.",
+    Phase.ASK: "I can see the picture. What should I do?",
+    Phase.JUDGE: "So, was I right?",
+    Phase.RESULTS: "So what's my final score?",
+}
+
 
 class GameMachine:
     """
@@ -201,6 +210,10 @@ class GameMachine:
             error = f"invalid arguments for {tool}: {sorted(args)}"
         if error:
             self._emit("tool_called", tool=tool, args=args, accepted=False, error=error)
+            if self.phase == Phase.JUDGE:
+                return (f"ERROR: {error} The player has not received feedback for round "
+                        f"{self.round} yet: no chat message starting with {CORRECT_MARK} or "
+                        f"{WRONG_MARK} has reached them. Send that feedback in chat first.")
             if self.phase in GAME_OVER_PHASES:
                 return f"ERROR: {error} The game is complete; do not start a new round."
             return f"ERROR: {error} Right now you should: {NEXT_STEP[self.phase]}."
@@ -267,9 +280,12 @@ class GameMachine:
 
     # --- chat ------------------------------------------------------------------
 
-    def host_said(self, text: str) -> None:
+    def host_said(self, text: str, with_tool_call: bool = False) -> None:
+        """A chat message from the host. `with_tool_call` marks text the model
+        wrote in the same response as a tool call; runners deliver it BEFORE
+        the tool runs, the way a chat UI shows it."""
         text = text or ""
-        self._emit("chat_message", sender="host", text=text)
+        self._emit("chat_message", sender="host", text=text, with_tool_call=with_tool_call)
         if self.phase == Phase.ASK and text.strip():
             self.phase = Phase.AWAIT_GUESS
         elif self.phase == Phase.JUDGE:
@@ -292,9 +308,11 @@ class GameMachine:
         elif self.phase == Phase.POST_GAME and text.strip():
             self.phase = Phase.DONE
 
-    def player_reply(self) -> Optional[str]:
+    def player_reply(self) -> str:
         """The simulated player's turn: their scripted guess or post-game
-        message when one is due, otherwise None."""
+        message when one is due. Otherwise the player reacts to what is (or
+        isn't) on screen, like a real person would, instead of a bare
+        "Okay!" that a host could mistake for a missing guess."""
         if self.phase == Phase.AWAIT_GUESS:
             guess = self.task.rounds[self.round - 1].player_guess
             self._emit("guess_received", round=self.round, guess=guess, ui=self._ui_snapshot())
@@ -305,7 +323,9 @@ class GameMachine:
             self._emit("post_game_message", text=msg)
             self.phase = Phase.POST_GAME
             return msg
-        return None
+        filler = PLAYER_FILLER.get(self.phase, "Okay!")
+        self._emit("player_filler", text=filler)
+        return filler
 
 
 # --- Card tools as plain typed functions ----------------------------------------

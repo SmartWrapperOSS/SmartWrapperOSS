@@ -22,7 +22,9 @@ Weighted dimensions (default weights, configurable):
                            intro in the intro card; the image card showed
                            the right image when each guess came in;
                            feedback in chat; final score in the results
-                           card; no active round once results are up
+                           card; no active round once results are up; no
+                           image pasted into chat (Markdown/HTML) instead of
+                           using the image card
     answer_handling   15%  each ✅/❌ matches the answer key, and the results
                            card shows the right score
     response_quality   5%  mechanical proxies: intro card states the round
@@ -43,6 +45,7 @@ Reported with weight 0 (so they don't blur the behavior score):
                          aggregate table also reports raw latency and cost.
 """
 
+import re
 from typing import Dict, List
 
 from core.types import TaskResult, ScoreResult
@@ -59,6 +62,10 @@ DEFAULT_WEIGHTS = {
     "latency": 0.0,
     "cost": 0.0,
 }
+
+
+# An image pasted into chat (Markdown or HTML) is not the image card.
+_IMAGE_IN_CHAT = re.compile(r"!\[[^\]]*\]\(|<img\b", re.IGNORECASE)
 
 
 def _of(events: List[dict], type_: str) -> List[dict]:
@@ -128,7 +135,9 @@ class GuessGameEvaluator(Evaluator):
             "game completed": bool(completed),
             "terminated cleanly": x.get("final_phase") == "done",
             "no new round after completion": not self._requests_after_completion(ev),
-        }, extra=f"{len(rejected)} rejected call(s) | stop: {x.get('stop_reason', '?')} "
+        }, extra=f"{len(rejected)} rejected call(s) | "
+                 f"{sum(1 for e in _of(ev, 'chat_message') if e.get('with_tool_call'))} chat msg(s) "
+                 f"sent with a tool call | stop: {x.get('stop_reason', '?')} "
                  f"| model calls: {x.get('model_calls', '?')}")
 
     def _tool_use(self, ev, task) -> dict:
@@ -162,6 +171,8 @@ class GuessGameEvaluator(Evaluator):
             "final score in results card": bool(results),
             "no active round after results": bool(results) and not any(
                 e["type"] == "image_rendered" for e in after_results),
+            "no images pasted into chat": not any(
+                _IMAGE_IN_CHAT.search(e["text"]) for e in _of(ev, "chat_message")),
         })
 
     def _answer_handling(self, ev, task) -> dict:
