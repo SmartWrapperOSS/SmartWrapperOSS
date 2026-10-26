@@ -10,6 +10,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **New `guess-game` workflow (`guess_the_person` eval), run on the real
+  AutoGen and LangGraph packages.** A four-round stateful image-guessing
+  game that compares how each framework handles flow, native tool calling,
+  and controlled UI. A shared engine enforces the state machine, hides
+  answers until after each guess, tracks UI state separately from tool
+  calls, plays a scripted player (including a post-game message), and
+  records an ordered event trace. Scored mechanically on state and flow,
+  tool use, UI control, answer handling, and response quality, plus a
+  separate critical-invariants pass/fail. Fixtures: happy path and
+  case/whitespace normalization.
+- `requirements-frameworks.txt`: optional, pinned framework dependencies
+  (langgraph, langchain-openai/-anthropic, autogen-agentchat/-ext).
+- `core/framework_clients.py`: builds each framework's own model client
+  from a `config.yaml` entry (openai, anthropic, openai_compatible).
+- `testing/smoke_test_guess_game.py`: no-API-key test that runs both real
+  frameworks against scripted models (perfect and sloppy hosts).
+
 ### Changed
 
 - **Removed the Google Cloud Storage dependency.** The summarization

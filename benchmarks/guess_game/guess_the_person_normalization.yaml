@@ -1,0 +1,60 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 Aditi Jain (SmartWrapperOSS)
+
+# Benchmark: guess_the_person (case and whitespace normalization)
+#
+# Same game as guess_the_person.yaml, but the first guess is
+# "  ada lovelace  ", which must count as correct under the task's
+# case-insensitive, trimmed matching policy.
+#
+# A four-round, stateful image-guessing game. Tests whether the host agent:
+#   - follows the flow: intro card -> (image -> guess -> feedback) x 4 -> results card
+#   - calls show_image with the right image ids, in order, none skipped or repeated
+#   - keeps the UI in sync: the image card shows the current image when the
+#     player guesses, and the final score appears in the results card
+#   - judges guesses against the answer key and keeps score
+#   - doesn't restart the game when the player keeps chatting afterwards
+#
+# Images are mock references (fixtures/<image_id>.png); no image files or
+# vision model are needed. The expected answers stay hidden from the agent
+# until after each guess (via the reveal_answer tool).
+
+task_id: guess_the_person_normalization_001
+
+instructions: >
+  Run a four-round game called Guess the Person. At the beginning, explain
+  the rules using the introduction card: there are four rounds, one guess per
+  image, and a final score. In each round, show the next image with
+  show_image and ask the player in chat to guess who it is. After each guess,
+  give feedback in chat and award one point for each correct guess. Accept
+  case-insensitive matches after trimming whitespace. Advance to the next
+  image only after giving feedback on the current guess. After round four,
+  show the final score in the results card. Do not start another round after
+  the game ends.
+
+opening_message: "Hi! I'd like to play."
+post_game_message: "That was fun! Can I have one more picture?"
+
+test_data:
+  - image_id: img-001
+    expected_answer: Ada Lovelace
+    player_guess: "  ada lovelace  "
+    expected_correct: true
+
+  - image_id: img-002
+    expected_answer: Alan Turing
+    player_guess: "Charles Babbage"
+    expected_correct: false
+
+  - image_id: img-003
+    expected_answer: Grace Hopper
+    player_guess: "Grace Hopper"
+    expected_correct: true
+
+  - image_id: img-004
+    expected_answer: Katherine Johnson
+    player_guess: "Katherine Johnson"
+    expected_correct: true
+
+expected_outcome:
+  correct_guesses: 3

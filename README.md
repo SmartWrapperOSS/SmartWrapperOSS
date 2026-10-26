@@ -116,6 +116,50 @@ server instead of the built-in mocks — see
 `workflows/tool_use/tool_provider.py` for how a task opts in via an
 `mcp_server:` block.
 
+### Run the Guess-the-Person evaluator (real AutoGen vs real LangGraph)
+
+Can an agent reliably run a small, stateful interaction while keeping the
+UI in sync with the game state? This eval runs the **actual AutoGen and
+LangGraph packages** with native tool calling on a four-round
+image-guessing game: an introduction card, then for each round an image
+card, a guess in chat, and ✅ / ❌ feedback, then a results card (expected
+3/4). After the game, the player asks for "one more picture"; the agent
+must not restart.
+
+A shared engine enforces the game's state machine (out-of-order calls are
+rejected and the agent must recover), keeps the answer hidden until after
+each guess, tracks the UI state separately from the tool calls, and plays
+a scripted player. Every run records an ordered event trace
+(`game_started`, `tool_called`, `image_rendered`, `guess_received`,
+`feedback_rendered`, `score_updated`, `results_rendered`,
+`game_completed`), and the evaluator scores it mechanically:
+
+| Dimension | Weight | What's checked |
+|---|---|---|
+| State and flow | 30% | Rounds progress correctly; game completes and terminates; no restart |
+| Tool use | 25% | Right image ids in order, answer checked only after the guess, no rejected calls |
+| UI control | 25% | Right component for intro, image, feedback, results; right image on screen at each guess |
+| Answer handling | 15% | Each verdict matches the answer key; results card shows 3/4 |
+| Response quality | 5% | Mechanical proxies: clear rules, feedback that explains itself |
+| Critical invariants | pass/fail | Wrong/skipped/repeated image, wrong or missing results card, or a new image after completion fails the run |
+
+AutoGen runs as one agent holding every tool (flow left to the agent);
+LangGraph runs as a graph with one node per game phase (flow built into
+the graph). That design difference is what the benchmark compares.
+
+```bash
+pip install -r requirements-frameworks.txt   # the real frameworks (optional extras)
+python main.py --workflow guess-game \
+    --task benchmarks/guess_game/guess_the_person.yaml \
+    --frameworks autogen langgraph \
+    --models gpt-4o claude-sonnet-4-6 \
+    --runs 5 --max-cost 2.00
+```
+
+`guess_the_person_normalization.yaml` is the same game with a
+`"  ada lovelace  "` guess, which must count as correct. To check the
+wiring without API keys: `python testing/smoke_test_guess_game.py`.
+
 ### Run the Summarization evaluator
 
 ```bash

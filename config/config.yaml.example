@@ -125,6 +125,19 @@ evaluation:
     latency: 0.075
     cost: 0.075
 
+  # critical_invariants, latency and cost are reported with weight 0 by
+  # default: the invariant column is a pass/fail (its mean over runs is the
+  # pass rate), and the aggregate table already shows raw latency and cost.
+  guess_game_weights:
+    state_and_flow: 0.30
+    tool_use: 0.25
+    ui_control: 0.25
+    answer_handling: 0.15
+    response_quality: 0.05
+    critical_invariants: 0.0
+    latency: 0.0
+    cost: 0.0
+
 # --- Output settings ---
 output:
   show_reasons: true               # print judge/scoring reasons under each row

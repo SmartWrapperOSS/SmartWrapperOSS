@@ -15,6 +15,11 @@ Usage (tool-use):
                    --frameworks autogen langgraph \
                    --models gpt-4o claude-3-5-sonnet gemini-pro
 
+Usage (guess-game: guess_the_person, real AutoGen vs real LangGraph):
+    python main.py --workflow guess-game --task benchmarks/guess_game/guess_the_person.yaml \
+                   --frameworks autogen langgraph \
+                   --models gpt-4o claude-sonnet-4-6
+
 HOW THIS FILE STAYS SIMPLE AS WORKFLOWS ARE ADDED:
 This file never imports anything summarization- or tool-use-specific
 directly into its logic. Instead, WORKFLOW_REGISTRY below maps a
@@ -111,9 +116,30 @@ def build_tool_use(config: dict, router: ModelRouter, args):
     return runners, evaluator, task_input, scoring_reference
 
 
+def build_guess_game(config: dict, router: ModelRouter, args):
+    from workflows.guess_game.runner_autogen import GuessGameAutoGenRunner
+    from workflows.guess_game.runner_langgraph import GuessGameLangGraphRunner
+    from workflows.guess_game.evaluator import GuessGameEvaluator
+    from workflows.guess_game.game import load_task
+
+    print(f"Loading game task: {args.task}")
+    task = load_task(args.task)
+    print(f"  Task: {task.task_id} ({len(task.rounds)} rounds)")
+
+    # These runners use the REAL AutoGen and LangGraph packages (optional
+    # extras: pip install -r requirements-frameworks.txt).
+    runners = {
+        "autogen": GuessGameAutoGenRunner(router),
+        "langgraph": GuessGameLangGraphRunner(router),
+    }
+    evaluator = GuessGameEvaluator(weights=config["evaluation"].get("guess_game_weights"))
+    return runners, evaluator, task, task
+
+
 WORKFLOW_REGISTRY = {
     "summarize": build_summarize,
     "tool-use": build_tool_use,
+    "guess-game": build_guess_game,
 }
 
 
@@ -130,7 +156,7 @@ def _task_tag(workflow_name: str, args) -> str:
     import os
     if workflow_name == "summarize":
         return os.path.splitext(os.path.basename(args.file))[0]
-    if workflow_name == "tool-use":
+    if workflow_name in ("tool-use", "guess-game"):
         return os.path.splitext(os.path.basename(args.task))[0]
     return "default"
 
@@ -294,7 +320,7 @@ def main():
     # Workflow-specific inputs — only one is required depending on --workflow
     parser.add_argument("--file", help="Local path (or http(s) URL) of a PDF/DOCX/TXT/CSV document, "
                              "required for --workflow summarize")
-    parser.add_argument("--task", help="Path to a benchmark task YAML, required for --workflow tool-use")
+    parser.add_argument("--task", help="Path to a benchmark task YAML, required for --workflow tool-use and guess-game")
 
     args = parser.parse_args()
 
@@ -302,8 +328,8 @@ def main():
         parser.error("--runs must be >= 1")
     if args.workflow == "summarize" and not args.file:
         parser.error("--workflow summarize requires --file")
-    if args.workflow == "tool-use" and not args.task:
-        parser.error("--workflow tool-use requires --task")
+    if args.workflow in ("tool-use", "guess-game") and not args.task:
+        parser.error(f"--workflow {args.workflow} requires --task")
 
     config = load_config(args.config)
     run(args.workflow, args.frameworks, args.models, config, args)
