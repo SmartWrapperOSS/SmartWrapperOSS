@@ -585,6 +585,18 @@ def _overlap_note(aggs: List[ComboAggregate]) -> str:
             f'holds at this sample size.</p>')
 
 
+def _run_issues(record: dict) -> str:
+    """What went wrong in one run: the reason for every dimension that
+    scored below 100 (latency and cost are relative, so they're skipped).
+    Lets you see WHY a run lost points without opening runs/*.json."""
+    issues = [
+        f"<b>{_esc(name.replace('_', ' ').title())}:</b> {_esc(str(dim.get('reason', '')))}"
+        for name, dim in (record.get("dimensions") or {}).items()
+        if name not in ("latency", "cost") and float(dim.get("score", 100)) < 100
+    ]
+    return "<br>".join(issues) if issues else "<span class='raw-value'>none</span>"
+
+
 def _build_aggregate_html(aggs: List[ComboAggregate], records: list,
                           workflow_name: str) -> str:
     dims = list(aggs[0].dimensions.keys()) if aggs else []
@@ -628,6 +640,7 @@ def _build_aggregate_html(aggs: List[ComboAggregate], records: list,
             f"<td>{float(r['composite_score']):.1f}</td>"
             f"<td>{float(r['latency_ms']) / 1000:.1f}s</td>"
             f"<td>${float(r['cost_usd']):.4f}</td>"
+            f"<td>{_run_issues(r)}</td>"
             f"<td class='raw-value'>{_esc(r.get('saved_at', ''))}</td></tr>"
             for r in sorted(runs_by_combo.get((a.framework, a.model_id), []),
                             key=lambda r: r.get("run_index", 0)))
@@ -645,7 +658,7 @@ def _build_aggregate_html(aggs: List[ComboAggregate], records: list,
             </div>
             <div class="detail-output-label">Individual runs (full outputs in the runs/ directory)</div>
             <table class="runs-table">
-              <thead><tr><th>Run</th><th>Composite</th><th>Latency</th><th>Cost</th><th>Saved</th></tr></thead>
+              <thead><tr><th>Run</th><th>Composite</th><th>Latency</th><th>Cost</th><th>Issues</th><th>Saved</th></tr></thead>
               <tbody>{run_rows}</tbody>
             </table>
           </td>
