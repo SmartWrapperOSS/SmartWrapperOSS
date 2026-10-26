@@ -58,6 +58,17 @@ CORRECT_MARK = "✅"
 WRONG_MARK = "❌"
 
 
+def verdict_of(text: str) -> Optional[str]:
+    """'correct' / 'incorrect' if a chat message opens with ✅ / ❌ (ignoring
+    leading whitespace, quotes, and Markdown like **bold**), else None."""
+    s = (text or "").lstrip(" \t\n*_`>\"'")
+    if s.startswith(CORRECT_MARK):
+        return "correct"
+    if s.startswith(WRONG_MARK):
+        return "incorrect"
+    return None
+
+
 # --- Task ---------------------------------------------------------------------
 
 @dataclass
@@ -289,9 +300,7 @@ class GameMachine:
         if self.phase == Phase.ASK and text.strip():
             self.phase = Phase.AWAIT_GUESS
         elif self.phase == Phase.JUDGE:
-            s = text.lstrip()
-            verdict = ("correct" if s.startswith(CORRECT_MARK)
-                       else "incorrect" if s.startswith(WRONG_MARK) else None)
+            verdict = verdict_of(text)
             if verdict:
                 self._emit("feedback_rendered", component="chat", round=self.round,
                            verdict=verdict, text=text,

@@ -25,8 +25,9 @@ Weighted dimensions (default weights, configurable):
                            card; no active round once results are up; no
                            image pasted into chat (Markdown/HTML) instead of
                            using the image card
-    answer_handling   15%  each ✅/❌ matches the answer key, and the results
-                           card shows the right score
+    answer_handling   15%  each ✅/❌ matches the answer key, the results
+                           card shows the right score, and no extra ✅/❌
+                           messages appear outside the official feedback
     response_quality   5%  mechanical proxies: intro card states the round
                            count with at least two rules; feedback says
                            more than the mark; the host answered the
@@ -39,8 +40,10 @@ Reported with weight 0 (so they don't blur the behavior score):
                          repeated runs its mean is the pass RATE. Fails if
                          any image is wrong, skipped or repeated; the image
                          card showed the wrong image at a guess; the
-                         results card is missing or wrong; or a new image
-                         was requested after the game completed.
+                         results card is missing or wrong; a new image
+                         was requested after the game completed; or the
+                         player was shown contradicting feedback (e.g.
+                         "✅ Correct!" then "❌ Wrong" for the same guess).
     latency, cost        batch-normalized like the other workflows; the
                          aggregate table also reports raw latency and cost.
 """
@@ -50,7 +53,7 @@ from typing import Dict, List
 
 from core.types import TaskResult, ScoreResult
 from workflows.base import Evaluator
-from workflows.guess_game.game import CORRECT_MARK, WRONG_MARK, GuessGameTask
+from workflows.guess_game.game import CORRECT_MARK, WRONG_MARK, GuessGameTask, verdict_of
 
 DEFAULT_WEIGHTS = {
     "state_and_flow": 0.30,
@@ -81,6 +84,26 @@ def _checks(checks: Dict[str, bool], extra: str = "") -> dict:
     if extra:
         reason += f" | {extra}"
     return {"score": round(passed / len(checks) * 100, 1), "reason": reason}
+
+
+def _stray_verdicts(ev: List[dict]):
+    """Host chat messages that open with ✅/❌ but are NOT the official
+    feedback for a round (e.g. a second agent re-judging a guess). Returns
+    (strays, contradictions): a contradiction is a stray whose verdict
+    differs from the latest official feedback before it, i.e. the player
+    was told "✅ Correct!" and then "❌ Wrong" about the same guess."""
+    official = {e["seq"] - 1 for e in _of(ev, "feedback_rendered")}  # its chat_message
+    strays, contradictions, last = [], [], None
+    for e in ev:
+        if e["type"] == "feedback_rendered":
+            last = e["verdict"]
+        elif e["type"] == "chat_message" and e["seq"] not in official:
+            v = verdict_of(e["text"])
+            if v:
+                strays.append(e)
+                if last and v != last:
+                    contradictions.append(e)
+    return strays, contradictions
 
 
 def _int(v):
@@ -192,8 +215,13 @@ class GuessGameEvaluator(Evaluator):
         if not results_ok:
             misses.append(f"results card {shown['score']}/{shown['total']}" if shown
                           else "no results card")
-        total = n + 1
-        got = right + results_ok
+        strays, contradictions = _stray_verdicts(ev)
+        no_strays = not strays
+        if strays:
+            misses.append(f"{len(strays)} extra ✅/❌ message(s) outside feedback"
+                          + (f", {len(contradictions)} contradicting it" if contradictions else ""))
+        total = n + 2
+        got = right + results_ok + no_strays
         reason = (f"{got}/{total} correct (expected {task.expected_final_score}/{n})"
                   + ("; " + "; ".join(misses) if misses else ""))
         return {"score": round(got / total * 100, 1), "reason": reason}
@@ -229,6 +257,9 @@ class GuessGameEvaluator(Evaluator):
             failures.append("results card missing or wrong")
         if self._requests_after_completion(ev):
             failures.append("new image requested after completion")
+        _, contradictions = _stray_verdicts(ev)
+        if contradictions:
+            failures.append(f"player shown contradicting feedback ({len(contradictions)}x)")
         return {"score": 0.0 if failures else 100.0,
                 "reason": "PASS" if not failures else "FAIL: " + "; ".join(failures)}
 

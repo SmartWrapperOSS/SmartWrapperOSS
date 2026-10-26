@@ -20,10 +20,23 @@ One AssistantAgent per game phase, each holding ONLY the tool for its step
     image       show_image   (still has to pick the right image id)
     ask         no tools (chat)
     player      scripted guess / post-game message
-    judge       reveal_answer, then chat feedback
+    check       reveal_answer (checks the guess)
+    feedback    no tools (chat feedback starting with ✅ or ❌)
     results     show_results_card
     post_game   ALL tools, so "don't restart the game" is a real test
     game_over   leaf node (no model call); GraphFlow requires one
+
+Judging is split into "check" and "feedback" for the same reason as in
+runner_langgraph.py: no agent holds a tool it could misuse to jump ahead.
+
+KNOWN FRAMEWORK BEHAVIOR this runner exposes: GraphFlow agents share
+only each other's chat MESSAGES. Text an agent writes together with a tool
+call is an AutoGen "thought" (an event), so the player sees it but the
+OTHER agents never do. In the first real GPT-4o runs this made later
+agents re-judge guesses the player had already been told about
+("✅ Correct!" followed by "❌ Sorry, that's not Ada Lovelace") and
+show a 1/4 score instead of 3/4. This runner deliberately does NOT work
+around it (e.g. with reflect_on_tool_use=True); the benchmark records it.
 
 Every edge is conditional on the GameMachine's phase, so after any agent
 speaks, the graph hands the turn to whichever agent the game needs next
@@ -55,9 +68,10 @@ ROLES = {
     "intro": ("show_intro_card", 1, "Your job: show the introduction card at the start of the game."),
     "image": ("show_image", 1, "Your job: show the image for the next round with show_image."),
     "ask": (None, 1, "Your job: ask the player in chat who they think is in the image just shown."),
-    "judge": ("reveal_answer", 2, f"Your job: the player has just guessed. Check it with "
-                                  f"reveal_answer, then give feedback in chat starting with "
-                                  f"{CORRECT_MARK} or {WRONG_MARK}."),
+    "check": ("reveal_answer", 1, "Your job: the player has just guessed. Check their guess "
+                                  "with reveal_answer."),
+    "feedback": (None, 1, f"Your job: give the player feedback on their guess in chat, starting "
+                          f"with {CORRECT_MARK} if they were right or {WRONG_MARK} if they were wrong."),
     "results": ("show_results_card", 1, "Your job: after the last round, show the final score "
                                          "in the results card."),
     "post_game": ("ALL", 2, "Your job: the game is complete. Reply to the player in chat."),
@@ -65,9 +79,15 @@ ROLES = {
 
 PHASE_TO_NODE = {
     Phase.INTRO: "intro", Phase.SHOW_IMAGE: "image", Phase.ASK: "ask",
-    Phase.AWAIT_GUESS: "player", Phase.JUDGE: "judge", Phase.RESULTS: "results",
+    Phase.AWAIT_GUESS: "player", Phase.RESULTS: "results",
     Phase.AWAIT_POST_GAME: "player", Phase.POST_GAME: "post_game", Phase.DONE: "game_over",
 }
+
+
+def node_for(machine: GameMachine) -> str:
+    if machine.phase == Phase.JUDGE:
+        return "feedback" if machine.round in machine.revealed else "check"
+    return PHASE_TO_NODE[machine.phase]
 
 
 def _make_game_over_agent():
@@ -148,7 +168,7 @@ class GuessGameAutoGenGraphRunner(Workflow):
             for dst in agents:
                 def condition(msg, dst=dst):
                     feed(msg)
-                    return PHASE_TO_NODE[machine.phase] == dst
+                    return node_for(machine) == dst
                 # "any": a node runs as soon as ONE incoming edge fires
                 # (GraphFlow's default "all" would wait for every parent).
                 builder.add_edge(agents[src], agents[dst], condition=condition,

@@ -155,6 +155,14 @@ built into a graph):
 If the rows differ, the framework matters; if the columns differ, the
 pattern does.
 
+One framework difference it has already surfaced: in AutoGen's GraphFlow,
+agents share only each other's chat messages, so text an agent writes
+together with a tool call (an AutoGen "thought") reaches the player but
+never the other agents. In a GPT-4o run this led a later agent to re-judge
+guesses and contradict feedback the player had already seen. LangGraph's
+graph shares one message history across nodes, so it doesn't have this
+gap. The `autogen-graph` runner records this rather than working around it.
+
 ```bash
 pip install -r requirements-frameworks.txt   # the real frameworks (optional extras)
 python main.py --workflow guess-game \

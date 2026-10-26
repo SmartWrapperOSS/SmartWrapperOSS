@@ -71,7 +71,12 @@ def graph_script(sloppy: bool):
     for r, mark in enumerate(SLOPPY_MARKS if sloppy else TRUE_MARKS, start=1):
         if sloppy and r == 2:
             steps.append(("tool", "show_image", {"image_id": "img-003"}))  # skips ahead: rejected, retried
-        steps += [("tool", "show_image", {"image_id": IDS[r - 1]}), ("text", "Who do you think this is?"),
+        ask = "Who do you think this is?"
+        if sloppy and r == 2:
+            # Re-judges round 1 while asking, contradicting the ✅ it gave:
+            # the pattern seen in real AutoGen GraphFlow runs.
+            ask = "❌ Actually, that last one wasn't Ada Lovelace. Who do you think this is?"
+        steps += [("tool", "show_image", {"image_id": IDS[r - 1]}), ("text", ask),
                   ("tool", "reveal_answer", {"image_id": IDS[r - 1]}), feedback(mark)]
     steps.append(("tool", "show_results_card", {"score": 2 if sloppy else 3, "total": 4}))
     if sloppy:
@@ -204,8 +209,10 @@ def main():
                 assert scores["critical_invariants"] == 0.0, (fw, sr.dimensions)
                 for k in ("state_and_flow", "tool_use", "answer_handling"):
                     assert scores[k] < 100, (fw, k, sr.dimensions)
-                if sr.dimensions and "agent" in (tr.extra.get("pattern") or ""):
+                if "agent" in (tr.extra.get("pattern") or ""):
                     assert scores["ui_control"] < 100, (fw, "image pasted into chat", sr.dimensions)
+                else:
+                    assert "contradicting" in sr.dimensions["critical_invariants"]["reason"], fw
 
     print("\nGuess-the-person smoke test passed (real AutoGen + LangGraph, scripted models).")
 

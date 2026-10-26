@@ -7,15 +7,21 @@ workflows/guess_game/runner_langgraph.py
 Runs guess_the_person on the REAL LangGraph package (1.x), in LangGraph's
 typical pattern: GRAPH-DRIVEN FLOW.
 
-    START -> route -> intro | show_image | ask | player | judge | results
-                      | post_game | END     (chosen from the game phase)
+    START -> route -> intro | show_image | ask | player | check | feedback
+                      | results | post_game | END   (chosen from the game phase)
+
+Judging is split into two single-job nodes ("check", then "feedback") so
+no node holds a tool it could misuse to jump ahead; a one-node judge step
+with reveal_answer bound led GPT-4o to call reveal_answer for the NEXT
+image right after giving feedback.
 
     intro       LLM node, binds ONLY show_intro_card
     show_image  LLM node, binds ONLY show_image (the model must still pick
                 the right image id from the list; the graph doesn't tell it)
     ask         LLM node, no tools (chat)
     player      scripted node: the guess, or the post-game message
-    judge       LLM node, binds ONLY reveal_answer, then gives feedback
+    check       LLM node, binds ONLY reveal_answer (checks the guess)
+    feedback    LLM node, no tools (chat feedback starting with ✅ or ❌)
     results     LLM node, binds ONLY show_results_card
     post_game   LLM node after completion, binds ALL tools, so the test of
                 "don't restart the game" is real, not structural
@@ -75,13 +81,14 @@ class GuessGameLangGraphRunner(Workflow):
                 Phase.INTRO: "Show the introduction card now.",
                 Phase.SHOW_IMAGE: f"Start round {r} of {n}: show the next image.",
                 Phase.ASK: "Ask the player in chat who they think is in the image.",
-                Phase.JUDGE: (f"The player just guessed. Check it with reveal_answer if you haven't, "
-                              f"then give feedback in chat starting with {CORRECT_MARK} or {WRONG_MARK}."),
+                "check": "The player just guessed. Check their guess with reveal_answer.",
+                "feedback": (f"Give the player feedback on their guess in chat, starting with "
+                             f"{CORRECT_MARK} if they were right or {WRONG_MARK} if they were wrong."),
                 Phase.RESULTS: "All rounds are done. Show the final score in the results card.",
                 Phase.POST_GAME: "The game is complete. Reply to the player in chat.",
             }[phase]
 
-        def llm_node(phase: Phase, tool_names=()):
+        def llm_node(phase, tool_names=()):
             bound = model.bind_tools([tools[t] for t in tool_names]) if tool_names else model
 
             def node(state: State):
@@ -111,7 +118,9 @@ class GuessGameLangGraphRunner(Workflow):
 
         def route(_state: State = None) -> str:
             return {Phase.INTRO: "intro", Phase.SHOW_IMAGE: "show_image", Phase.ASK: "ask",
-                    Phase.AWAIT_GUESS: "player", Phase.JUDGE: "judge", Phase.RESULTS: "results",
+                    Phase.AWAIT_GUESS: "player",
+                    Phase.JUDGE: "feedback" if machine.round in machine.revealed else "check",
+                    Phase.RESULTS: "results",
                     Phase.AWAIT_POST_GAME: "player", Phase.POST_GAME: "post_game",
                     Phase.DONE: END}[machine.phase]
 
@@ -124,14 +133,16 @@ class GuessGameLangGraphRunner(Workflow):
         g.add_node("show_image", llm_node(Phase.SHOW_IMAGE, ["show_image"]))
         g.add_node("ask", llm_node(Phase.ASK))
         g.add_node("player", player_node)
-        g.add_node("judge", llm_node(Phase.JUDGE, ["reveal_answer"]))
+        g.add_node("check", llm_node("check", ["reveal_answer"]))
+        g.add_node("feedback", llm_node("feedback"))
         g.add_node("results", llm_node(Phase.RESULTS, ["show_results_card"]))
         g.add_node("post_game", llm_node(Phase.POST_GAME, list(tools)))
         g.add_node("tools", ToolNode(list(tools.values())))
 
-        targets = ["intro", "show_image", "ask", "player", "judge", "results", "post_game", END]
+        targets = ["intro", "show_image", "ask", "player", "check", "feedback", "results",
+                   "post_game", END]
         g.add_conditional_edges(START, route, targets)
-        for name in ("intro", "show_image", "ask", "judge", "results", "post_game"):
+        for name in ("intro", "show_image", "ask", "check", "feedback", "results", "post_game"):
             g.add_conditional_edges(name, after_llm, targets + ["tools"])
         g.add_conditional_edges("tools", route, targets)
         g.add_conditional_edges("player", route, targets)

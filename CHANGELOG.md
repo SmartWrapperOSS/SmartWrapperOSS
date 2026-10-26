@@ -12,6 +12,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **guess-game: contradicting feedback is now caught.** A real GPT-4o run on
+  `autogen-graph` told the player "✅ Correct!" and then "❌ Sorry, that's
+  not Ada Lovelace" about the same guess, and the evaluator didn't notice.
+  Extra ✅/❌ messages outside the official feedback now cost points in
+  answer handling, and a contradiction fails the critical invariants.
+- **Graph runners: judging split into "check" and "feedback" steps**, so no
+  step holds a tool it can misuse to jump ahead (GPT-4o called
+  reveal_answer for the next image right after giving feedback).
+- ✅/❌ detection ignores leading Markdown and quotes (e.g. `**✅ Correct**`).
+- Documented a real AutoGen GraphFlow behavior the benchmark exposes:
+  agents share only each other's chat messages, so text one agent writes
+  together with a tool call never reaches the others.
+
 - **guess-game: feedback sent together with a tool call now reaches the
   player.** In the first real GPT-4o runs, three of four runners stalled in
   round 1: the model wrote "✅ Correct!" in the same response as its next
