@@ -22,6 +22,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   tool use, UI control, answer handling, and response quality, plus a
   separate critical-invariants pass/fail. Fixtures: happy path and
   case/whitespace normalization.
+- **2×2 framework × pattern comparison for `guess-game`.** Two more
+  runners: `autogen-graph` (AutoGen GraphFlow, graph-driven) and
+  `langgraph-agent` (LangGraph `create_react_agent`, agent-driven), next to
+  `autogen` (agent-driven) and `langgraph` (graph-driven). Each run records
+  its `pattern`. The table's framework column is wider to fit the names.
 - `requirements-frameworks.txt`: optional, pinned framework dependencies
   (langgraph, langchain-openai/-anthropic, autogen-agentchat/-ext).
 - `core/framework_clients.py`: builds each framework's own model client

@@ -15,9 +15,9 @@ Usage (tool-use):
                    --frameworks autogen langgraph \
                    --models gpt-4o claude-3-5-sonnet gemini-pro
 
-Usage (guess-game: guess_the_person, real AutoGen vs real LangGraph):
+Usage (guess-game: guess_the_person, real AutoGen vs real LangGraph, 2x2):
     python main.py --workflow guess-game --task benchmarks/guess_game/guess_the_person.yaml \
-                   --frameworks autogen langgraph \
+                   --frameworks autogen autogen-graph langgraph-agent langgraph \
                    --models gpt-4o claude-sonnet-4-6
 
 HOW THIS FILE STAYS SIMPLE AS WORKFLOWS ARE ADDED:
@@ -119,6 +119,8 @@ def build_tool_use(config: dict, router: ModelRouter, args):
 def build_guess_game(config: dict, router: ModelRouter, args):
     from workflows.guess_game.runner_autogen import GuessGameAutoGenRunner
     from workflows.guess_game.runner_langgraph import GuessGameLangGraphRunner
+    from workflows.guess_game.runner_autogen_graph import GuessGameAutoGenGraphRunner
+    from workflows.guess_game.runner_langgraph_agent import GuessGameLangGraphAgentRunner
     from workflows.guess_game.evaluator import GuessGameEvaluator
     from workflows.guess_game.game import load_task
 
@@ -127,9 +129,16 @@ def build_guess_game(config: dict, router: ModelRouter, args):
     print(f"  Task: {task.task_id} ({len(task.rounds)} rounds)")
 
     # These runners use the REAL AutoGen and LangGraph packages (optional
-    # extras: pip install -r requirements-frameworks.txt).
+    # extras: pip install -r requirements-frameworks.txt). Four runners make
+    # a 2x2, so "which framework" and "which pattern" can be read apart:
+    #
+    #                 agent-driven       graph-driven
+    #   AutoGen       autogen            autogen-graph
+    #   LangGraph     langgraph-agent    langgraph
     runners = {
         "autogen": GuessGameAutoGenRunner(router),
+        "autogen-graph": GuessGameAutoGenGraphRunner(router),
+        "langgraph-agent": GuessGameLangGraphAgentRunner(router),
         "langgraph": GuessGameLangGraphRunner(router),
     }
     evaluator = GuessGameEvaluator(weights=config["evaluation"].get("guess_game_weights"))
@@ -300,7 +309,9 @@ def main():
     parser.add_argument("--workflow", required=True, choices=list(WORKFLOW_REGISTRY.keys()),
                         help="Which task type to run.")
     parser.add_argument("--frameworks", nargs="+", default=["autogen", "langgraph"],
-                        choices=["autogen", "langgraph"])
+                        choices=["autogen", "langgraph", "autogen-graph", "langgraph-agent"],
+                        help="autogen-graph and langgraph-agent are only available for "
+                             "--workflow guess-game")
     parser.add_argument("--models", nargs="+", default=["gpt-4o", "claude-3-5-sonnet"])
     parser.add_argument("--config", default="config/config.yaml")
 

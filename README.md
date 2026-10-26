@@ -143,15 +143,23 @@ a scripted player. Every run records an ordered event trace
 | Response quality | 5% | Mechanical proxies: clear rules, feedback that explains itself |
 | Critical invariants | pass/fail | Wrong/skipped/repeated image, wrong or missing results card, or a new image after completion fails the run |
 
-AutoGen runs as one agent holding every tool (flow left to the agent);
-LangGraph runs as a graph with one node per game phase (flow built into
-the graph). That design difference is what the benchmark compares.
+Four runners form a 2×2, so you can tell whether a difference comes from
+the **framework** or from the **pattern** (flow left to one agent vs. flow
+built into a graph):
+
+| | Agent-driven (one agent, all tools) | Graph-driven (one node/agent per phase) |
+|---|---|---|
+| **AutoGen** | `autogen` (AssistantAgent) | `autogen-graph` (GraphFlow) |
+| **LangGraph** | `langgraph-agent` (create_react_agent) | `langgraph` (StateGraph) |
+
+If the rows differ, the framework matters; if the columns differ, the
+pattern does.
 
 ```bash
 pip install -r requirements-frameworks.txt   # the real frameworks (optional extras)
 python main.py --workflow guess-game \
     --task benchmarks/guess_game/guess_the_person.yaml \
-    --frameworks autogen langgraph \
+    --frameworks autogen autogen-graph langgraph-agent langgraph \
     --models gpt-4o claude-sonnet-4-6 \
     --runs 5 --max-cost 2.00
 ```

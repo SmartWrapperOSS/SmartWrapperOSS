@@ -43,7 +43,7 @@ MESSAGES_PER_ROUND = 4
 MESSAGE_SLACK = 10
 
 
-def _make_player_agent(machine: GameMachine):
+def _make_player_agent(machine: GameMachine, feed_host_message=None):
     from autogen_agentchat.agents import BaseChatAgent
     from autogen_agentchat.base import Response
     from autogen_agentchat.messages import TextMessage
@@ -63,7 +63,9 @@ def _make_player_agent(machine: GameMachine):
             for m in messages:
                 # Only the host's chat text reaches the player; tool calls
                 # and their results are events, not chat.
-                if m.source == "host" and isinstance(m, TextMessage):
+                if feed_host_message:
+                    feed_host_message(m)
+                elif m.source == "host" and isinstance(m, TextMessage):
                     machine.host_said(m.content)
             guess = machine.player_reply()
             return Response(chat_message=TextMessage(content=guess or "Okay!", source=self.name))
@@ -133,6 +135,7 @@ class GuessGameAutoGenRunner(Workflow):
                                             usage.completion_tokens, config),
             extra={"events": machine.events, "stop_reason": stop_reason,
                    "final_phase": machine.phase.value, "model_calls": model_calls,
+                   "pattern": "agent-driven",
                    "framework_version": _version("autogen-agentchat")},
         )
 

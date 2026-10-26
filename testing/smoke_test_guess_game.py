@@ -5,7 +5,8 @@
 testing/smoke_test_guess_game.py
 
 No-API-key check that the guess-game workflow runs end to end on the
-REAL AutoGen and LangGraph packages. Only the model is faked: each
+REAL AutoGen and LangGraph packages, for all four runners in the 2x2
+(autogen, autogen-graph, langgraph-agent, langgraph). Only the model is faked: each
 framework gets a scripted model that returns native tool calls and chat
 text, so the framework's own agent loop, tool execution, and routing all
 run for real.
@@ -13,8 +14,8 @@ run for real.
   perfect host  plays both fixtures (happy path and the "  ada lovelace  "
                 normalization case) exactly right: every dimension 100,
                 critical invariants PASS, in both frameworks.
-  sloppy host   makes mistakes (AutoGen: peeks at the answer before the
-                guess; LangGraph: tries to skip to the wrong image),
+  sloppy host   makes mistakes (agent-driven: peeks at the answer before
+                the guess; graph-driven: tries to skip to the wrong image),
                 misjudges round 3, shows the wrong score, and tries to
                 show a fifth image after the game is complete. Should
                 lose points and FAIL the critical invariants.
@@ -38,6 +39,8 @@ from workflows.guess_game.evaluator import GuessGameEvaluator  # noqa: E402
 from workflows.guess_game.game import load_task  # noqa: E402
 from workflows.guess_game.runner_autogen import GuessGameAutoGenRunner  # noqa: E402
 from workflows.guess_game.runner_langgraph import GuessGameLangGraphRunner  # noqa: E402
+from workflows.guess_game.runner_autogen_graph import GuessGameAutoGenGraphRunner  # noqa: E402
+from workflows.guess_game.runner_langgraph_agent import GuessGameLangGraphAgentRunner  # noqa: E402
 
 TASKS = ["benchmarks/guess_game/guess_the_person.yaml",
          "benchmarks/guess_game/guess_the_person_normalization.yaml"]
@@ -56,8 +59,13 @@ def feedback(mark):
 
 
 # --- scripted steps: ("tool", name, args) or ("text", str) ---------------------
+#
+# Graph-driven runners (langgraph, autogen-graph) make one model call per
+# step; agent-driven runners (autogen, langgraph-agent) chain steps inside a
+# turn. The two scripts below cover each pattern, and each script is used
+# by both frameworks of that pattern.
 
-def langgraph_script(sloppy: bool):
+def graph_script(sloppy: bool):
     steps = [("tool", "show_intro_card", INTRO)]
     for r, mark in enumerate(SLOPPY_MARKS if sloppy else TRUE_MARKS, start=1):
         if sloppy and r == 2:
@@ -70,7 +78,7 @@ def langgraph_script(sloppy: bool):
     return steps + [("text", "Glad you enjoyed it! The game is over, but you can start a new one anytime.")]
 
 
-def autogen_script(sloppy: bool):
+def agent_script(sloppy: bool):
     steps = [("tool", "show_intro_card", INTRO)]
     for r, mark in enumerate(SLOPPY_MARKS if sloppy else TRUE_MARKS, start=1):
         steps += [("tool", "show_image", {"image_id": IDS[r - 1]}), ("text", "Who do you think this is?")]
@@ -150,16 +158,23 @@ def main():
         batch = []
         for host in hosts:
             sloppy = host == "sloppy"
-            with patch("workflows.guess_game.runner_langgraph.make_langchain_model",
-                       lambda *_: fake_langchain_model(langgraph_script(sloppy))):
-                batch.append(("langgraph", host, GuessGameLangGraphRunner(router).run("fake", task)))
-            with patch("workflows.guess_game.runner_autogen.make_autogen_client",
-                       lambda *_: fake_autogen_client(autogen_script(sloppy))):
-                batch.append(("autogen", host, GuessGameAutoGenRunner(router).run("fake", task)))
+            for fw, module, factory, fake, script, runner in [
+                ("autogen", "runner_autogen", "make_autogen_client",
+                 fake_autogen_client, agent_script, GuessGameAutoGenRunner),
+                ("autogen-graph", "runner_autogen_graph", "make_autogen_client",
+                 fake_autogen_client, graph_script, GuessGameAutoGenGraphRunner),
+                ("langgraph-agent", "runner_langgraph_agent", "make_langchain_model",
+                 fake_langchain_model, agent_script, GuessGameLangGraphAgentRunner),
+                ("langgraph", "runner_langgraph", "make_langchain_model",
+                 fake_langchain_model, graph_script, GuessGameLangGraphRunner),
+            ]:
+                with patch(f"workflows.guess_game.{module}.{factory}",
+                           lambda *_, f=fake, s=script: f(s(sloppy))):
+                    batch.append((fw, host, runner(router).run("fake", task)))
 
         print(f"\n=== {task.task_id} ===")
         for fw, host, tr, sr in evaluator.score_all(batch, task):
-            print(f"\n{host} host on {fw}  (composite {sr.composite_score})")
+            print(f"\n{host} host on {fw} [{tr.extra.get('pattern')}]  (composite {sr.composite_score})")
             for k in checked:
                 print(f"  {k:20s} {sr.dimensions[k]['score']:5.1f}  {sr.dimensions[k]['reason']}")
             scores = {k: sr.dimensions[k]["score"] for k in checked}

@@ -153,6 +153,7 @@ class GuessGameLangGraphRunner(Workflow):
             cost_usd=self.router._calc_cost(model_id, usage["in"], usage["out"], config),
             extra={"events": machine.events, "stop_reason": stop_reason,
                    "final_phase": machine.phase.value, "model_calls": usage["calls"],
+                   "pattern": "graph-driven",
                    "framework_version": _version("langgraph")},
         )
 
