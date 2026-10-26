@@ -1,0 +1,314 @@
+[
+  {
+    "framework": "autogen",
+    "model_id": "gpt-4o",
+    "n_runs": 5,
+    "composite": {
+      "n": 5,
+      "mean": 100.0,
+      "std": 0.0,
+      "ci_low": 100.0,
+      "ci_high": 100.0,
+      "min": 100.0,
+      "max": 100.0
+    },
+    "dimensions": {
+      "state_and_flow": {
+        "n": 5,
+        "mean": 100.0,
+        "std": 0.0,
+        "ci_low": 100.0,
+        "ci_high": 100.0,
+        "min": 100.0,
+        "max": 100.0
+      },
+      "tool_use": {
+        "n": 5,
+        "mean": 100.0,
+        "std": 0.0,
+        "ci_low": 100.0,
+        "ci_high": 100.0,
+        "min": 100.0,
+        "max": 100.0
+      },
+      "ui_control": {
+        "n": 5,
+        "mean": 100.0,
+        "std": 0.0,
+        "ci_low": 100.0,
+        "ci_high": 100.0,
+        "min": 100.0,
+        "max": 100.0
+      },
+      "answer_handling": {
+        "n": 5,
+        "mean": 100.0,
+        "std": 0.0,
+        "ci_low": 100.0,
+        "ci_high": 100.0,
+        "min": 100.0,
+        "max": 100.0
+      },
+      "response_quality": {
+        "n": 5,
+        "mean": 100.0,
+        "std": 0.0,
+        "ci_low": 100.0,
+        "ci_high": 100.0,
+        "min": 100.0,
+        "max": 100.0
+      },
+      "critical_invariants": {
+        "n": 5,
+        "mean": 100.0,
+        "std": 0.0,
+        "ci_low": 100.0,
+        "ci_high": 100.0,
+        "min": 100.0,
+        "max": 100.0
+      }
+    },
+    "latency_ms": {
+      "median": 15994.6,
+      "p95": 16520.1
+    },
+    "cost_usd": {
+      "mean": 0.043983,
+      "total": 0.219913
+    }
+  },
+  {
+    "framework": "langgraph-agent",
+    "model_id": "gpt-4o",
+    "n_runs": 5,
+    "composite": {
+      "n": 5,
+      "mean": 100.0,
+      "std": 0.0,
+      "ci_low": 100.0,
+      "ci_high": 100.0,
+      "min": 100.0,
+      "max": 100.0
+    },
+    "dimensions": {
+      "state_and_flow": {
+        "n": 5,
+        "mean": 100.0,
+        "std": 0.0,
+        "ci_low": 100.0,
+        "ci_high": 100.0,
+        "min": 100.0,
+        "max": 100.0
+      },
+      "tool_use": {
+        "n": 5,
+        "mean": 100.0,
+        "std": 0.0,
+        "ci_low": 100.0,
+        "ci_high": 100.0,
+        "min": 100.0,
+        "max": 100.0
+      },
+      "ui_control": {
+        "n": 5,
+        "mean": 100.0,
+        "std": 0.0,
+        "ci_low": 100.0,
+        "ci_high": 100.0,
+        "min": 100.0,
+        "max": 100.0
+      },
+      "answer_handling": {
+        "n": 5,
+        "mean": 100.0,
+        "std": 0.0,
+        "ci_low": 100.0,
+        "ci_high": 100.0,
+        "min": 100.0,
+        "max": 100.0
+      },
+      "response_quality": {
+        "n": 5,
+        "mean": 100.0,
+        "std": 0.0,
+        "ci_low": 100.0,
+        "ci_high": 100.0,
+        "min": 100.0,
+        "max": 100.0
+      },
+      "critical_invariants": {
+        "n": 5,
+        "mean": 100.0,
+        "std": 0.0,
+        "ci_low": 100.0,
+        "ci_high": 100.0,
+        "min": 100.0,
+        "max": 100.0
+      }
+    },
+    "latency_ms": {
+      "median": 15648.2,
+      "p95": 16880.1
+    },
+    "cost_usd": {
+      "mean": 0.04243,
+      "total": 0.21215
+    }
+  },
+  {
+    "framework": "langgraph",
+    "model_id": "gpt-4o",
+    "n_runs": 5,
+    "composite": {
+      "n": 5,
+      "mean": 100.0,
+      "std": 0.0,
+      "ci_low": 100.0,
+      "ci_high": 100.0,
+      "min": 100.0,
+      "max": 100.0
+    },
+    "dimensions": {
+      "state_and_flow": {
+        "n": 5,
+        "mean": 100.0,
+        "std": 0.0,
+        "ci_low": 100.0,
+        "ci_high": 100.0,
+        "min": 100.0,
+        "max": 100.0
+      },
+      "tool_use": {
+        "n": 5,
+        "mean": 100.0,
+        "std": 0.0,
+        "ci_low": 100.0,
+        "ci_high": 100.0,
+        "min": 100.0,
+        "max": 100.0
+      },
+      "ui_control": {
+        "n": 5,
+        "mean": 100.0,
+        "std": 0.0,
+        "ci_low": 100.0,
+        "ci_high": 100.0,
+        "min": 100.0,
+        "max": 100.0
+      },
+      "answer_handling": {
+        "n": 5,
+        "mean": 100.0,
+        "std": 0.0,
+        "ci_low": 100.0,
+        "ci_high": 100.0,
+        "min": 100.0,
+        "max": 100.0
+      },
+      "response_quality": {
+        "n": 5,
+        "mean": 100.0,
+        "std": 0.0,
+        "ci_low": 100.0,
+        "ci_high": 100.0,
+        "min": 100.0,
+        "max": 100.0
+      },
+      "critical_invariants": {
+        "n": 5,
+        "mean": 100.0,
+        "std": 0.0,
+        "ci_low": 100.0,
+        "ci_high": 100.0,
+        "min": 100.0,
+        "max": 100.0
+      }
+    },
+    "latency_ms": {
+      "median": 15406.3,
+      "p95": 16269.7
+    },
+    "cost_usd": {
+      "mean": 0.037474,
+      "total": 0.18737
+    }
+  },
+  {
+    "framework": "autogen-graph",
+    "model_id": "gpt-4o",
+    "n_runs": 5,
+    "composite": {
+      "n": 5,
+      "mean": 99.5,
+      "std": 1.12,
+      "ci_low": 98.11,
+      "ci_high": 100.89,
+      "min": 97.5,
+      "max": 100.0
+    },
+    "dimensions": {
+      "state_and_flow": {
+        "n": 5,
+        "mean": 100.0,
+        "std": 0.0,
+        "ci_low": 100.0,
+        "ci_high": 100.0,
+        "min": 100.0,
+        "max": 100.0
+      },
+      "tool_use": {
+        "n": 5,
+        "mean": 98.0,
+        "std": 4.47,
+        "ci_low": 92.45,
+        "ci_high": 103.55,
+        "min": 90.0,
+        "max": 100.0
+      },
+      "ui_control": {
+        "n": 5,
+        "mean": 100.0,
+        "std": 0.0,
+        "ci_low": 100.0,
+        "ci_high": 100.0,
+        "min": 100.0,
+        "max": 100.0
+      },
+      "answer_handling": {
+        "n": 5,
+        "mean": 100.0,
+        "std": 0.0,
+        "ci_low": 100.0,
+        "ci_high": 100.0,
+        "min": 100.0,
+        "max": 100.0
+      },
+      "response_quality": {
+        "n": 5,
+        "mean": 100.0,
+        "std": 0.0,
+        "ci_low": 100.0,
+        "ci_high": 100.0,
+        "min": 100.0,
+        "max": 100.0
+      },
+      "critical_invariants": {
+        "n": 5,
+        "mean": 100.0,
+        "std": 0.0,
+        "ci_low": 100.0,
+        "ci_high": 100.0,
+        "min": 100.0,
+        "max": 100.0
+      }
+    },
+    "latency_ms": {
+      "median": 17596.7,
+      "p95": 18021.7
+    },
+    "cost_usd": {
+      "mean": 0.038177,
+      "total": 0.190885
+    }
+  }
+]
