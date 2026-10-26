@@ -10,6 +10,60 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- **guess-game: contradicting feedback is now caught.** A real GPT-4o run on
+  `autogen-graph` told the player "✅ Correct!" and then "❌ Sorry, that's
+  not Ada Lovelace" about the same guess, and the evaluator didn't notice.
+  Extra ✅/❌ messages outside the official feedback now cost points in
+  answer handling, and a contradiction fails the critical invariants.
+- **Graph runners: judging split into "check" and "feedback" steps**, so no
+  step holds a tool it can misuse to jump ahead (GPT-4o called
+  reveal_answer for the next image right after giving feedback).
+- ✅/❌ detection ignores leading Markdown and quotes (e.g. `**✅ Correct**`).
+- Documented a real AutoGen GraphFlow behavior the benchmark exposes:
+  agents share only each other's chat messages, so text one agent writes
+  together with a tool call never reaches the others.
+
+- **guess-game: feedback sent together with a tool call now reaches the
+  player.** In the first real GPT-4o runs, three of four runners stalled in
+  round 1: the model wrote "✅ Correct!" in the same response as its next
+  tool call, and the engine treated that text as internal and ignored it.
+  All four runners now deliver such text as chat before the tool runs
+  (AutoGen's `thought`, LangGraph's AIMessage content via the node or a
+  `post_model_hook`), and the trace marks it `with_tool_call`.
+- The simulated player no longer answers "Okay!" when no guess is due; it
+  reacts to what's on screen (e.g. "I don't see a picture on screen yet"),
+  so an agent that forgot to show the image gets realistic pushback.
+- Rejected calls during judging now tell the agent that no ✅/❌ feedback
+  has reached the player yet, instead of a generic "can't do that now".
+- New UI-control check: an image pasted into chat (Markdown/HTML) instead of
+  the image card fails "no images pasted into chat".
+
+### Added
+
+- **New `guess-game` workflow (`guess_the_person` eval), run on the real
+  AutoGen and LangGraph packages.** A four-round stateful image-guessing
+  game that compares how each framework handles flow, native tool calling,
+  and controlled UI. A shared engine enforces the state machine, hides
+  answers until after each guess, tracks UI state separately from tool
+  calls, plays a scripted player (including a post-game message), and
+  records an ordered event trace. Scored mechanically on state and flow,
+  tool use, UI control, answer handling, and response quality, plus a
+  separate critical-invariants pass/fail. Fixtures: happy path and
+  case/whitespace normalization.
+- **2×2 framework × pattern comparison for `guess-game`.** Two more
+  runners: `autogen-graph` (AutoGen GraphFlow, graph-driven) and
+  `langgraph-agent` (LangGraph `create_react_agent`, agent-driven), next to
+  `autogen` (agent-driven) and `langgraph` (graph-driven). Each run records
+  its `pattern`. The table's framework column is wider to fit the names.
+- `requirements-frameworks.txt`: optional, pinned framework dependencies
+  (langgraph, langchain-openai/-anthropic, autogen-agentchat/-ext).
+- `core/framework_clients.py`: builds each framework's own model client
+  from a `config.yaml` entry (openai, anthropic, openai_compatible).
+- `testing/smoke_test_guess_game.py`: no-API-key test that runs both real
+  frameworks against scripted models (perfect and sloppy hosts).
+
 ### Changed
 
 - **Removed the Google Cloud Storage dependency.** The summarization

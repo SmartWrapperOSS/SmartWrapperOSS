@@ -48,7 +48,7 @@ def print_table(results: List[EvalResult], show_reasons: bool = True):
 
 
 def _build_header(dimension_names: List[str]) -> str:
-    columns = [f"{'Framework':<12}", f"{'Model':<22}"]
+    columns = [f"{'Framework':<16}", f"{'Model':<22}"]
     for name in dimension_names:
         columns.append(f"{name.replace('_', ' ').title():>14}")
     columns.append(f"{'Score':>8}")
@@ -56,7 +56,7 @@ def _build_header(dimension_names: List[str]) -> str:
 
 
 def _build_row(result: EvalResult, dimension_names: List[str]) -> str:
-    columns = [f"{result.framework:<12}", f"{result.model_id:<22}"]
+    columns = [f"{result.framework:<16}", f"{result.model_id:<22}"]
     for name in dimension_names:
         dim = result.score_result.dimensions[name]
         value = dim["score"]
@@ -117,7 +117,7 @@ def print_aggregate_table(aggs: "List[ComboAggregate]"):
     n_desc = f"n={n_values[0]}" if len(n_values) == 1 else f"n={n_values[0]}..{n_values[-1]}"
     dimension_names = list(aggs[0].dimensions.keys())
 
-    columns = [f"{'Framework':<12}", f"{'Model':<22}"]
+    columns = [f"{'Framework':<16}", f"{'Model':<22}"]
     for name in dimension_names:
         columns.append(f"{name.replace('_', ' ').title():>16}")
     columns += [f"{'Lat med/p95':>16}", f"{'Cost mean':>11}", f"{'Composite':>16}"]
@@ -131,7 +131,7 @@ def print_aggregate_table(aggs: "List[ComboAggregate]"):
     print(divider)
 
     for a in aggs:
-        row = [f"{a.framework:<12}", f"{a.model_id:<22}"]
+        row = [f"{a.framework:<16}", f"{a.model_id:<22}"]
         for name in dimension_names:
             m = a.dimensions[name]
             row.append(f"{f'{m.mean:.1f} ±{m.std:.1f}':>16}")

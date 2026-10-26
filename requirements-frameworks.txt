@@ -1,0 +1,12 @@
+# Optional: the REAL agent frameworks, needed only for workflows that run
+# them directly (currently: --workflow guess-game).
+#   pip install -r requirements.txt -r requirements-frameworks.txt
+# Versions are pinned so benchmark results stay reproducible; resolved
+# against the openai/anthropic pins in requirements.txt.
+langgraph==1.2.17
+langchain-core==1.7.0
+langchain-openai==1.3.4
+langchain-anthropic==1.5.1
+autogen-agentchat==0.7.5
+autogen-core==0.7.5
+autogen-ext[openai,anthropic]==0.7.5
