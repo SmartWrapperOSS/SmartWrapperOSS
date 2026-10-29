@@ -10,6 +10,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **New `guidance-extraction` workflow (financial earnings-call guidance).**
+  Agents extract company guidance from two earnings-call excerpts and report
+  how it changed. Scored mechanically against an answer key: schema validity,
+  extraction accuracy with per-metric numeric tolerance, change detection,
+  grounding, and a critical hallucination check that fails on any reported
+  actual, analyst consensus, or invented item presented as guidance. Ships
+  with `benchmarks/guidance_extraction/northwind_q2_q3_fy2026.yaml` (fictional
+  company, synthetic numbers) and AutoGen-style and LangGraph-style runners.
+- `testing/smoke_test_guidance_extraction.py`: no-API-key test covering a
+  perfect, a trap-prone, and a non-JSON answer through both runners.
+
 ### Fixed
 
 - **guess-game: contradicting feedback is now caught.** A real GPT-4o run on

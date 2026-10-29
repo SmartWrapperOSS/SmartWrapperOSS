@@ -176,6 +176,50 @@ python main.py --workflow guess-game \
 `"  ada lovelace  "` guess, which must count as correct. To check the
 wiring without API keys: `python testing/smoke_test_guess_game.py`.
 
+### Run the Guidance-Extraction evaluator (financial earnings calls)
+
+Can a model read two earnings calls, pull out every piece of company
+guidance, and say exactly what changed, without mistaking a reported actual
+or an analyst's estimate for guidance? This is the task SmartWrapperOSS was
+originally built to answer for an LLM-powered financial insights product.
+
+```
+python main.py --workflow guidance-extraction \
+    --task benchmarks/guidance_extraction/northwind_q2_q3_fy2026.yaml \
+    --frameworks autogen langgraph \
+    --models gpt-4o claude-sonnet-4-6 gemini-3.5-flash \
+    --runs 5
+```
+
+The task uses a **fictional company with synthetic numbers**, so the answer
+key is exact and no model can have memorized it. Its two call excerpts
+contain 13 guidance items and 7 changes (raised, lowered, maintained,
+narrowed, initiated, withdrawn), plus deliberate traps: reported actuals,
+Street consensus, an industry forecast, an out-of-scope forward-looking
+number, and a quarter whose guidance simply expired. Scoring is fully
+mechanical, with no LLM judge:
+
+| Dimension | Weight | What's checked |
+|---|---|---|
+| Schema validity | 10% | Parseable JSON; listed metrics, valid periods, numeric bounds, known change types |
+| Extraction accuracy | 30% | Each expected item found, low/high within the metric's tolerance |
+| Change detection | 30% | Each change detected with the right type and from/to values; invented changes cost as much as missed ones |
+| Grounding | 15% | Share of reported items that are real guidance (not traps, inventions, or duplicates) |
+| Latency, cost | 7.5% each | Batch-normalized, as in the other workflows |
+| Critical invariants | reported, 0% | **Fails on any hallucinated guidance item.** Mean over runs = pass rate |
+
+The two runners decompose the job differently: `autogen` drafts the whole
+answer and has a reviewer agent check it, while `langgraph` extracts each
+document in its own node, compares in a separate node, and assembles the
+JSON in code. Code assembly always produces valid JSON, so the evaluator
+scales schema validity by the share of node outputs that actually parsed,
+keeping the comparison fair.
+
+A new company, quarter pair, or metric set is a new YAML file: documents,
+metrics with units and tolerances, the answer key, and traps. The loader
+validates the key at load time. No-API-key test:
+`python testing/smoke_test_guidance_extraction.py`.
+
 ### Run the Summarization evaluator
 
 ```bash
