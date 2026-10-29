@@ -20,6 +20,12 @@ Usage (guess-game: guess_the_person, real AutoGen vs real LangGraph, 2x2):
                    --frameworks autogen autogen-graph langgraph-agent langgraph \
                    --models gpt-4o claude-sonnet-4-6
 
+Usage (guidance-extraction: earnings-call guidance + changes, mechanical scoring):
+    python main.py --workflow guidance-extraction \
+                   --task benchmarks/guidance_extraction/northwind_q2_q3_fy2026.yaml \
+                   --frameworks autogen langgraph \
+                   --models gpt-4o claude-sonnet-4-6
+
 HOW THIS FILE STAYS SIMPLE AS WORKFLOWS ARE ADDED:
 This file never imports anything summarization- or tool-use-specific
 directly into its logic. Instead, WORKFLOW_REGISTRY below maps a
@@ -145,10 +151,31 @@ def build_guess_game(config: dict, router: ModelRouter, args):
     return runners, evaluator, task, task
 
 
+def build_guidance_extraction(config: dict, router: ModelRouter, args):
+    from workflows.guidance_extraction.runner_autogen import GuidanceAutoGenRunner
+    from workflows.guidance_extraction.runner_langgraph import GuidanceLangGraphRunner
+    from workflows.guidance_extraction.evaluator import GuidanceExtractionEvaluator
+    from workflows.guidance_extraction.task import load_task
+
+    print(f"Loading guidance task: {args.task}")
+    task = load_task(args.task)
+    print(f"  Task: {task.task_id} ({len(task.documents)} documents, "
+          f"{len(task.expected_guidance)} guidance items, {len(task.expected_changes)} changes)")
+
+    runners = {
+        "autogen": GuidanceAutoGenRunner(router),
+        "langgraph": GuidanceLangGraphRunner(router),
+    }
+    evaluator = GuidanceExtractionEvaluator(
+        weights=config["evaluation"].get("guidance_extraction_weights"))
+    return runners, evaluator, task, task
+
+
 WORKFLOW_REGISTRY = {
     "summarize": build_summarize,
     "tool-use": build_tool_use,
     "guess-game": build_guess_game,
+    "guidance-extraction": build_guidance_extraction,
 }
 
 
@@ -165,7 +192,7 @@ def _task_tag(workflow_name: str, args) -> str:
     import os
     if workflow_name == "summarize":
         return os.path.splitext(os.path.basename(args.file))[0]
-    if workflow_name in ("tool-use", "guess-game"):
+    if workflow_name in ("tool-use", "guess-game", "guidance-extraction"):
         return os.path.splitext(os.path.basename(args.task))[0]
     return "default"
 
@@ -331,7 +358,7 @@ def main():
     # Workflow-specific inputs — only one is required depending on --workflow
     parser.add_argument("--file", help="Local path (or http(s) URL) of a PDF/DOCX/TXT/CSV document, "
                              "required for --workflow summarize")
-    parser.add_argument("--task", help="Path to a benchmark task YAML, required for --workflow tool-use and guess-game")
+    parser.add_argument("--task", help="Path to a benchmark task YAML, required for --workflow tool-use, guess-game, and guidance-extraction")
 
     args = parser.parse_args()
 
@@ -339,7 +366,7 @@ def main():
         parser.error("--runs must be >= 1")
     if args.workflow == "summarize" and not args.file:
         parser.error("--workflow summarize requires --file")
-    if args.workflow in ("tool-use", "guess-game") and not args.task:
+    if args.workflow in ("tool-use", "guess-game", "guidance-extraction") and not args.task:
         parser.error(f"--workflow {args.workflow} requires --task")
 
     config = load_config(args.config)

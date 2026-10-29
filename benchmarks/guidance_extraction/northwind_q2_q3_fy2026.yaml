@@ -1,0 +1,119 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 Aditi Jain (SmartWrapperOSS)
+
+# Benchmark: financial guidance extraction across two earnings calls.
+#
+# Northwind Devices is a FICTIONAL company and every number below is
+# synthetic, so the answer key is exact and no model can have memorized it.
+#
+# The agent reads two call excerpts and must:
+#   1. extract every forward-looking guidance item (metric, period, low/high)
+#   2. report how each guided metric changed from the earlier call to the later
+#      one (raised, lowered, maintained, narrowed, widened, initiated, withdrawn)
+#
+# What makes it hard is what is NOT guidance. Both excerpts contain reported
+# actuals, analyst consensus, and an industry forecast. Reporting one of these
+# as company guidance is a hallucination and fails the critical check.
+# One more pitfall tests reasoning, not reading: Q3 guidance from the Q2 call
+# expires once Q3 is reported, so "Q3 revenue guidance was withdrawn" is a
+# false change.
+
+task_id: guidance_northwind_q2_q3_fy2026
+
+company: Northwind Devices (fictional)
+
+documents:
+  - id: q2
+    label: "Q2 FY2026 earnings call, July 30, 2026"
+    text: |
+      CEO: Thanks, everyone. Second-quarter revenue was $1.02 billion, up 14%
+      year over year, and gross margin came in at 42.1%. Demand for our
+      fitness wearables stayed strong through the quarter.
+
+      CFO: Turning to the outlook. For the third quarter, we expect revenue of
+      $1.00 billion to $1.04 billion. For full fiscal year 2026, we expect
+      revenue of approximately $4.1 billion. We expect full-year gross margin
+      in the range of 41% to 43%, operating expenses of $1.20 billion to
+      $1.25 billion, and capital expenditures of approximately $300 million.
+      We expect full-year diluted EPS of $2.10 to $2.20, and free cash flow of
+      at least $500 million.
+
+      I'd note that Street consensus for full-year revenue is around
+      $4.0 billion, and industry analysts expect the smart-wearables market to
+      grow about 12% this year.
+
+  - id: q3
+    label: "Q3 FY2026 earnings call, October 29, 2026"
+    text: |
+      CEO: Third-quarter revenue was $1.06 billion, above the high end of our
+      guidance range, with gross margin of 42.8%.
+
+      CFO: For the fourth quarter, we expect revenue of $1.18 billion to
+      $1.22 billion. Given the strength we saw in Q3, we are raising our
+      full-year revenue outlook to approximately $4.3 billion. We are
+      narrowing our full-year gross margin range to 42% to 43%. Our operating
+      expense outlook of $1.20 billion to $1.25 billion is unchanged. We now
+      expect capital expenditures of approximately $260 million, reflecting
+      the shift of a facility build-out into next year. We are raising our
+      full-year diluted EPS outlook to $2.25 to $2.35.
+
+      Finally, given uncertainty around the timing of tariff refunds, we are
+      no longer providing a free cash flow outlook. We do expect to receive
+      roughly $40 million in tariff refunds in the first quarter of fiscal
+      2027. Analyst consensus for fourth-quarter revenue sits near
+      $1.25 billion.
+
+# The only metrics the agent may report, each with the unit its numbers must
+# use and the absolute tolerance the evaluator allows when comparing values.
+# Forward-looking statements about anything else (like the tariff refunds)
+# are out of scope and must be left out.
+metrics:
+  revenue:            {unit: USD billions, tol: 0.01,  description: Total company revenue}
+  gross_margin:       {unit: percent,      tol: 0.05,  description: Gross margin as a percentage of revenue}
+  operating_expenses: {unit: USD billions, tol: 0.01,  description: Total operating expenses}
+  capex:              {unit: USD millions, tol: 1,     description: Capital expenditures}
+  diluted_eps:        {unit: USD,          tol: 0.005, description: Diluted earnings per share}
+  free_cash_flow:     {unit: USD millions, tol: 1,     description: Free cash flow}
+
+# --- Answer key -------------------------------------------------------------
+# Point guidance ("approximately $4.1 billion") has low == high. An open
+# bound ("at least $500 million") has high: null.
+expected_guidance:
+  - {source: q2, metric: revenue,            period: Q3FY2026, low: 1.00, high: 1.04}
+  - {source: q2, metric: revenue,            period: FY2026,   low: 4.1,  high: 4.1}
+  - {source: q2, metric: gross_margin,       period: FY2026,   low: 41,   high: 43}
+  - {source: q2, metric: operating_expenses, period: FY2026,   low: 1.20, high: 1.25}
+  - {source: q2, metric: capex,              period: FY2026,   low: 300,  high: 300}
+  - {source: q2, metric: diluted_eps,        period: FY2026,   low: 2.10, high: 2.20}
+  - {source: q2, metric: free_cash_flow,     period: FY2026,   low: 500,  high: null}
+  - {source: q3, metric: revenue,            period: Q4FY2026, low: 1.18, high: 1.22}
+  - {source: q3, metric: revenue,            period: FY2026,   low: 4.3,  high: 4.3}
+  - {source: q3, metric: gross_margin,       period: FY2026,   low: 42,   high: 43}
+  - {source: q3, metric: operating_expenses, period: FY2026,   low: 1.20, high: 1.25}
+  - {source: q3, metric: capex,              period: FY2026,   low: 260,  high: 260}
+  - {source: q3, metric: diluted_eps,        period: FY2026,   low: 2.25, high: 2.35}
+
+# `from` is the earlier call's guidance, `to` the later call's; null means
+# there was none. `accept` lists other change types that are fair readings
+# (raising only the low end of a range is also a narrowing).
+expected_changes:
+  - {metric: revenue,            period: FY2026,   type: raised,     from: {low: 4.1,  high: 4.1},  to: {low: 4.3,  high: 4.3}}
+  - {metric: gross_margin,       period: FY2026,   type: narrowed,   accept: [raised], from: {low: 41, high: 43}, to: {low: 42, high: 43}}
+  - {metric: operating_expenses, period: FY2026,   type: maintained, from: {low: 1.20, high: 1.25}, to: {low: 1.20, high: 1.25}}
+  - {metric: capex,              period: FY2026,   type: lowered,    from: {low: 300,  high: 300},  to: {low: 260,  high: 260}}
+  - {metric: diluted_eps,        period: FY2026,   type: raised,     from: {low: 2.10, high: 2.20}, to: {low: 2.25, high: 2.35}}
+  - {metric: free_cash_flow,     period: FY2026,   type: withdrawn,  from: {low: 500,  high: null}, to: null}
+  - {metric: revenue,            period: Q4FY2026, type: initiated,  from: null,                    to: {low: 1.18, high: 1.22}}
+
+# Statements that look like guidance but aren't. Reporting one of these as a
+# guidance item fails the critical check, even when it shares a metric and
+# period with real guidance (e.g. giving the $4.0B consensus instead of the
+# company's $4.1B). The description appears in the score reason, so you can
+# see exactly which trap a model fell for.
+traps:
+  - {source: q2, metric: revenue,      period: Q2FY2026, value: 1.02, description: "Q2 reported revenue (an actual, not guidance)"}
+  - {source: q2, metric: gross_margin, period: Q2FY2026, value: 42.1, description: "Q2 reported gross margin (an actual)"}
+  - {source: q2, metric: revenue,      period: FY2026,   value: 4.0,  description: "Street consensus of $4.0B (analysts, not the company)"}
+  - {source: q3, metric: revenue,      period: Q3FY2026, value: 1.06, description: "Q3 reported revenue (an actual)"}
+  - {source: q3, metric: gross_margin, period: Q3FY2026, value: 42.8, description: "Q3 reported gross margin (an actual)"}
+  - {source: q3, metric: revenue,      period: Q4FY2026, value: 1.25, description: "Q4 analyst consensus of $1.25B"}

@@ -138,6 +138,17 @@ evaluation:
     latency: 0.0
     cost: 0.0
 
+  # Fully mechanical (no judge). critical_invariants is the hallucination
+  # pass/fail column: weight 0, its mean over runs is the pass rate.
+  guidance_extraction_weights:
+    schema_validity: 0.10
+    extraction_accuracy: 0.30
+    change_detection: 0.30
+    grounding: 0.15
+    critical_invariants: 0.0
+    latency: 0.075
+    cost: 0.075
+
 # --- Output settings ---
 output:
   show_reasons: true               # print judge/scoring reasons under each row
