@@ -171,6 +171,26 @@
     computed from. If a claim here can't be reproduced from its raw runs,
     that's a bug — <a href="https://github.com/SmartWrapperOSS/SmartWrapperOSS/issues" style="color:inherit">file it</a>.</p>
 
+    <!-- ============ 2026-10-26 : guess-the-person, real AutoGen vs real LangGraph, 2x2 (current) ============ -->
+    <section class="release">
+      <div class="release-date">2026&#8209;10&#8209;26</div>
+      <div class="release-body">
+        <p class="release-title">Guess-the-person: stateful agent, framework &times; pattern<span class="chip current">current</span></p>
+        <p class="release-method">n=5 runs per (framework, model) &middot; real AutoGen and LangGraph packages, native tool calling &middot; 2&times;2 of agent-driven vs graph-driven &middot; fully mechanical scoring &middot; mean &plusmn; sample std dev &middot; 95% CI (Student's t)</p>
+
+        <div class="card">
+          <div class="card-head">
+            <span class="card-title">Guess-game &middot; guess_the_person (gpt-4o)</span>
+            <span class="card-links">
+              <a href="2026-10-26_guess-game_aggregate_n5.html">dashboard</a><span class="sep">&middot;</span><a href="2026-10-26_guess-game_aggregate_n5.json">json</a><span class="sep">&middot;</span><a href="https://github.com/SmartWrapperOSS/SmartWrapperOSS/tree/main/runs/guess-game">raw runs</a>
+            </span>
+          </div>
+          <p class="headline"><span class="k">tied</span> autogen, langgraph, langgraph-agent + gpt-4o &middot; composite 100.0 &plusmn;0.0 <span class="k">&middot; then</span> autogen-graph + gpt-4o &middot; 99.5 &plusmn;1.1</p>
+          <p class="verdict">Critical invariants passed in 20/20 runs. gpt-4o saturates this task in every framework and pattern, so it can't separate them on quality; the difference is cost, from $0.037/run (langgraph) to $0.044/run (autogen) at similar ~16s median latency. Harder variants are needed to rank frameworks on behavior.</p>
+        </div>
+      </div>
+    </section>
+
     <!-- ============ 2026-09-08 : MCP tool provider comparison (current) ============ -->
     <section class="release">
       <div class="release-date">2026&#8209;09&#8209;08</div>
