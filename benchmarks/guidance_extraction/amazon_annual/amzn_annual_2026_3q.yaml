@@ -1,0 +1,828 @@
+task_id: guidance_amazon_annual_2026_3q
+company: Amazon.com, Inc. (real FY2026 Q1, Q2, Q3 SEC earnings releases)
+documents:
+- id: q1_2026
+  label: Amazon Q1 2026 Earnings Release, April 29, 2026
+  text: "AMAZON.COM ANNOUNCES FIRST QUARTER RESULTS\nSEATTLE—(BUSINESS WIRE) April\
+    \ 29, 2026—Amazon.com, Inc. (NASDAQ: AMZN) today announced financial results\n\
+    for its first quarter ended March 31, 2026.\n•\n\n•\n\n•\n\nNet sales increased\
+    \ 17% to $181.5 billion in the first quarter, compared with $155.7 billion in\
+    \ first quarter 2025.\nExcluding the $2.9 billion favorable impact from year-over-year\
+    \ changes in foreign exchange rates throughout the\nquarter, net sales increased\
+    \ 15% compared with first quarter 2025.\n•\n\nNorth America segment sales increased\
+    \ 12% year-over-year to $104.1 billion.\n\n•\n\nInternational segment sales increased\
+    \ 19% year-over-year to $39.8 billion, or increased 11% excluding\nchanges in\
+    \ foreign exchange rates.\n\n•\n\nAWS segment sales increased 28% year-over-year\
+    \ to $37.6 billion.\n\nOperating income increased to $23.9 billion in the first\
+    \ quarter, compared with $18.4 billion in first quarter 2025.\n•\n\nNorth America\
+    \ segment operating income was $8.3 billion, compared with $5.8 billion in first\
+    \ quarter 2025.\n\n•\n\nInternational segment operating income was $1.4 billion,\
+    \ compared with $1.0 billion in first quarter 2025.\n\n•\n\nAWS segment operating\
+    \ income was $14.2 billion, compared with $11.5 billion in first quarter 2025.\n\
+    \nNet income increased to $30.3 billion in the first quarter, or $2.78 per diluted\
+    \ share, compared with $17.1 billion, or\n$1.59 per diluted share, in first quarter\
+    \ 2025.\n•\n\nFirst quarter 2026 net income includes pre-tax gains of $16.8 billion\
+    \ included in non-operating income from\nour investments in Anthropic.\n\n•\n\n\
+    Operating cash flow increased 30% to $148.5 billion for the trailing twelve months,\
+    \ compared with $113.9 billion for\nthe trailing twelve months ended March 31,\
+    \ 2025.\n\n•\n\nFree cash flow decreased to $1.2 billion for the trailing twelve\
+    \ months, driven primarily by a year-over-year increase\nof $59.3 billion in purchases\
+    \ of property and equipment, net of proceeds from sales and incentives. This increase\n\
+    primarily reflects investments in artificial intelligence. This compares to free\
+    \ cash flow of $25.9 billion for the trailing\ntwelve months ended March 31, 2025.\n\
+    \n“We’re making customers’ lives easier and better every day across all our businesses,\
+    \ and their response is driving significant\ngrowth,” said Andy Jassy, President\
+    \ and CEO, Amazon. “AWS is growing 28% (our fastest growth in 15 quarters) on\
+    \ a very\nlarge base, our chips business topped a $20 billion revenue run rate\
+    \ (growing triple digits year-over-year), Advertising grew to\nover $70 billion\
+    \ in TTM revenue, and unit growth in our Stores reached 15% (the highest since\
+    \ the tail end of covid\nlockdowns). We also hit exciting milestones with delivery\
+    \ speed (more than 1 billion items same-day or overnight in 2026 and\ncounting),\
+    \ Project Hail Mary (nearly $615 million at the box office to date and the second\
+    \ most successful non-sequel, nonfranchise opening of recent memory), and Amazon\
+    \ Leo continues to resonate with prospective customers, with Delta Airlines\n\
+    the latest to sign on. We’re in the middle of some of the biggest inflections\
+    \ of our lifetime, we’re well positioned to lead, and\nI’m very optimistic about\
+    \ what’s ahead for our customers and Amazon.”\nSome other highlights since the\
+    \ company’s last earnings announcement include that Amazon:\n•\n\nContinued growing\
+    \ custom silicon business while also continuing to offer the broadest selection\
+    \ of compute options.\n•\n\nExceeded $20 billion annual revenue run rate for Amazon’s\
+    \ chips business—inclusive of Graviton, Trainium,\nand Nitro—which is growing\
+    \ triple-digit percentages year-over-year.\n\n\f•\n\nSecured a commitment from\
+    \ OpenAI to consume approximately two gigawatts (GW) of Trainium capacity\nthrough\
+    \ AWS infrastructure to power its frontier models and advanced workloads, which\
+    \ begins ramping in\n2027.\n\n•\n\nAnnounced that Anthropic will secure up to\
+    \ five gigawatts (GW) of current and future generations of\nAmazon’s Trainium\
+    \ chips to train and power their advanced AI models.\n\n•\n\nLanded 2.1 million+\
+    \ AI chips over the past 12 months, more than half of which were Trainium, and\n\
+    announced one million+ NVIDIA GPUs to be deployed starting in 2026, giving customers\
+    \ the widest range of\naccelerated compute options.\n\n•\n\nAnnounced a collaboration\
+    \ with Cerebras and plans to deliver through Amazon Bedrock the fastest AI\ninference\
+    \ speeds available for large language models, becoming the only cloud provider\
+    \ to offer a solution\nlike this.\n\n•\n\nPartnered with Uber to put Graviton4\
+    \ chips to work on millions of daily rides and deliveries—matching riders\nwith\
+    \ drivers in fractions of a second at lower cost—and leveraging Trainium3 to train\
+    \ the Al models that\nmake every ride smarter over time.\n\n•\n\nSigned an agreement\
+    \ with Meta, already an Amazon Bedrock customer at scale, to deploy tens of millions\
+    \ of\nAWS Graviton cores to power CPU-intensive workloads behind its agentic AI\
+    \ efforts, including real-time\nreasoning, code generation, and multi-step agent\
+    \ workflows.\n\n•\n\nAnnounced new AWS agreements with OpenAI, Anthropic, Meta,\
+    \ NVIDIA, Uber, U.S. Bank, Fox Corporation,\nSouthwest Airlines, U.S. Army, Bloomberg,\
+    \ Cerebras, AT&T, DTCC, Nokia, Fundamental, The National Geographic\nSociety,\
+    \ NEURA Robotics, DXC, PGA TOUR, O2 Telefónica, NTT DOCOMO, Veolia, The Evri Group,\
+    \ Telenor,\nModMed, Yotta Data Services, Parrot Analytics, U.S. Hunger, TGS, and\
+    \ more.\n\n•\n\nAnnounced the preview of Amazon Bedrock Managed Agents, powered\
+    \ by OpenAI, a Stateful Runtime Environment\navailable on Amazon Bedrock for AWS\
+    \ customers to build generative AI applications and agents at production scale.\n\
+    \n•\n\nAnnounced OpenAI’s GPT-5.4 model is available to customers in limited preview\
+    \ on Amazon Bedrock, with GPT-5.5\ncoming soon.\n\n•\n\nAnnounced the Amazon Quick\
+    \ desktop app, which can query email, calendar, Slack, local files, and several\
+    \ other\napplications to retrieve and summarize information, make recommendations,\
+    \ compose and send communications, and\ncreate agents that highlight or automatically\
+    \ do work. Users can keep refining their preferences and Quick’s advanced\nknowledge\
+    \ graph enables its AI agents to automatically learn from users’ interactions\
+    \ with others, becoming more\npersonalized over time.\n\n•\n\nExpanded Amazon\
+    \ Connect to include Connect Decisions, Connect Talent, Connect Customer, and\
+    \ Connect Health to\nhelp organizations transform supply chain operations, hiring,\
+    \ customer experience, and health care, without requiring\nteams to overhaul existing\
+    \ processes or become AI experts.\n\n•\n\nLaunched new capabilities for Amazon\
+    \ Bedrock AgentCore, AWS’s pioneering set of infrastructure building blocks\n\
+    for developers and companies to build secure, scalable agents that is now used\
+    \ to deploy an agent as frequently as\nevery 10 seconds, including:\n•\n\nAWS\
+    \ Agent Registry to help customers discover, share, and reuse AI agents, tools,\
+    \ and agent skills across an\nenterprise for secure, governed access to agents\
+    \ at scale.\n\n•\n\nA new managed agent harness that allows customers to define\
+    \ the model, tools, and instructions an agent\nshould use, and AgentCore automatically\
+    \ stitches together the infrastructure to create a running agent in\nminutes.\n\
+    \n•\n\nThe general availability of Policy in Amazon Bedrock AgentCore to control\
+    \ what agents can and cannot do,\nand of AgentCore Evaluations for automated quality\
+    \ assessments of agents.\n\n•\n\nAnnounced the availability of Claude Mythos Preview,\
+    \ as part of Project Glasswing with Anthropic, in Amazon\nBedrock. Claude Mythos\
+    \ Preview is a new class of AI model for cybersecurity and vulnerability detection\
+    \ that has\nbeen applied to critical AWS codebases and is available in gated research\
+    \ preview with enterprise-grade security\ncontrols.\n\n•\n\nAnnounced availability\
+    \ of Claude Opus 4.7 in Amazon Bedrock—Anthropic’s most capable Opus model for\
+    \ coding,\nlong-running agents, and professional work—which delivers enhanced\
+    \ privacy controls, broader regional availability,\nand improved throughput.\n\
+    \n\f•\n\nProcessed more tokens on Bedrock in the first quarter than all prior\
+    \ years combined, and Bedrock saw 170% growth in\ncustomer spend quarter-over-quarter.\n\
+    \n•\n\nMore than doubled the number of developers using Kiro quarter-over-quarter,\
+    \ and enterprise customer usage increased\nnearly tenfold.\n\n•\n\nLaunched Amazon\
+    \ Bio Discovery, an agentic AI application designed to accelerate drug discovery\
+    \ by giving scientists\naccess to biological foundation models, an AI agent for\
+    \ experimental designs, and integrated lab partners for testing,\nwhich Memorial\
+    \ Sloan Kettering Cancer Center used to compress antibody design for potential\
+    \ pediatric cancer\ntherapies from months to weeks.\n\n•\n\nShared that Prime\
+    \ Day will take place in most countries in June. Amazon’s annual shopping event\
+    \ delivers incredible\nsavings to Prime members on millions of deals across more\
+    \ than 35 categories––from fashion and beauty to groceries,\nhousehold essentials,\
+    \ and electronics.\n\n•\n\nExpanded selection on Amazon.com, including more than\
+    \ 600 new notable brands, like Ted Baker, PAPATUI by\nDwayne Johnson, Simpson\
+    \ Strong-Tie, Sun Mountain Golf, Kind Patches, ONDO, and Chosen Foods.\n\n•\n\n\
+    Made Same-Day delivery even faster with new 1-hour and 3-hour delivery options\
+    \ on 90,000+ products in the U.S.—\neverything from paper towels and cleaning\
+    \ supplies to electronics. One-hour delivery is available in hundreds of cities\n\
+    and towns, and 3-hour delivery is in 2,000+ cities and towns.\n\n•\n\nLaunched\
+    \ availability of Amazon Now (ultra-fast delivery in 30-minutes or less) in parts\
+    \ of Tokyo and eight major\ncities in Brazil—bringing the total availability of\
+    \ Amazon Now to tens of millions of customers across nine countries\n—and plans\
+    \ to continue expanding the service in the U.S. and around the world this year.\n\
+    \n•\n\nIntroduced a new AI experience in Seller Central that dynamically generates\
+    \ a custom, personalized visualization of\ndata, key insights, and scenarios tailored\
+    \ to the seller’s goals to help them take actions to grow their business.\n\n\
+    •\n\nLaunched “Join the chat,” a new feature in Amazon’s AI-powered “Hear the\
+    \ highlights,” that lets customers ask\nquestions while listening to product summaries\
+    \ and get answers in real time. “Hear the highlights” has been used by\nmillions\
+    \ of customers who have streamed over 40 million minutes of audio.\n\n•\n\nLaunched\
+    \ Health AI on the Amazon U.S. app and website, bringing a 24/7 AI-powered personal\
+    \ health agent backed\nby One Medical clinicians to customers. Health AI gives\
+    \ personalized health insights and guidance and takes action\nwith permission,\
+    \ including providing instant care via messaging, booking appointments, and managing\
+    \ prescriptions.\nVirtual care visits have nearly tripled year-over-year, with\
+    \ a majority of those visits now via Health AI. No other major\nAI assistant enables\
+    \ care services in this way, and only Amazon offers up to five free virtual care\
+    \ visits through Prime.\n\n•\n\nAnnounced plans to expand Same-Day Amazon Pharmacy\
+    \ delivery to nearly 4,500 U.S. cities and towns by year-end,\nwith expanded GLP-1\
+    \ selection, including Novo Nordisk’s Wegovy High Dose injectable and Eli Lilly\
+    \ and\nCompany’s Zepbound KwikPen and Foundayo pill. In addition, Amazon launched\
+    \ a comprehensive GLP-1\nManagement Program through Amazon One Medical that integrates\
+    \ primary care, pharmacy, and virtual care options\nto help patients achieve lasting\
+    \ weight loss results.\n\n•\n\nIntroduced Sponsored Products and Brand Prompts\
+    \ in Rufus, Amazon’s AI shopping assistant. Prompts act as a virtual\nproduct\
+    \ expert, automatically surfacing relevant details and deepening shopper confidence\
+    \ at key moments in their\nshopping journey. Nearly 20% of shoppers who interact\
+    \ with a prompt in Rufus continue the conversation about that\nbrand.\n\n•\n\n\
+    Added Amazon Audiences for advertisers using Amazon Ads to buy advertising on\
+    \ Netflix, enabling brands to use\nAmazon’s proprietary shopping, streaming, and\
+    \ browsing signals, to reach relevant Netflix audiences and drive even\nstronger\
+    \ performance.\n\n•\n\nLaunched Creative Agent, an agentic AI solution for advertisers\
+    \ in Canada, France, Germany, India, Italy, Spain, and\nthe UK. Creative Agent\
+    \ acts as a virtual creative partner, helping advertisers research, brainstorm,\
+    \ and generate fullfunnel ad campaigns from concept to completion using conversational\
+    \ guidance and Amazon’s retail data.\n\n•\n\nGenerated nearly $615 million in\
+    \ global box office for Project Hail Mary to date, anchored by an $80 million+\
+    \ U.S./\nCanada opening weekend—only the second non-sequel, non-franchise film\
+    \ in the last decade to exceed this mark.\n\n•\n\nDebuted exclusive coverage of\
+    \ NBA SoFi Play-In Tournament, averaging nearly 2.8 million U.S. viewers on Prime\n\
+    Video across six exclusive broadcasts, up 18% compared to last year on cable.\n\
+    \n•\n\nAnnounced planned acquisition of Globalstar, which will enable Amazon Leo\
+    \ to add direct-to-device services to its\nnetwork, and that Amazon Leo will power\
+    \ satellite services for Apple iPhone and Apple Watch.\n\n\f•\n\nAnnounced new\
+    \ customer agreements with Delta Air Lines to bring free, high-speed Amazon Leo-powered\
+    \ Wi-Fi to\nhundreds of aircraft beginning in 2028; Vodafone to extend mobile\
+    \ coverage across Europe and Africa; and the DP\nWorld Tour to provide satellite-powered\
+    \ connectivity across 42 professional golf tournaments annually.\n\n•\n\nCompleted\
+    \ its tenth launch of Amazon Leo’s satellites, bringing the number of satellites\
+    \ in orbit to 250+, with 20+\nadditional launches planned over the next year.\n\
+    \n•\n\nExpanded Alexa+ to Mexico, the UK, Italy, and Spain and introduced new\
+    \ capabilities, including Alexa+ Personality\nStyles to customize how Alexa responds\
+    \ to questions and requests as well as Send to Alexa to share notebooks and\n\
+    documents from Kindle Scribe to Alexa.\n\n•\n\nBegan testing Zoox’s purpose-built\
+    \ robotaxi in Austin and Miami, expanded services in San Francisco and Las Vegas,\n\
+    and announced an agreement with Uber to bring Zoox robotaxis to the Uber app in\
+    \ Las Vegas and Los Angeles. Zoox\nhas driven nearly 2 million miles and carried\
+    \ 350,000+ riders in its robotaxis.\n\n•\n\nContinued making significant progress\
+    \ on safety—improving both Amazon’s Global Recordable Incident Rate and\nGlobal\
+    \ Lost Time Incident Rate by 14% year-over-year, and improving Global Recordable\
+    \ Incident Rate by 43% and\nGlobal Lost Time Incident Rate by 70% over the past\
+    \ six years.\n\nFinancial Guidance\nThe following forward-looking statements reflect\
+    \ Amazon.com’s expectations as of April 29, 2026, and are subject to\nsubstantial\
+    \ uncertainty. Our results are inherently unpredictable and may be materially\
+    \ affected by many factors, such as\nfluctuations in foreign exchange rates and\
+    \ energy prices, changes in global economic and geopolitical conditions, tariff\
+    \ and\ntrade policies, resource and supply volatility, including for memory chips,\
+    \ and customer demand and spending (including the\nimpact of recessionary fears),\
+    \ inflation, interest rates, regional labor market constraints, world events,\
+    \ the rate of growth of the\ninternet, online commerce, cloud services, and new\
+    \ and emerging technologies, and the various factors detailed below.\nSecond Quarter\
+    \ 2026 Guidance\n•\n\nNet sales are expected to be between $194.0 billion and\
+    \ $199.0 billion, or to grow between 16% and 19% compared\nwith second quarter\
+    \ 2025. This guidance anticipates an unfavorable impact of approximately 10 basis\
+    \ points from\nforeign exchange rates.\n\n•\n\nOperating income is expected to\
+    \ be between $20.0 billion and $24.0 billion, compared with $19.2 billion in second\n\
+    quarter 2025.\n\n•\n\nThis guidance assumes that Prime Day occurs in second quarter\
+    \ 2026.\n\n•\n\nThis guidance assumes, among other things, that no additional\
+    \ business acquisitions, restructurings, or legal\nsettlements are concluded.\n\
+    \nConference Call Information\nA conference call will be webcast live today at\
+    \ 2:30 p.m. PT/5:30 p.m. ET, and will be available for at least three months at\n\
+    amazon.com/ir. This call will contain forward-looking statements and other material\
+    \ information regarding the Company’s\nfinancial and operating results.\nForward-Looking\
+    \ Statements\nThese forward-looking statements are inherently difficult to predict.\
+    \ Actual results and outcomes could differ materially for a\nvariety of reasons,\
+    \ including, in addition to the factors discussed above, the amount that Amazon.com\
+    \ invests in new business\nopportunities and the timing of those investments,\
+    \ the mix of products and services sold to customers, the mix of net sales\nderived\
+    \ from products as compared with services, the extent to which we owe income or\
+    \ other taxes, competition, management\nof growth, potential fluctuations in operating\
+    \ results, international growth and expansion, the outcomes of claims, litigation,\n\
+    government investigations, and other proceedings, fulfillment, sortation, delivery,\
+    \ and data center optimization, risks of\ninventory management, variability in\
+    \ demand, the degree to which the Company enters into, maintains, and develops\n\
+    commercial agreements, proposed and completed acquisitions and strategic transactions,\
+    \ payments risks, and risks of\nfulfillment throughput and productivity. Other\
+    \ risks and uncertainties include, among others, risks related to new products,\n\
+    services, and technologies, security incidents, system interruptions, government\
+    \ regulation and taxation, and fraud. In addition,\nglobal economic and geopolitical\
+    \ conditions and additional or unforeseen circumstances, developments, or events\
+    \ may give\nrise to or amplify many of these risks. More information about factors\
+    \ that potentially could affect Amazon.com’s financial\nresults is included in\
+    \ Amazon.com’s filings with the Securities and Exchange Commission (“SEC”), including\
+    \ its most recent\nAnnual Report on Form 10-K and subsequent filings.\n\n\fAdditional\
+    \ Information\nOur investor relations website is amazon.com/ir and we encourage\
+    \ investors to use it as a way of easily finding information\nabout us. We promptly\
+    \ make available on this website, free of charge, the reports that we file or\
+    \ furnish with the SEC, corporate\ngovernance information (including our Code\
+    \ of Business Conduct and Ethics), and select press releases, which may contain\n\
+    material information about us, and you may subscribe to be notified of new information\
+    \ posted to this site.\nAbout Amazon\nAmazon is guided by four principles: customer\
+    \ obsession rather than competitor focus, passion for invention, commitment to\n\
+    operational excellence, and long-term thinking. Amazon strives to be Earth’s Most\
+    \ Customer-Centric Company, Earth’s Best\nEmployer, and Earth’s Safest Place to\
+    \ Work. Customer reviews, 1-Click shopping, personalized recommendations, Prime,\n\
+    Fulfillment by Amazon, AWS, Kindle Direct Publishing, Kindle, Career Choice, Fire\
+    \ tablets, Fire TV, Amazon Echo, Alexa,\nJust Walk Out technology, Amazon Studios,\
+    \ and The Climate Pledge are some of the things pioneered by Amazon. For more\n\
+    information, visit amazon.com/about and follow @AmazonNews."
+- id: q2_2026
+  label: Amazon Q2 2026 Earnings Release, July 30, 2026
+  text: "AMAZON.COM ANNOUNCES SECOND QUARTER RESULTS\nNet sales increased 20% year-over-year\n\
+    Operating income was $27.5 billion, up 43% year-over-year\nAWS net sales increased\
+    \ 37%—its fastest growth in 18 quarters—to a $169 billion annualized revenue run\
+    \ rate\nSEATTLE—(BUSINESS WIRE) July 30, 2026—Amazon.com, Inc. (NASDAQ: AMZN)\
+    \ today announced financial results for\nits second quarter ended June 30, 2026.\n\
+    •\n\n•\n\n•\n\nNet sales increased 20% to $200.6 billion in the second quarter,\
+    \ compared with $167.7 billion in second quarter 2025.\nExcluding the $0.1 billion\
+    \ favorable impact from year-over-year changes in foreign exchange rates throughout\
+    \ the\nquarter, net sales increased 20% compared with second quarter 2025.\n•\n\
+    \nNorth America segment sales increased 16% year-over-year to $116.2 billion.\n\
+    \n•\n\nInternational segment sales increased 15% year-over-year to $42.2 billion.\n\
+    \n•\n\nAWS segment sales increased 37% year-over-year to $42.2 billion.\n\nOperating\
+    \ income increased to $27.5 billion in the second quarter, compared with $19.2\
+    \ billion in second quarter\n2025.\n•\n\nNorth America segment operating income\
+    \ was $9.1 billion, compared with $7.5 billion in second quarter\n2025.\n\n•\n\
+    \nInternational segment operating income was $1.7 billion, compared with $1.5\
+    \ billion in second quarter 2025.\n\n•\n\nAWS segment operating income was $16.6\
+    \ billion, compared with $10.2 billion in second quarter 2025.\n\nNet income increased\
+    \ to $62.6 billion in the second quarter, or $5.75 per diluted share, compared\
+    \ with $18.2 billion,\nor $1.68 per diluted share, in second quarter 2025.\n•\n\
+    \nSecond quarter 2026 net income includes non-operating pre-tax other income of\
+    \ $53.4 billion, primarily from\nour investments in Anthropic.\n\n•\n\nOperating\
+    \ cash flow increased 33% to $161.4 billion for the trailing twelve months, compared\
+    \ with $121.1 billion for\nthe trailing twelve months ended June 30, 2025.\n\n\
+    •\n\nFree cash flow decreased to an outflow of $7.6 billion for the trailing twelve\
+    \ months, driven primarily by a year-overyear increase of $66.1 billion in purchases\
+    \ of property and equipment, net of proceeds from sales and incentives. This\n\
+    increase primarily reflects investments in artificial intelligence. This compares\
+    \ to free cash flow inflow of $18.2 billion\nfor the trailing twelve months ended\
+    \ June 30, 2025.\n\n“AWS is booming, growing 36.7% year-over-year in Q2—our fastest\
+    \ growth in 18 quarters—and our AI and Chips businesses\neach eclipsed run rates\
+    \ of more than $25 billion,” said Andy Jassy, President and CEO, Amazon. “In Stores,\
+    \ we again set record\ndelivery speeds for Prime members in the first half of\
+    \ the year—over 40% more items delivered same-day or overnight, with\nGrocery\
+    \ and Everyday Essentials growing meaningfully faster than the rest of the business.\
+    \ And, Advertising had another\nstrong quarter with 26% year-over-year growth.\
+    \ There’s a lot to be excited about, and we have much more coming for\ncustomers\
+    \ in the second half of the year and beyond.”\n\n\fSome other highlights since\
+    \ the company’s last earnings announcement include that Amazon:\n•\n\nExceeded\
+    \ a $25 billion annual revenue run rate for AWS’s AI business, growing triple-digit\
+    \ percentages year-overyear.\n\n•\n\nExceeded a $25 billion annual revenue run\
+    \ rate for its chips business, growing triple-digit percentages year-over-year.\n\
+    \n•\n\nContinued gaining momentum with Trainium, with the two leading AI labs\
+    \ in the world, Anthropic and OpenAI,\nmaking multi-year, multi-gigawatt commitments;\
+    \ an increasing number of AI start-ups adopting Trainium, including\nunicorns\
+    \ like NEURA Robotics and Odyssey; and commitments from other startups like TwelveLabs,\
+    \ Decart,\nPoolside, Karakuri, Inc., Metagenomi Therapeutics, Inc., NetoAI, and\
+    \ Splash Music, as well as larger companies like\nUber and Pinterest.\n\n•\n\n\
+    Released Graviton5 into general availability. Graviton delivers up to 30 to 40%\
+    \ better price-performance than\ncomparable instances, and Graviton5 delivers\
+    \ up to 25% better compute performance than Graviton4. Graviton is used\nby 98%\
+    \ of the top 1,000 EC2 customers, revenue commitments have increased nearly 3x\
+    \ quarter-over-quarter, and\nGraviton5 is growing nearly 2x faster than Graviton4\
+    \ did.\n\n•\n\nAdded 10+ fully managed foundation models to Amazon Bedrock, including\
+    \ OpenAI’s GPT-5.6, Anthropic’s Claude\nOpus 5, Google DeepMind’s Gemma 4, and\
+    \ SpaceXAI’s Grok 4.3. Amazon Bedrock provides the best selection of\nleading\
+    \ models, at superior performance, and with the governance and security controls\
+    \ that companies need, and it’s\ncontinuing to grow quickly—hundreds of thousands\
+    \ of customers now use Bedrock, more customers were added in the\nlast six months\
+    \ than in the first two years after launch, and customers spent more in Q2 than\
+    \ all prior quarters\ncombined.\n\n•\n\nPreviewed AWS Continuum, which discovers,\
+    \ prioritizes, validates, and remediates code vulnerabilities. It starts by\n\
+    ingesting the backlog of vulnerabilities a team already has, and then leverages\
+    \ the new frontier models to run\ncomprehensive scans. Continuum uses agents and\
+    \ each company’s own business context to prioritize what matters,\nthen validates\
+    \ vulnerabilities in a sandbox and recommends the fix.\n\n•\n\nAdded new capabilities\
+    \ to Bedrock AgentCore, which provides the building blocks that companies need\
+    \ to quickly and\nsecurely deploy and operate agents at scale. New capabilities\
+    \ include Payments (so agents can execute transactions\nautonomously), Web Search\
+    \ (to ground agents’ knowledge without having to leave AWS), and Harness, which\
+    \ further\nspeeds up how fast customers can stitch together all the infrastructure\
+    \ they need for their agents.\n\n•\n\nMade Amazon Quick—an intelligent AI work\
+    \ companion that helps manage, search, and automate digital workloads\nacross\
+    \ email, calendar, local or cloud files, and custom workflows—even more capable,\
+    \ adding autonomous agents\nthat customers set up in plain language to run continuously\
+    \ in the background and carry out multi-step tasks; a\npersonalized activity feed\
+    \ that pulls email, messages, calendar, and tasks into one prioritized view; and\
+    \ 16 new\nintegrations, including Adobe, Moody’s, and Snowflake. Quick manages\
+    \ across leading SaaS tools like Slack,\nSalesforce, Jira, Teams, and ServiceNow;\
+    \ enforces a company’s existing access controls; and takes actions like\nscheduling\
+    \ meetings, drafting and sending email, updating a CRM record, building a dashboard,\
+    \ and more.\n\n•\n\nMade its spec-drive coding agent, Kiro, available on iOS so\
+    \ developers can now kick off a new project, monitor\nprogress, steer an agent,\
+    \ and interact with Kiro sessions from their phone, desktop, command line, and\
+    \ the web. Kiro is\nup to 50% more cost-effective than alternatives and tripled\
+    \ in usage quarter-over-quarter.\n\n•\n\nAdded new capabilities to AWS DevOps\
+    \ Agent, an always-available software operations teammate that helps\ndevelopers\
+    \ ship software safely and reliably, including Release Management to perform readiness\
+    \ reviews of code\nchanges and autonomously test releases to spot potential issues\
+    \ before they go live.\n\n•\n\nLaunched serverless infrastructure for agentic\
+    \ AI that scales on demand, including:\n•\n\nLambda MicroVMs, a new flavor of\
+    \ the popular AWS Lambda serverless compute service that not only\noffers instant\
+    \ start times with the ability to scale all the way up or down depending on demand,\
+    \ but also now\nprovides a stateful runtime with sessions that can last up to\
+    \ 8 hours—ideal for long-running agent loops,\nmulti-step pipelines, or persistent\
+    \ database engines.\n\n•\n\nNext-generation OpenSearch Serverless, which gives\
+    \ agents fast access to search across massive volumes of\ndata, scales capacity\
+    \ up to 20x faster than the previous generation, and offers up to 60% cost savings\
+    \ versus\nprovisioning for peak.\n\n•\n\nPurpose-built log analytics engine for\
+    \ Amazon OpenSearch Service, designed to keep pace with the vast\nincrease in\
+    \ logs being produced by agentic workloads. It delivers up to 4x better price\
+    \ performance compared\nto the existing general-purpose engine, up to 2x higher\
+    \ data ingestion on the same hardware, and up to 2x\nfaster analytical queries,\
+    \ while retaining up to 3x more data at the same cost—enabling teams to retain\
+    \ and\nanalyze more observability data without choosing between insight and budget.\n\
+    \n\f•\n\nAnnounced an investment of $1 billion to create AWS Forward Deployed\
+    \ Engineering, a team of AI engineers\nembedded directly with customers to co-develop\
+    \ and deploy agentic AI solutions in days rather than months. Early\ncustomers\
+    \ include Allen Institute, Cox Automotive, the NBA, the NFL, Ricoh, and Southwest\
+    \ Airlines.\n\n•\n\nAnnounced general availability of AWS Secret Cloud for Industry,\
+    \ giving defense contractors a faster, more secure\npath to classified innovation,\
+    \ with Northrop Grumman first to run classified workloads on the platform, and\
+    \ committed\nup to $1 billion in cloud credits to accelerate U.S. Intelligence\
+    \ Community cloud migration and modernization.\n\n•\n\nAnnounced its global data\
+    \ centers are over 7x more water-efficient than the industry average. Amazon also\
+    \ reached\n75% progress toward its goal to be water positive across global data\
+    \ center operations by 2030, and achieved waterpositive status across its direct\
+    \ operations in India ahead of its 2027 target.\n\n•\n\nAnnounced new AWS agreements\
+    \ with Warner Bros. Discovery, Vodafone, Siemens Energy, Ryanair, Pinterest,\n\
+    Snowflake, Moody’s, Danske Bank, WNBA, Pennymac, Fiserv, WPP Enterprise Solutions,\
+    \ Vonage, Recursive, fal,\nChai Discovery, Odyssey, TwelveLabs, Reactor, OpenRouter,\
+    \ Dash0, New York State Office of Information\nTechnology Services, State of Iowa,\
+    \ University of South Florida, and The University of Utah.\n\n•\n\nContinued to\
+    \ expand its ultra-fast delivery service, Amazon Now, which offers delivery in\
+    \ 30 minutes or less on\nthousands of everyday essentials—adding 80 new cities\
+    \ and towns across the U.S. and several major cities in Egypt.\nAmazon Now is\
+    \ available in nine countries and over 250 cities and towns globally, and customers\
+    \ love it, with over\n80% growth in gross sales and units sold quarter-over-quarter\
+    \ and over 60% more customers served quarter-overquarter.\n\n•\n\nAdded millions\
+    \ of new products to its selection, including over 700,000 from notable brands\
+    \ like ADT Blu, Bobbi\nBrown, BROWN GIRL Jane, CR7 Underwear, LeGer, Mamonde,\
+    \ OLIVA COSMETICS, Rabanne, and Ted Baker.\n\n•\n\nBrought together Rufus and\
+    \ Alexa+ into Alexa for Shopping, an agentic AI shopping assistant that offers\
+    \ personalized\nrecommendations, product comparisons, price history, and the ability\
+    \ to automate shopping through features like Price\nAlerts and Auto-Buy. Worldwide\
+    \ customer adoption and engagement accelerated in Q2, with active users close\
+    \ to\ndoubling and interactions up over 5x year-over-year.\n\n•\n\nLaunched Amazon\
+    \ Supply Chain Services so any business can move, store, and deliver everything\
+    \ from raw materials\nto finished products using the same supply chain that supports\
+    \ Amazon, with Procter & Gamble, 3M, Lands’ End, and\nAmerican Eagle Outfitters\
+    \ among the first customers.\n\n•\n\nReached $60 billion in annualized gross sales\
+    \ for Amazon Business and continued to expand selection—adding nearly\n30% more\
+    \ items compared to last year, including Same-Day Delivery of fresh groceries\
+    \ for businesses in 2,300+ U.S.\ncities and towns.\n\n•\n\nIntroduced the next-generation\
+    \ of Proteus, an autonomous robot that assists Amazon fulfillment center employees\
+    \ by\nmoving goods up to 1,300 pounds, reducing heavy lifting and further increasing\
+    \ safety. Using AI, employees can now\ndirect Proteus with plain, conversational\
+    \ language.\n\n•\n\nGrew the number of new customers for Amazon Pharmacy by more\
+    \ than 2x in the first six months of the year, and\nsame-day prescription deliveries\
+    \ nearly 5x. Also saved customers nearly $250 million so far this year in out-of-pocket\n\
+    costs, up more than 400% year-over-year, through manufacturer discounts applied\
+    \ automatically on an expanded\nselection of widely prescribed medications.\n\n\
+    •\n\nExpanded Ads Agent—an AI-powered tool that simplifies planning, launching,\
+    \ and managing advertising campaigns\nand turns hours of setup and targeting into\
+    \ minutes—to 11 new countries so far this year. Advertisers using Ads Agent\n\
+    see 8% lower cost-per-impression and 6% lower cost-per-acquisition than those\
+    \ that don’t use it.\n\n•\n\nExpanded Alexa+ to Germany, Austria, France, and\
+    \ Brazil, with hundreds of millions of customers now using new\nAlexa experiences,\
+    \ and that number growing every month. Alexa continues to drive meaningful momentum\
+    \ for the\nbusiness, including in the U.S., where customers who use Alexa for\
+    \ Shopping spend an average of over 40% more per\norder than those who don’t,\
+    \ and customers who have tried Alexa+ are signing up for Prime at a nearly 25%\
+    \ higher rate.\n\n•\n\nDrew 36 million viewers globally for the series premiere\
+    \ of Off Campus on Prime Video in its first 12 days, becoming\nPrime Video’s No.\
+    \ 3 top-viewed series debut ever.\n\n•\n\nDelivered strong viewership for inaugural\
+    \ season of NBA on Prime Video, with a peak of 6.5 million U.S. viewers for\n\
+    Game 7 of the Eastern Conference Semifinals (outperforming Game 7 on broadcast\
+    \ in 2025). In Europe, viewership of\nthe NBA more than doubled year-over-year\
+    \ on Prime Video, with the highest average viewership on record.\n\n•\n\nAveraged\
+    \ 2.3 million viewers during the second season of NASCAR on Prime Video and attracted\
+    \ the youngest\naudience the last two years among NASCAR broadcasters since 2017.\n\
+    \n\f•\n\nCompleted four additional launches for Amazon Leo, its low Earth orbit\
+    \ satellite network, bringing the total\nconstellation to nearly 400 satellites\
+    \ in orbit—enough to begin initial satellite internet service this year.\n\n•\n\
+    \nReceived approval from the National Highway Traffic Safety Administration (Part\
+    \ 555 Exemption) for Zoox to charge\nfor rides—the first purpose-built robotaxi\
+    \ to receive this exemption—paving the way for Zoox to begin offering paid\ncommercial\
+    \ service to customers.\n\n•\n\nSupported relief efforts following earthquakes\
+    \ in Venezuela with its Amazon Disaster Relief program, donating and\ndelivering\
+    \ more than 650,000 emergency supplies to more than a dozen nonprofits and establishing\
+    \ weekly\nhumanitarian relief flights to Caracas in a first-of-its-kind collaboration\
+    \ with Airlink, the U.S. State Department, and\nWorld Food Programme, delivering\
+    \ approximately 120 tons of supplies.\n\nFinancial Guidance\nThe following forward-looking\
+    \ statements reflect Amazon.com’s expectations as of July 30, 2026, and are subject\
+    \ to substantial\nuncertainty. Our results are inherently unpredictable and may\
+    \ be materially affected by many factors, such as fluctuations in\nforeign exchange\
+    \ rates and energy prices, changes in global economic and geopolitical conditions,\
+    \ tariff and trade policies,\nresource and supply volatility, including for memory\
+    \ chips, and customer demand and spending (including the impact of\nrecessionary\
+    \ fears), inflation, interest rates, regional labor market constraints, world\
+    \ events, the rate of growth of the internet,\nonline commerce, cloud services,\
+    \ and new and emerging technologies, and the various factors detailed below.\n\
+    Third Quarter 2026 Guidance\n•\n\nNet sales are expected to be between $197.0\
+    \ billion and $202.0 billion, or to grow between 9% and 12% compared\nwith third\
+    \ quarter 2025. Excluding the impact of Prime Day in both 2025 and 2026, third\
+    \ quarter 2026 year-over-year\ngrowth would be nearly 400 basis points higher.\
+    \ This guidance anticipates an unfavorable impact of approximately 80\nbasis points\
+    \ from foreign exchange rates.\n\n•\n\nOperating income is expected to be between\
+    \ $22.5 billion and $26.5 billion, compared with $17.4 billion in third\nquarter\
+    \ 2025.\n\n•\n\nThis guidance assumes, among other things, no impact from energy\
+    \ derivative contract remeasurements, and that no\nadditional business acquisitions,\
+    \ restructurings, or legal settlements are concluded.\n\nConference Call Information\n\
+    A conference call will be webcast live today at 2:00 p.m. PT/5:00 p.m. ET, and\
+    \ will be available for at least three months at\namazon.com/ir. This call will\
+    \ contain forward-looking statements and other material information regarding\
+    \ the Company’s\nfinancial and operating results.\nForward-Looking Statements\n\
+    These forward-looking statements are inherently difficult to predict. Actual results\
+    \ and outcomes could differ materially for a\nvariety of reasons, including, in\
+    \ addition to the factors discussed above, the amount that Amazon.com invests\
+    \ in new business\nopportunities and the timing of those investments, the mix\
+    \ of products and services sold to customers, the mix of net sales\nderived from\
+    \ products as compared with services, the extent to which we owe income or other\
+    \ taxes, competition, management\nof growth, potential fluctuations in operating\
+    \ results, international growth and expansion, the outcomes of claims, litigation,\n\
+    government investigations, and other proceedings, fulfillment, sortation, delivery,\
+    \ and data center optimization, risks of\ninventory management, variability in\
+    \ demand, the degree to which the Company enters into, maintains, and develops\n\
+    commercial agreements, proposed and completed acquisitions and strategic transactions,\
+    \ payments risks, and risks of\nfulfillment throughput and productivity. Other\
+    \ risks and uncertainties include, among others, risks related to new products,\n\
+    services, and technologies, security incidents, system interruptions, government\
+    \ regulation and taxation, and fraud. In addition,\nglobal economic and geopolitical\
+    \ conditions and additional or unforeseen circumstances, developments, or events\
+    \ may give\nrise to or amplify many of these risks. More information about factors\
+    \ that potentially could affect Amazon.com’s financial\nresults is included in\
+    \ Amazon.com’s filings with the Securities and Exchange Commission (“SEC”), including\
+    \ its most recent\nAnnual Report on Form 10-K and subsequent filings.\nAdditional\
+    \ Information\nOur investor relations website is amazon.com/ir and we encourage\
+    \ investors to use it as a way of easily finding information\nabout us. We promptly\
+    \ make available on this website, free of charge, the reports that we file or\
+    \ furnish with the SEC, corporate\ngovernance information (including our Code\
+    \ of Business Conduct and Ethics), and select press releases, which may contain\n\
+    material information about us, and you may subscribe to be notified of new information\
+    \ posted to this site.\n\n\fAbout Amazon\nAmazon is guided by four principles:\
+    \ customer obsession rather than competitor focus, passion for invention, commitment\
+    \ to\noperational excellence, and long-term thinking. Amazon strives to be Earth’s\
+    \ Most Customer-Centric Company, Earth’s Best\nEmployer, and Earth’s Safest Place\
+    \ to Work. Customer reviews, 1-Click shopping, personalized recommendations, Prime,\n\
+    Fulfillment by Amazon, AWS, Kindle Direct Publishing, Kindle, Career Choice, Fire\
+    \ tablets, Fire TV, Amazon Echo, Alexa,\nJust Walk Out technology, Amazon Studios,\
+    \ and The Climate Pledge are some of the things pioneered by Amazon. For more\n\
+    information, visit amazon.com/about and follow @AmazonNews."
+- id: q3_2026
+  label: Amazon Q3 2026 Earnings Release, October 29, 2026
+  text: "AMAZON.COM ANNOUNCES THIRD QUARTER RESULTS\nOperating income was $28.1 billion\
+    \ and operating margin was 13.9%—Amazon’s highest operating margin ever\nAWS net\
+    \ sales increased 39.3%—its fastest growth in nearly five years—to a $184 billion\
+    \ annualized revenue run rate\nSEATTLE—(BUSINESS WIRE) October 29, 2026—Amazon.com,\
+    \ Inc. (NASDAQ: AMZN) today announced financial\nresults for its third quarter\
+    \ ended September 30, 2026.\n•\n\n•\n\nNet sales increased 12% to $201.9 billion\
+    \ in the third quarter, compared with $180.2 billion in third quarter 2025.\n\
+    Excluding the $0.9 billion unfavorable impact from year-over-year changes in foreign\
+    \ exchange rates throughout the\nquarter, net sales increased 13% compared with\
+    \ third quarter 2025. As a reminder, Prime Day timing shifted this year,\nwith\
+    \ the event occurring in Q2 for most large countries. In 2025, Prime Day occurred\
+    \ entirely in Q3. Excluding this\nshift, third quarter year-over-year growth would\
+    \ have been approximately 400 basis points higher.\n•\n\nNorth America segment\
+    \ sales increased 6% year-over-year to $112.9 billion.\n\n•\n\nInternational segment\
+    \ sales increased 5% year-over-year to $43.1 billion, or increased 8% excluding\
+    \ changes\nin foreign exchange rates.\n\n•\n\nAWS segment sales increased 39%\
+    \ year-over-year to $46.0 billion.\n\nOperating income increased to $28.1 billion\
+    \ in the third quarter, compared with $17.4 billion in third quarter 2025.\n•\n\
+    \nNorth America segment operating income was $8.7 billion, compared with $4.8\
+    \ billion in third quarter 2025.\n\n•\n\nInternational segment operating income\
+    \ was $1.6 billion, compared with $1.2 billion in third quarter 2025.\n\n•\n\n\
+    AWS segment operating income was $17.8 billion, compared with $11.4 billion in\
+    \ third quarter 2025.\n\n•\n\nNet income decreased to $20.7 billion in the third\
+    \ quarter, or $1.89 per diluted share, compared with $21.2 billion, or\n$1.95\
+    \ per diluted share, in third quarter 2025. This decrease is driven primarily\
+    \ by pre-tax gains of $9.5 billion in third\nquarter 2025 included in non-operating\
+    \ income (expense) from our investments in Anthropic.\n\n•\n\nOperating cash flow\
+    \ increased 29% to $168.3 billion for the trailing twelve months, compared with\
+    \ $130.7 billion for\nthe trailing twelve months ended September 30, 2025.\n\n\
+    •\n\nFree cash flow decreased to an outflow of $42.4 billion for the trailing\
+    \ twelve months, driven primarily by a yearover-year increase of $94.8 billion\
+    \ in purchases of property and equipment, net of proceeds from sales and incentives.\n\
+    This increase primarily reflects investments in artificial intelligence. This\
+    \ compares to free cash flow inflow of $14.8\nbillion for the trailing twelve\
+    \ months ended September 30, 2025.\n\n“Our AWS investment in functionality and\
+    \ infrastructure is working, with over 39% year-over-year revenue growth in Q3\n\
+    ($184 billion revenue run rate) and projected revenue growth rates of over 40%\
+    \ both in 2027 and in 2028,” said Andy Jassy,\nPresident and CEO, Amazon. “Our\
+    \ broader selection and speedier delivery are helping us capture more retail market\
+    \ segment\nshare with improving margins, and our newer businesses, ranging from\
+    \ Grocery to Pharmacy to Amazon Leo to Zoox are\nprogressing encouragingly. There\
+    \ has never been a trillion dollar revenue business, and we may have two of them\
+    \ in the next\n5-10 years.”\n\n\fSome other highlights since the company’s last\
+    \ earnings announcement include that Amazon:\n•\n\nSigned new AWS agreements with\
+    \ Meta, NVIDIA, OpenAI, Salesforce, Oracle, Qualcomm, Verizon, ADP, Stripe,\n\
+    Accenture Edge, Novo, Fanatics, Zoom, Raymond James, Prometheus AI, AppFolio,\
+    \ Instructure, Cognition, Sigma,\nLila Sciences, The Biological Computing Co.,\
+    \ NATO, Columbia University Irving Medical Center, and more.\n\n•\n\nDrove continued\
+    \ rapid growth for Amazon Bedrock, AWS’s inference service, with Fortune 500 companies\
+    \ spending\nnearly 7x more year-over-year and total Bedrock token volume growing\
+    \ nearly 17x year-over-year.\n\n•\n\nExpanded Bedrock’s leading selection of frontier\
+    \ and open weight models, adding OpenAI’s GPT-6 Astra, GPT-6 Sol,\nGPT-6 Luna,\
+    \ and GPT-6.1 Sol; Anthropic’s Claude Fable 5.1, Opus 5.5, Sonnet 5.5, and Haiku\
+    \ 5.5; Moonshot AI’s\nKimi K3; SpaceXAI’s Grok 4.7; Z.ai’s GLM 5.3; and two purpose-built\
+    \ cybersecurity models from OpenAI.\n\n•\n\nLaunched built-in web search for OpenAI\
+    \ models on Bedrock so customers can ground responses in current\ninformation—while\
+    \ keeping data secure and answers accurate for time-sensitive questions without\
+    \ building and\nmaintaining their own web-retrieval pipelines.\n\n•\n\nLaunched\
+    \ public preview of Bedrock Managed Agents, which is a managed service powered\
+    \ by OpenAI that makes it\nfaster for enterprises to build and deploy production-ready\
+    \ AI agents.\n\n•\n\nAdded to AWS’s leadership position in open source agent-building:\n\
+    •\n\nReleased Strands harness, a fully assembled, state-of-the-art agent harness\
+    \ that developers can get working\nwith a single line of code and build custom\
+    \ agents that can run locally, on Bedrock AgentCore, or on a\nprovider of their\
+    \ choice. Strands harness lowers the cost of agent tasks by 32% through greater\
+    \ token\nefficiency than other harnesses when using the same frontier models,\
+    \ while achieving equal or better\naccuracy.\n\n•\n\nPreviewed Strands Box, an\
+    \ open source sandbox that gives developers the ability to define rules for agent\n\
+    behavior and access, helping to prevent autonomous agents from causing unintended\
+    \ harm. Strands Box is\ndesigned to enforce rules, no matter where your agent\
+    \ runs, whether that’s on your desktop, in agents built\nusing AgentCore on AWS,\
+    \ or elsewhere.\n\n•\n\nDrove continued rapid adoption of Amazon Bedrock AgentCore,\
+    \ AWS’s fully managed service for building,\nconnecting, and optimizing agents\
+    \ securely at scale using any model and open source framework, including Strands.\n\
+    AgentCore is built for developers and enterprises that need the robust infrastructure,\
+    \ controls, and tools necessary to\nrun agents at production scale. Tens of thousands\
+    \ of customers currently use AgentCore, and they deployed 2x more\nagents in Q3\
+    \ than the prior three quarters combined.\n\n•\n\nRecently topped a $1 billion\
+    \ annualized revenue run rate for Lambda, AWS’s flagship serverless offering,\
+    \ which is\nused by enterprises like Samsung, Volkswagen, United Airlines, Mercedes-Benz,\
+    \ and Booking.com.\n\n•\n\nLaunched Lambda Web Functions to allow developers to\
+    \ run scalable, responsive web applications that serve global\naudiences on Lambda.\
+    \ Web Functions gives developers the flexibility to use a variety of popular web\
+    \ frameworks and\niterate quickly, while Lambda handles scaling, multi-region\
+    \ distribution, and active CPU billing.\n\n•\n\nMade AWS Continuum—an AI-powered\
+    \ security service that automatically discovers, prioritizes, validates, and\n\
+    remediates software vulnerabilities at machine speed—generally available. Also\
+    \ announced that it’s bringing\nContinuum into Anthropic’s Claude Code, OpenAI’s\
+    \ Codex, and AWS’s Kiro. Continuum is already being used by\ncompanies like Capital\
+    \ One, IBM, Infor, Luminate, and Robinhood.\n\n•\n\nExpanded Amazon Quick, an\
+    \ intelligent AI work companion, into Outlook, Word, PowerPoint, and Excel. It\
+    \ can also\nnow keep running when your laptop is closed. Companies like Principal\
+    \ Financial Group, GoDaddy, Autodesk, BMW,\nMondelēz, 3M, Southwest Airlines,\
+    \ EchoStar, and DXC are choosing Quick because it’s built for work, connects to\n\
+    their company data, and keeps that data secure.\n\n•\n\nOpen-sourced Kiro Crew,\
+    \ a persistent workspace that remembers a developer’s context, learns how they\
+    \ work, and\ncoordinates multiple agents to work in parallel and run scheduled\
+    \ and long-running tasks unattended.\n\n•\n\nAcquired DuckLabs, the company behind\
+    \ the open source data analysis tool DuckDB. With DuckDB, AWS customers\nwill\
+    \ be able to write their SQL analytics query once and then execute using any AWS\
+    \ analytics service, so for the first\ntime in analytics, customers will have\
+    \ zero migration or portability costs between query engines.\n\n•\n\nMade it even\
+    \ easier to adopt its custom AI accelerator, Trainium, with TorchNeuron. TorchNeuron\
+    \ lets developers run\nexisting PyTorch code (which most already use) on Trainium\
+    \ without rewriting a thing.\n\n•\n\nIncreased selection from notable brands like\
+    \ Banana Republic, Jean Paul Gaultier fragrances, Carolina Herrera\nfragrances,\
+    \ La-Z-Boy, The Farmer’s Dog, and FAO Schwarz by more than 20% year-over-year.\n\
+    \n\f•\n\nAnnounced that Amazon helped U.S. customers save billions—averaging over\
+    \ $1,000 per customer each year for 100\nmillion+ customers—through everyday low\
+    \ prices, deals, free delivery, fuel savings, and prescription savings.\n\n•\n\
+    \nDelivered its fastest Q3 speeds ever for Prime members, with more than 1.5 billion\
+    \ items arriving same-day or\novernight in the quarter.\n\n•\n\nContinued expanding\
+    \ its ultra-fast delivery service, Amazon Now, which is now available in over\
+    \ 450 towns and cities\naround the world. The number of items ordered through\
+    \ Amazon Now is up 10x year-over-year.\n\n•\n\nContinued growing its global Grocery\
+    \ business, with fresh groceries and everyday essentials growing about 3x faster\n\
+    than the rest of the store and representing about half of all units sold in Q3.\n\
+    \n•\n\nMade it even easier for independent sellers to grow their businesses with\
+    \ new tools like Seller Assistant workflows\n(handles routine tasks like restocking\
+    \ and pricing around the clock), a plugin that integrates Seller Assistant into\n\
+    Amazon Quick and Anthropic’s Claude, and the ability to manage listings, orders,\
+    \ and profitability across multiple\nchannels directly from Seller Central.\n\n\
+    •\n\nContinued to drive rapid adoption of Alexa for Shopping, its agentic shopping\
+    \ assistant, which was used by 400\nmillion+ customers in the last 12 months,\
+    \ with customer interactions up 570% year-over-year.\n\n•\n\nAdded 100+ new capabilities\
+    \ to Alexa for Shopping so tasks that used to require multiple clicks—like building\
+    \ gift\nlists, adjusting Subscribe & Save deliveries, managing payments and memberships,\
+    \ and adding new delivery addresses\n—can now be completed with simple conversations.\n\
+    \n•\n\nMade Amazon Pharmacy even faster with 3-hour prescription delivery now\
+    \ available in more than 350 cities. The\nnumber of customers using Amazon Pharmacy\
+    \ is up over 60% year-over-year, and repeat customers are up more than\n50% year-over-year.\n\
+    \n•\n\nIntroduced Amazon Ads Agent for advertisers, bringing together Amazon’s\
+    \ full offering under a single, AI-first\nplatform. Backed by trillions of shopping,\
+    \ browsing, and streaming signals, Amazon Ads Agent supports advertisers at\n\
+    every step with insights, answers, and the ability to take action on their behalf.\n\
+    \n•\n\nLaunched Full-Funnel Campaigns in Amazon Ads Agent for all U.S. advertisers,\
+    \ bringing sponsored ads, display,\nvideo, and streaming TV into a single campaign.\
+    \ Advertisers provide initial inputs, then Amazon’s AI plans, executes,\nand continuously\
+    \ optimizes the rest.\n\n•\n\nKicked off the fifth season of Thursday Night Football\
+    \ on Prime Video, averaging 17.7 million viewers through six\ngames according\
+    \ to Nielsen, its best start ever and a 16% increase over last year’s full-season\
+    \ average.\n\n•\n\nDebuted the second season of NBA on Prime in more than 200\
+    \ countries, attracting more than two million viewers in\nthe U.S. during its\
+    \ season-opening doubleheader, more than doubling last year’s full-season average,\
+    \ according to\nNielsen.\n\n•\n\nDrew 66 million viewers globally for Season Four\
+    \ of Reacher on Prime Video in its first 28 days.\n\n•\n\nExceeded $1.2 billion\
+    \ in global box office so far in 2026 for Amazon MGM Studios, as audiences flocked\
+    \ to movies\nlike Project Hail Mary and Verity.\n\n•\n\nDrove strong early demand\
+    \ for the launch of its most powerful devices lineup yet, with 34 new products\
+    \ across Echo,\nKindle, Amazon Alexa Tablets, Fire TV, Ring, Blink, and Bee.\n\
+    \n•\n\nExpanded Alexa+ to Australia, India, and Japan, and made Alexa+ available\
+    \ for free to U.S. customers with\ncompatible Fire TV devices.\n\n•\n\nRemains\
+    \ on track to begin initial service of its Amazon Leo low Earth orbit satellite\
+    \ service later this year, and signed\na strategic agreement with AT&T, which\
+    \ will be the first major U.S. telecom provider to offer Leo connectivity to\n\
+    enterprise and public-sector customers.\n\n•\n\nBegan offering paid rides to customers\
+    \ in Zoox autonomous robotaxis in Las Vegas and started testing in San Diego\n\
+    and Houston. Zoox is now operating in 12 U.S. cities.\n\n•\n\nIntroduced Built\
+    \ Together, a new $1 billion community investment in U.S. data center communities\
+    \ to provide\nincreased support for priorities communities value most, including\
+    \ free community college and trades training, energy\nand water efficiency upgrades\
+    \ for schools, community buildings and homes, and flexible annual funding for\
+    \ local\npriorities like roads, fire equipment, affordable housing, and food security.\n\
+    \n•\n\nUsed its logistics network to donate and deliver 450,000+ emergency supplies\
+    \ to recovery efforts from flash floods in\nNepal, wildfires in Washington, and\
+    \ a magnitude 7.4 earthquake in Colombia through its Disaster Relief Program.\n\
+    \n\f•\n\nAnnounced plans to hire more than 300,000 seasonal, part-time, and full-time\
+    \ employees across its U.S. operations this\nholiday season.\n\n•\n\nAnnounced\
+    \ $1.5 billion+ investment to raise minimum starting pay for U.S. full-time operations\
+    \ employees to $20 an\nhour, and added a new grocery discount and lifetime banking\
+    \ benefit for its teammates.\n\nFinancial Guidance\nThe following forward-looking\
+    \ statements reflect Amazon.com’s expectations as of October 29, 2026, and are\
+    \ subject to\nsubstantial uncertainty. Our results are inherently unpredictable\
+    \ and may be materially affected by many factors, such as\nfluctuations in foreign\
+    \ exchange rates and energy prices, changes in global economic and geopolitical\
+    \ conditions, tariff and\ntrade policies, resource and supply volatility, including\
+    \ for memory chips, and customer demand and spending (including the\nimpact of\
+    \ recessionary fears), inflation, interest rates, regional labor market constraints,\
+    \ world events, the rate of growth of the\ninternet, online commerce, cloud services,\
+    \ and new and emerging technologies, and the various factors detailed below.\n\
+    Fourth Quarter 2026 Guidance\n•\n\nNet sales are expected to be between $240.0\
+    \ billion and $247.0 billion, or to grow between 12% and 16% compared\nwith fourth\
+    \ quarter 2025. This guidance anticipates an unfavorable impact of approximately\
+    \ 60 basis points from\nforeign exchange rates. Advertising revenue grew 12% year-over-year\
+    \ excluding changes in foreign exchange rates in\nthe third quarter 2026 impacted\
+    \ by timing anomalies primarily related to Prime Day (and a couple other timing\n\
+    factors). We expect year-over-year advertising revenue to grow in the high teens\
+    \ in fourth quarter 2026.\n\n•\n\nOperating income is expected to be between $28.5\
+    \ billion and $33.5 billion, compared with $25.0 billion in fourth\nquarter 2025.\n\
+    \n•\n\nWe continue to expect 2026 cash capital expenditures to be approximately\
+    \ $220 billion.\n\n•\n\nThis guidance assumes, among other things, no impact from\
+    \ energy derivative contract remeasurements, and that no\nadditional business\
+    \ acquisitions, restructurings, or legal settlements are concluded.\n\nConference\
+    \ Call Information\nA conference call will be webcast live today at 2:00 p.m.\
+    \ PT/5:00 p.m. ET, and will be available for at least three months at\namazon.com/ir.\
+    \ This call will contain forward-looking statements and other material information\
+    \ regarding the Company’s\nfinancial and operating results.\nForward-Looking Statements\n\
+    These forward-looking statements are inherently difficult to predict. Actual results\
+    \ and outcomes could differ materially for a\nvariety of reasons, including, in\
+    \ addition to the factors discussed above, the amount that Amazon.com invests\
+    \ in new business\nopportunities and the timing of those investments, the mix\
+    \ of products and services sold to customers, the mix of net sales\nderived from\
+    \ products as compared with services, the extent to which we owe income or other\
+    \ taxes, competition, management\nof growth, potential fluctuations in operating\
+    \ results, international growth and expansion, the outcomes of claims, litigation,\n\
+    government investigations, and other proceedings, fulfillment, sortation, delivery,\
+    \ and data center optimization, risks of\ninventory management, variability in\
+    \ demand, the degree to which the Company enters into, maintains, and develops\n\
+    commercial agreements, proposed and completed acquisitions and strategic transactions,\
+    \ payments risks, and risks of\nfulfillment throughput and productivity. Other\
+    \ risks and uncertainties include, among others, risks related to new products,\n\
+    services, and technologies, security incidents, system interruptions, government\
+    \ regulation and taxation, and fraud. In addition,\nglobal economic and geopolitical\
+    \ conditions and additional or unforeseen circumstances, developments, or events\
+    \ may give\nrise to or amplify many of these risks. More information about factors\
+    \ that potentially could affect Amazon.com’s financial\nresults is included in\
+    \ Amazon.com’s filings with the Securities and Exchange Commission (“SEC”), including\
+    \ its most recent\nAnnual Report on Form 10-K and subsequent filings.\nAdditional\
+    \ Information\nOur investor relations website is amazon.com/ir and we encourage\
+    \ investors to use it as a way of easily finding information\nabout us. We promptly\
+    \ make available on this website, free of charge, the reports that we file or\
+    \ furnish with the SEC, corporate\ngovernance information (including our Code\
+    \ of Business Conduct and Ethics), and select press releases, which may contain\n\
+    material information about us, and you may subscribe to be notified of new information\
+    \ posted to this site.\n\n\fAbout Amazon\nAmazon is guided by four principles:\
+    \ customer obsession rather than competitor focus, passion for invention, commitment\
+    \ to\noperational excellence, and long-term thinking. Amazon strives to be Earth’s\
+    \ Most Customer-Centric Company, Earth’s Best\nEmployer, and Earth’s Safest Place\
+    \ to Work. Customer reviews, 1-Click shopping, personalized recommendations, Prime,\n\
+    Fulfillment by Amazon, AWS, Kindle Direct Publishing, Kindle, Career Choice, Fire\
+    \ tablets, Fire TV, Amazon Echo, Alexa,\nJust Walk Out technology, Amazon Studios,\
+    \ and The Climate Pledge are some of the things pioneered by Amazon. For more\n\
+    information, visit amazon.com/about and follow @AmazonNews."
+metrics:
+  net_sales:
+    unit: USD billions
+    tol: 0.1
+    description: Consolidated net sales (total company revenue)
+  operating_income:
+    unit: USD billions
+    tol: 0.1
+    description: Consolidated operating income
+  cash_capex:
+    unit: USD billions
+    tol: 1.0
+    description: Full-year cash capital expenditures
+expected_guidance:
+- source: q1_2026
+  metric: net_sales
+  period: Q2FY2026
+  low: 194.0
+  high: 199.0
+- source: q1_2026
+  metric: operating_income
+  period: Q2FY2026
+  low: 20.0
+  high: 24.0
+- source: q2_2026
+  metric: net_sales
+  period: Q3FY2026
+  low: 197.0
+  high: 202.0
+- source: q2_2026
+  metric: operating_income
+  period: Q3FY2026
+  low: 22.5
+  high: 26.5
+- source: q3_2026
+  metric: net_sales
+  period: Q4FY2026
+  low: 240.0
+  high: 247.0
+- source: q3_2026
+  metric: operating_income
+  period: Q4FY2026
+  low: 28.5
+  high: 33.5
+- source: q3_2026
+  metric: cash_capex
+  period: FY2026
+  low: 220.0
+  high: 220.0
+expected_changes:
+- metric: net_sales
+  period: Q4FY2026
+  type: initiated
+  from: null
+  to:
+    low: 240.0
+    high: 247.0
+- metric: operating_income
+  period: Q4FY2026
+  type: initiated
+  from: null
+  to:
+    low: 28.5
+    high: 33.5
+- metric: cash_capex
+  period: FY2026
+  type: initiated
+  accept:
+  - maintained
+  from: null
+  to:
+    low: 220.0
+    high: 220.0
+traps:
+- source: q1_2026
+  metric: net_sales
+  period: Q1FY2026
+  value: 181.5
+  description: Q1 2026 reported net sales ($181.5B actual, not guidance)
+- source: q1_2026
+  metric: operating_income
+  period: Q1FY2026
+  value: 23.9
+  description: Q1 2026 reported operating income ($23.9B actual, not guidance)
+- source: q2_2026
+  metric: net_sales
+  period: Q2FY2026
+  value: 200.6
+  description: Q2 2026 reported net sales ($200.6B actual, not guidance)
+- source: q2_2026
+  metric: operating_income
+  period: Q2FY2026
+  value: 27.5
+  description: Q2 2026 reported operating income ($27.5B actual, not guidance)
+- source: q3_2026
+  metric: net_sales
+  period: Q3FY2026
+  value: 201.9
+  description: Q3 2026 reported net sales ($201.9B actual, not guidance)
+- source: q3_2026
+  metric: operating_income
+  period: Q3FY2026
+  value: 28.1
+  description: Q3 2026 reported operating income ($28.1B actual, not guidance)
