@@ -1,0 +1,744 @@
+task_id: guidance_amazon_2023q1_2023q2
+company: Amazon.com, Inc. (real Q1 2023 & Q2 2023 SEC earnings releases)
+documents:
+- id: q1_2023
+  label: Amazon Q1 2023 Earnings Release, April 27, 2023
+  text: "AMAZON.COM ANNOUNCES FIRST QUARTER RESULTS\nSEATTLE—(BUSINESS WIRE) April\
+    \ 27, 2023—Amazon.com, Inc. (NASDAQ: AMZN) today announced financial results\n\
+    for its first quarter ended March 31, 2023.\n•\n\n•\n\n•\n\nNet sales increased\
+    \ 9% to $127.4 billion in the first quarter, compared with $116.4 billion in first\
+    \ quarter 2022.\nExcluding the $2.4 billion unfavorable impact from year-over-year\
+    \ changes in foreign exchange rates throughout the\nquarter, net sales increased\
+    \ 11% compared with first quarter 2022.\n•\n\nNorth America segment sales increased\
+    \ 11% year-over-year to $76.9 billion.\n\n•\n\nInternational segment sales increased\
+    \ 1% year-over-year to $29.1 billion, or increased 9% excluding changes\nin foreign\
+    \ exchange rates.\n\n•\n\nAWS segment sales increased 16% year-over-year to $21.4\
+    \ billion.\n\nOperating income increased to $4.8 billion in the first quarter,\
+    \ compared with $3.7 billion in first quarter 2022. First\nquarter 2023 operating\
+    \ income includes approximately $0.5 billion of charges related to estimated severance\
+    \ costs.\n•\n\nNorth America segment operating income was $0.9 billion, compared\
+    \ with operating loss of $1.6 billion in\nfirst quarter 2022.\n\n•\n\nInternational\
+    \ segment operating loss was $1.2 billion, compared with operating loss of $1.3\
+    \ billion in first\nquarter 2022.\n\n•\n\nAWS segment operating income was $5.1\
+    \ billion, compared with operating income of $6.5 billion in first\nquarter 2022.\n\
+    \nNet income was $3.2 billion in the first quarter, or $0.31 per diluted share,\
+    \ compared with net loss of $3.8 billion, or\n$0.38 per diluted share, in first\
+    \ quarter 2022. All share and per share information for comparable prior year\
+    \ periods\nthroughout this release have been retroactively adjusted to reflect\
+    \ the 20-for-1 stock split effected on May 27, 2022.\n•\n\nFirst quarter 2023\
+    \ net income includes a pre-tax valuation loss of $0.5 billion included in non-operating\n\
+    expense from the common stock investment in Rivian Automotive, Inc., compared\
+    \ to a pre-tax valuation loss\nof $7.6 billion from the investment in first quarter\
+    \ 2022.\n\n•\n\nOperating cash flow increased 38% to $54.3 billion for the trailing\
+    \ twelve months, compared with $39.3 billion for\nthe trailing twelve months ended\
+    \ March 31, 2022.\n\n•\n\nFree cash flow improved to an outflow of $3.3 billion\
+    \ for the trailing twelve months, compared with an outflow of\n$18.6 billion for\
+    \ the trailing twelve months ended March 31, 2022.\n\n•\n\nFree cash flow less\
+    \ principal repayments of finance leases and financing obligations improved to\
+    \ an outflow of\n$10.1 billion for the trailing twelve months, compared with an\
+    \ outflow of $29.3 billion for the trailing twelve months\nended March 31, 2022.\n\
+    \n•\n\nFree cash flow less equipment finance leases and principal repayments of\
+    \ all other finance leases and financing\nobligations improved to an outflow of\
+    \ $4.5 billion for the trailing twelve months, compared with an outflow of $22.3\n\
+    billion for the trailing twelve months ended March 31, 2022.\n\n\f“There’s a lot\
+    \ to like about how our teams are delivering for customers, particularly amidst\
+    \ an uncertain economy,” said Andy\nJassy, Amazon CEO. “Our Stores business is\
+    \ continuing to improve the cost to serve in our fulfillment network while\nincreasing\
+    \ the speed with which we get products into the hands of customers (we expect\
+    \ to have our fastest Prime delivery\nspeeds ever in 2023). Our Advertising business\
+    \ continues to deliver robust growth, largely due to our ongoing machine learning\n\
+    investments that help customers see relevant information when they engage with\
+    \ us, which in turn delivers unusually strong\nresults for brands. And, while\
+    \ our AWS business navigates companies spending more cautiously in this macro\
+    \ environment, we\ncontinue to prioritize building long-term customer relationships\
+    \ both by helping customers save money and enabling them to\nmore easily leverage\
+    \ technologies like Large Language Models and Generative AI with our uniquely\
+    \ cost-effective machine\nlearning chips (“Trainium” and “Inferentia”), managed\
+    \ Large Language Models (“Bedrock”), and AI code companion\nCodeWhisperer. We\
+    \ like the fundamentals we’re seeing in AWS, and believe there’s much growth ahead.”\n\
+    Highlights\nObsessing over the customer experience\nAmazon obsesses over how to\
+    \ make customers’ lives better and easier every day. This is true for consumers,\
+    \ sellers, brands,\ndevelopers, enterprises, and creators. For example, in the\
+    \ past quarter, Amazon:\n•\n\nContinued to delight customers with convenient delivery\
+    \ options and broad selection. Nearly 26 million customers\nordered items with\
+    \ Same-Day Delivery in the quarter, an increase of 50% compared to last year.\n\
+    \n•\n\nIncreased selection in its U.S. online store with the addition of new marquee\
+    \ beauty, home, and fashion brands,\nincluding Lancôme, Shiseido, World of Martha\
+    \ by Martha Stewart, Rent the Runway, KNOW Beauty by Vanessa\nHudgens, as well\
+    \ as new The Drop collections from Harlem Fashion Row and Coco & Breezy. The Drop\
+    \ offers\ncustomers access to limited-edition, made-on-demand clothing collections\
+    \ by fashion influencers.\n\n•\n\nLaunched a new Fulfillment by Amazon (FBA) capacity\
+    \ management system to help sellers who use Amazon’s\nstorage, packing, and shipping\
+    \ fulfillment service to manage their inventory and capacity more efficiently\
+    \ as they scale\ntheir businesses. The management system provides sellers with\
+    \ more insight, predictability, visibility, and control to\nbetter plan and manage\
+    \ their inventory and supply chains, as well as increase capacity limits when\
+    \ needed.\n\n•\n\nReleased the third annual Brand Protection Report highlighting\
+    \ the company’s efforts to protect customers, brands, and\nselling partners from\
+    \ counterfeit products in 2022. The efforts resulted in more seized products,\
+    \ criminal referrals, and\nindustry partnerships than ever before. The report\
+    \ demonstrates how Amazon is stopping bad actors and making an\nimpact beyond\
+    \ Amazon’s store, including by identifying, seizing, and appropriately disposing\
+    \ of more than 6 million\ncounterfeit products, preventing them from reaching\
+    \ customers and being resold elsewhere in the global supply chain.\n\n•\n\nLaunched\
+    \ Reviews from Amazon, a new capability that enables Buy with Prime merchants\
+    \ to display customer ratings\nand reviews from Amazon.com within their own online\
+    \ stores at no additional cost. Nearly 20% of Buy with Prime\nmerchants are already\
+    \ using this feature, and the early feedback is that it’s helping merchants drive\
+    \ higher shopper\nconversion.\n\n•\n\nAcquired One Medical, a primary care organization\
+    \ offering both 24/7 virtual care services and in-office visits across\nthe U.S.\
+    \ for preventive and everyday health, chronic care management, pediatric care,\
+    \ and mental health services. For\na limited time, One Medical is offering annual\
+    \ memberships to new customers at the discounted price of $144 for the\nfirst\
+    \ year (regularly $199/year), the equivalent of $12 per month.\n\n•\n\nAnnounced\
+    \ that Prime Video will exclusively present the first-ever “Black Friday” National\
+    \ Football League game on\nNovember 24. The game will be available for all fans\
+    \ to stream for free in the U.S. without a Prime membership.\n\n•\n\nSet box-office\
+    \ records with MGM’s premiere of Creed III, directed by and starring Michael B.\
+    \ Jordan. The movie\ngrossed $100.4 million globally in its opening weekend—the\
+    \ best U.S. debut for any sports film in history. It also had\nthe biggest global\
+    \ box office gross of any of the Creed titles, at over $250 million to date, and\
+    \ is still opening in\nterritories around the world. In addition, filmmaker Sarah\
+    \ Polley won the Academy Award for Best Adapted\nScreenplay for MGM’s Women Talking.\n\
+    \n•\n\nPremiered Amazon Original limited series Daisy Jones & The Six, based on\
+    \ the New York Times best-selling novel,\nwhich debuted at No. 1 on Prime Video\
+    \ globally. Within 24 hours of release, the show’s soundtrack was the No. 1\n\
+    selling vinyl on Amazon, and the novel the series is based on also reached No.\
+    \ 1 on the Amazon Best Sellers List for\nall books. The company debuted additional\
+    \ Amazon Original films and series, including action comedy Shotgun\nWedding,\
+    \ starring Jennifer Lopez and Josh Duhamel; romantic comedy Somebody I Used to\
+    \ Know, directed by Dave\nFranco; comedic thriller The Consultant, starring Christoph\
+    \ Waltz; and Swarm, from co-creator and executive\nproducer Donald Glover.\n\n\
+    \f•\n\nWon four Ambies, the premier podcasting award, for Amazon Music and Wondery\
+    \ podcasts I Hear Fear (Best\nScriptwriting, Fiction), Business Wars (Best Business\
+    \ Podcast), The Lead (Best Sports Podcast), and Scamfluencers\n(Best Entertainment\
+    \ Podcast).\n\n•\n\nAnnounced new commitments and migrations from AWS customers.\n\
+    \n•\n\n•\n\nSouthwest Airlines selected AWS as its preferred cloud provider for\
+    \ a large-scale modernization as part of the\nairline’s long-term plan to optimize\
+    \ airline operations, streamline infrastructure costs, and provide a more\nseamless\
+    \ and enjoyable travel experience to customers.\n\n•\n\nZurich Insurance Group\
+    \ is moving its enterprise information technology infrastructure, including 1,000\n\
+    applications over the next three years, to AWS to deliver new digital customer\
+    \ experiences and drive\nautomation at scale.\n\n•\n\nBBVA is employing AWS’s\
+    \ extensive portfolio of cloud services to launch new financial solutions that\
+    \ will\nhelp BBVA Corporate and Investment Banking expand its business to accelerate\
+    \ innovation, reduce costs,\nscale quickly, and increase flexibility.\n\n•\n\n\
+    Broadridge’s LTX electronic trading platform completed a successful migration\
+    \ of its corporate bond etrading platform to AWS.\n\n•\n\nS&P Global and AWS announced\
+    \ a multiyear strategic collaboration to extend the delivery of advanced,\nsecure,\
+    \ cloud-based services to more than 100,000 of S&P Global’s government and enterprise\
+    \ customers in\n43 countries around the world.\n\n•\n\nSnowflake and AWS announced\
+    \ a new commitment to build joint industry-specific solutions, increase sales\n\
+    collaboration, and deepen product integration, including further streamlining\
+    \ running Snowflake on Graviton\nprocessors. Approximately 84% of Snowflake’s\
+    \ customers run their deployments on AWS to rapidly\ninnovate.\n\n•\n\nStripe\
+    \ announced a new global agreement to run virtually all their infrastructure on\
+    \ AWS while reliably\nserving millions of internet companies.\n\n•\n\nWestpac,\
+    \ one of Australia’s leading banks, expanded its collaboration with AWS through\
+    \ a new five-year\nagreement that will tap into advanced AWS capabilities, like\
+    \ machine learning, compute, and data analytics,\nto further accelerate the bank’s\
+    \ digital transformation, drive cost efficiencies, and personalize its banking\n\
+    applications.\n\n•\n\nT-Mobile is integrating its 5G Advanced Network Solutions\
+    \ portfolio with AWS to help customers more\neasily discover, customize, and deploy\
+    \ 5G edge computing.\n\n•\n\nMarvell selected AWS to rapidly scale its electronic\
+    \ design automation in the cloud to address increasingly\ncomplex chip design\
+    \ processes and deliver continuous innovation for expanding needs across the automotive,\n\
+    carrier, data center, and enterprise infrastructure markets.\n\n•\n\nTELUS, one\
+    \ of Canada’s leading telecommunications providers, is collaborating with AWS\
+    \ to develop a new\nsmart-living solution that will reduce the need for multiple\
+    \ smart-home apps, simplify installation, and enable\nnew multidevice automation.\n\
+    \n•\n\nIberdrola, one of the world’s largest clean energy companies, selected\
+    \ AWS as its preferred cloud provider to\nsupport the energy company as it embarks\
+    \ on further digitalization to enable smarter grids, customer\nengagement, and\
+    \ connected clean power.\n\nAnnounced plans to open a new AWS Region in Malaysia\
+    \ and launched a second AWS Region in Australia to\ncontinue expanding AWS’s infrastructure\
+    \ footprint, delivering the most secure, extensive, and reliable cloud\ntechnology\
+    \ to millions of customers around the world.\n\nInventing on behalf of customers\n\
+    Amazon is driven by a passion for invention across all of its business areas.\
+    \ The company builds new products and services that\ncustomers ask for, and also\
+    \ invents new ones that customers didn’t know they wanted but make their lives\
+    \ or businesses better\nin some meaningful way. For example, this past quarter,\
+    \ Amazon:\n•\n\nAnnounced new AWS tools that make building with generative artificial\
+    \ intelligence (AI) easy, practical, and costeffective for organizations of all\
+    \ sizes. The tools include:\n•\n\nAmazon Bedrock, a new managed service that offers\
+    \ customers the easiest way to build and scale enterpriseready generative AI applications.\
+    \ Amazon Bedrock provides easy access to leading foundation models (ultra-\n\n\
+    \flarge machine learning models that generative AI relies on) from AI startups\
+    \ like AI21 Labs, Anthropic, and\nStability AI, as well as exclusive access to\
+    \ the Titan family of foundation models developed by AWS. Broad\naccess to models\
+    \ gives customers flexibility and choice to customize and scale to their specific\
+    \ needs.\n•\n\nTwo next-generation compute offerings to deliver the lowest cost\
+    \ for training models and running inference in\nthe cloud: the general availability\
+    \ of instances powered by AWS-designed Inferentia2 chips, AWS’s secondgeneration\
+    \ accelerator, purpose-built for deep learning inference, as well as the general\
+    \ availability of\nnetwork-optimized Trn1n instances for large, network-intensive\
+    \ models. Compared to other EC2 instances,\nInferentia2 provides up to 40% better\
+    \ inference price performance, and Trainium delivers up to 50% savings\non training\
+    \ costs.\n\n•\n\nGeneral availability of Amazon CodeWhisperer, an AI coding companion\
+    \ that improves developer\nproductivity by generating code suggestions in real\
+    \ time. Amazon CodeWhisperer is free for individual\ndevelopers. CodeWhisperer\
+    \ is the most accurate, fastest, and most secure way to generate code for AWS\n\
+    services, including Amazon EC2, AWS Lambda, and Amazon S3. During a productivity\
+    \ challenge,\nparticipants who used CodeWhisperer completed tasks 57% faster (on\
+    \ average) and were 27% more likely to\ncomplete them successfully than those\
+    \ who didn’t use CodeWhisperer.\n\n•\n\nReceived Zoox’s driverless testing permit\
+    \ from the California Department of Motor Vehicles, marking a key step to\ncommercializing\
+    \ the self-driving robotaxi for the general public. With this permit, Zoox completed\
+    \ an initial run of its\nshuttle service for employees at its headquarters in\
+    \ Foster City, California, making it the first purpose-built robotaxi to\noperate\
+    \ on public roads in California.\n\n•\n\nExpanded the Ring lineup with new devices.\
+    \ Ring Battery Doorbell Plus offers improved HD video and energy-saving\nfeatures,\
+    \ and Ring Peephole Cam is an apartment and renter-friendly video doorbell that\
+    \ easily installs over an existing\ndoor peephole.\n\n•\n\nExpanded the Amazon-built\
+    \ TV lineup with the Fire TV 2-Series, which makes getting an Alexa-enabled TV\
+    \ more\naffordable than ever, and new sizes of the Omni QLED Series. The Omni\
+    \ QLED Series includes features so customers\ncan see their schedule on the screen,\
+    \ control smart devices, and turn the TV into an in-home art gallery. Amazon has\n\
+    surpassed 200 million Fire TV devices sold globally. Amazon also launched Amazon-built\
+    \ TVs in Germany, Mexico,\nand the UK, and collaborated with Cochlear to help\
+    \ people with hearing loss stream sound from their Amazon smart\nTVs directly\
+    \ to their Cochlear hearing implants.\n\n•\n\nUnveiled three customer terminal\
+    \ designs for Project Kuiper, Amazon’s low Earth orbit satellite broadband initiative.\n\
+    Kuiper’s mission is to bridge the digital divide by providing fast, affordable\
+    \ broadband to communities worldwide that\nare unserved or underserved by traditional\
+    \ technologies. To use Kuiper’s broadband, residential and commercial\ncustomers\
+    \ will install an outdoor antenna, called a customer terminal, to communicate\
+    \ with satellites overhead.\nAmazon is preparing to launch two prototype satellites\
+    \ to test the entire end-to-end communications network this year\nand plans to\
+    \ be in beta with commercial customers in 2024.\n\n•\n\nOpened Amazon Sidewalk\
+    \ to developer testing for the first time as part of the company’s vision to put\
+    \ a billion\nInternet of Things (IoT) devices on the network. Amazon Sidewalk\
+    \ is a low-bandwidth, long-range community\nnetwork that connects devices across\
+    \ long distances where Wi-Fi and Bluetooth signals often cannot reach. With\n\
+    Sidewalk coverage extending to 90% of the U.S. population, developers can now\
+    \ build and connect a new range of\ndevices for the network.\n\n•\n\nLaunched\
+    \ a loyalty linking capability for Amazon One, Amazon’s palm recognition service\
+    \ that lets customers enter,\nidentify, and pay. Panera is the first restaurant\
+    \ chain to offer the new loyalty linking capability, allowing customers to\neasily\
+    \ enroll in and redeem rewards, and pay for their purchases with just their palm.\n\
+    \nEmpowering employees and delivery service partners\nIn addition to its focus\
+    \ on customers, Amazon strives to make every day better for its employees and\
+    \ delivery service partners.\nFor example, in the first quarter, the company:\n\
+    •\n\nAnnounced plans to spend $200 million on safety technologies across Amazon’s\
+    \ U.S. transportation network in 2023.\nThese innovations include front-collision\
+    \ warning, lane-departure warning, speed limiters, and 360-degree camera\ndetection\
+    \ systems. They are part of Amazon’s work to ensure that vehicles and delivery\
+    \ partners are safe on the road,\nand the innovations are better for the environment.\n\
+    \n•\n\nAnnounced that Amazon improved recordable incident rates worldwide by 11%\
+    \ from 2021 to 2022 and by almost 24%\nfrom 2019 to 2022. The company shared the\
+    \ data in the second edition of its safety report, Delivered With Care, which\n\
+    details how Amazon is advancing safety across its operations through investments\
+    \ in capital improvements, safety\n\n\ftechnology, vehicle safety controls, and\
+    \ engineered ergonomic solutions to reduce risks for employees, partners, and\n\
+    communities.\n•\n\nReached 1 billion packages handled by Robin, a robotic system\
+    \ used across Amazon’s operations network in the U.S.,\nCanada, and Europe. Robin\
+    \ robotic systems use artificial intelligence, computer vision, and machine learning\
+    \ to help\nemployees handle and sort customer packages before shipment. For employees,\
+    \ this reduces the number of repetitive\ntasks, improving safety and helping them\
+    \ focus their time and energy on activities that make better use of their talents.\n\
+    \n•\n\nRanked No. 2 on Fortune magazine’s World’s Most Admired Companies list\
+    \ for the seventh year in a row. The annual\nranking is determined by a survey\
+    \ of top executives and analysts, and companies are evaluated on factors including\
+    \ the\nquality of their management and products, commitments to social responsibility,\
+    \ and ability to attract talent.\n\n•\n\nIntroduced Leadership Liftoff, an onboarding\
+    \ program for operations area managers. New managers enrolled in the\nprogram\
+    \ participate in group sessions, on-the-job training, and self-paced learning\
+    \ to help them gain skills and\nconfidence to lead successful teams and foster\
+    \ connections between new leaders.\n\nSupporting communities and protecting the\
+    \ environment\nAmazon believes that success and scale bring broad responsibility\
+    \ to help the planet, future generations, and local communities\nin which the\
+    \ company has a significant presence. Amazon employees have passion for investing\
+    \ in these areas, and a sampling\nof the efforts from this past quarter are that\
+    \ Amazon:\n•\n\nActivated the company’s global logistics network to support communities\
+    \ impacted by earthquakes in Türkiye and\nSyria. The company turned its fulfillment\
+    \ center in Istanbul into a Disaster Relief Hub and partnered with local\norganizations\
+    \ to ship hundreds of thousands of relief items to affected regions. Amazon also\
+    \ made cash donations to\nnon-governmental organizations and set up donation campaigns\
+    \ across 16 Amazon online stores globally to make it\neasy for customers to support\
+    \ communities impacted by these earthquakes.\n\n•\n\nSet a record in 2022 for\
+    \ the most renewable energy purchased by a single company in one year. Amazon’s\
+    \ renewable\nenergy portfolio now includes 164 wind and solar farms and 237 rooftop\
+    \ solar projects in 22 countries, totaling over 20\ngigawatts—an amount of energy\
+    \ that could power 5.3 million U.S. homes. Amazon has been the largest corporate\n\
+    buyer of renewable energy for three years running.\n\n•\n\nExpanded the use of\
+    \ electric delivery vehicles from Rivian, as part of the company’s commitment\
+    \ to dramatically\nreduce its carbon emissions. These custom vans from Rivian\
+    \ have now been used to deliver more than 75 million\npackages in 500 U.S. cities\
+    \ and regions. Amazon began rolling out its electric delivery vans in the summer\
+    \ of 2022 and\nnow has thousands on the road.\n\n•\n\nAnnounced over $22 million\
+    \ in low-rate loans and grants to help build affordable homes in Washington, D.C.,\
+    \ and\nCapitol Heights, Maryland. Since creating the Housing Equity Fund in 2021,\
+    \ Amazon has committed nearly $1.6\nbillion to help create or preserve affordable\
+    \ homes across Amazon’s hometown communities.\n\n•\n\nAnnounced funding for 8,000\
+    \ U.S. schools to provide access to computer science education to more than 2\
+    \ million\nstudents by the end of the 2022-2023 academic year through Amazon Future\
+    \ Engineer. By providing professional\ndevelopment for teachers, curriculum development,\
+    \ college scholarships, and internships, Amazon aims to inspire\nmillions of students\
+    \ from underserved and historically underrepresented communities to pursue careers\
+    \ in science,\ntechnology, engineering, and math (STEM).\n\n•\n\nLaunched the\
+    \ Zero Emission Maritime Buyers Alliance (ZEMBA) in partnership with the Aspen\
+    \ Institute, Patagonia,\nand Tchibo. ZEMBA will work to reduce the climate impact\
+    \ of maritime shipping by helping to create sustainable\neconomic models in renewable\
+    \ energy, zero-emission fuel production, infrastructure, and clean maritime services.\n\
+    \n•\n\nAnnounced that the Right Now Climate Fund is developing the world’s first\
+    \ commercial-scale seaweed farm located\nbetween offshore wind turbines in the\
+    \ North Sea to help address climate change by absorbing carbon dioxide as it\n\
+    grows. The Fund is also helping to create and restore ecosystems for plants and\
+    \ animals as part of its commitment to\nboost biodiversity and currently supports\
+    \ 22 rewilding initiatives in London.\n\nFinancial Guidance\nThe following forward-looking\
+    \ statements reflect Amazon.com’s expectations as of April 27, 2023, and are subject\
+    \ to\nsubstantial uncertainty. Our results are inherently unpredictable and may\
+    \ be materially affected by many factors, such as\nfluctuations in foreign exchange\
+    \ rates, changes in global economic and geopolitical conditions and customer demand\
+    \ and\nspending (including the impact of recessionary fears), inflation, interest\
+    \ rates, regional labor market constraints, world events,\nthe rate of growth\
+    \ of the Internet, online commerce, and cloud services, and the various factors\
+    \ detailed below.\n\n\fSecond Quarter 2023 Guidance\n•\n•\n•\n\nNet sales are\
+    \ expected to be between $127.0 billion and $133.0 billion, or to grow between\
+    \ 5% and 10% compared\nwith second quarter 2022. This guidance anticipates an\
+    \ unfavorable impact of approximately 30 basis points from\nforeign exchange rates.\n\
+    Operating income is expected to be between $2.0 billion and $5.5 billion, compared\
+    \ with $3.3 billion in second quarter\n2022.\nThis guidance assumes, among other\
+    \ things, that no additional business acquisitions, restructurings, or legal\n\
+    settlements are concluded.\n\nA conference call will be webcast live today at\
+    \ 2:30 p.m. PT/5:30 p.m. ET, and will be available for at least three months at\n\
+    amazon.com/ir. This call will contain forward-looking statements and other material\
+    \ information regarding the Company’s\nfinancial and operating results.\nThese\
+    \ forward-looking statements are inherently difficult to predict. Actual results\
+    \ and outcomes could differ materially for a\nvariety of reasons, including, in\
+    \ addition to the factors discussed above, the amount that Amazon.com invests\
+    \ in new business\nopportunities and the timing of those investments, the mix\
+    \ of products and services sold to customers, the mix of net sales\nderived from\
+    \ products as compared with services, the extent to which we owe income or other\
+    \ taxes, competition, management\nof growth, potential fluctuations in operating\
+    \ results, international growth and expansion, the outcomes of claims, litigation,\n\
+    government investigations, and other proceedings, fulfillment, sortation, delivery,\
+    \ and data center optimization, risks of\ninventory management, variability in\
+    \ demand, the degree to which the Company enters into, maintains, and develops\n\
+    commercial agreements, proposed and completed acquisitions and strategic transactions,\
+    \ payments risks, and risks of\nfulfillment throughput and productivity. Other\
+    \ risks and uncertainties include, among others, risks related to new products,\n\
+    services, and technologies, system interruptions, government regulation and taxation,\
+    \ and fraud. In addition, global economic\nand geopolitical conditions and additional\
+    \ or unforeseen circumstances, developments, or events may give rise to or amplify\n\
+    many of these risks. More information about factors that potentially could affect\
+    \ Amazon.com’s financial results is included in\nAmazon.com’s filings with the\
+    \ Securities and Exchange Commission (“SEC”), including its most recent Annual\
+    \ Report on\nForm 10-K and subsequent filings.\nOur investor relations website\
+    \ is amazon.com/ir and we encourage investors to use it as a way of easily finding\
+    \ information\nabout us. We promptly make available on this website, free of charge,\
+    \ the reports that we file or furnish with the SEC, corporate\ngovernance information\
+    \ (including our Code of Business Conduct and Ethics), and select press releases,\
+    \ which may contain\nmaterial information about us, and you may subscribe to be\
+    \ notified of new information posted to this site.\nAbout Amazon\nAmazon is guided\
+    \ by four principles: customer obsession rather than competitor focus, passion\
+    \ for invention, commitment to\noperational excellence, and long-term thinking.\
+    \ Amazon strives to be Earth’s Most Customer-Centric Company, Earth’s Best\nEmployer,\
+    \ and Earth’s Safest Place to Work. Customer reviews, 1-Click shopping, personalized\
+    \ recommendations, Prime,\nFulfillment by Amazon, AWS, Kindle Direct Publishing,\
+    \ Kindle, Career Choice, Fire tablets, Fire TV, Amazon Echo, Alexa,\nJust Walk\
+    \ Out technology, Amazon Studios, and The Climate Pledge are some of the things\
+    \ pioneered by Amazon. For more\ninformation, visit amazon.com/about and follow\
+    \ @AmazonNews."
+- id: q2_2023
+  label: Amazon Q2 2023 Earnings Release, August 3, 2023
+  text: "AMAZON.COM ANNOUNCES SECOND QUARTER RESULTS\nSEATTLE—(BUSINESS WIRE) August\
+    \ 3, 2023—Amazon.com, Inc. (NASDAQ: AMZN) today announced financial results\n\
+    for its second quarter ended June 30, 2023.\n•\n\n•\n\n•\n\nNet sales increased\
+    \ 11% to $134.4 billion in the second quarter, compared with $121.2 billion in\
+    \ second quarter 2022.\nExcluding the $0.3 billion unfavorable impact from year-over-year\
+    \ changes in foreign exchange rates throughout the\nquarter, net sales increased\
+    \ 11% compared with second quarter 2022.\n•\n\nNorth America segment sales increased\
+    \ 11% year-over-year to $82.5 billion.\n\n•\n\nInternational segment sales increased\
+    \ 10% year-over-year to $29.7 billion.\n\n•\n\nAWS segment sales increased 12%\
+    \ year-over-year to $22.1 billion.\n\nOperating income increased to $7.7 billion\
+    \ in the second quarter, compared with $3.3 billion in second quarter 2022.\n\
+    •\n\nNorth America segment operating income was $3.2 billion, compared with an\
+    \ operating loss of $0.6 billion in\nsecond quarter 2022.\n\n•\n\nInternational\
+    \ segment operating loss was $0.9 billion, compared with an operating loss of\
+    \ $1.8 billion in\nsecond quarter 2022.\n\n•\n\nAWS segment operating income was\
+    \ $5.4 billion, compared with operating income of $5.7 billion in second\nquarter\
+    \ 2022.\n\nNet income was $6.7 billion in the second quarter, or $0.65 per diluted\
+    \ share, compared with a net loss of $2.0 billion,\nor $0.20 per diluted share,\
+    \ in second quarter 2022.\n•\n\nSecond quarter 2023 net income includes a pre-tax\
+    \ valuation gain of $0.2 billion included in non-operating\nexpense from the common\
+    \ stock investment in Rivian Automotive, Inc., compared to a pre-tax valuation\
+    \ loss\nof $3.9 billion from the investment in second quarter 2022.\n\n•\n\nOperating\
+    \ cash flow increased 74% to $61.8 billion for the trailing twelve months, compared\
+    \ with $35.6 billion for\nthe trailing twelve months ended June 30, 2022.\n\n\
+    •\n\nFree cash flow improved to an inflow of $7.9 billion for the trailing twelve\
+    \ months, compared with an outflow of\n$23.5 billion for the trailing twelve months\
+    \ ended June 30, 2022.\n\n•\n\nFree cash flow less principal repayments of finance\
+    \ leases and financing obligations improved to an inflow of $1.9\nbillion for\
+    \ the trailing twelve months, compared with an outflow of $33.5 billion for the\
+    \ trailing twelve months ended\nJune 30, 2022.\n\n•\n\nFree cash flow less equipment\
+    \ finance leases and principal repayments of all other finance leases and financing\n\
+    obligations improved to an inflow of $6.7 billion for the trailing twelve months,\
+    \ compared with an outflow of $26.1\nbillion for the trailing twelve months ended\
+    \ June 30, 2022.\n\n\f“It was another strong quarter of progress for Amazon,”\
+    \ said Andy Jassy, Amazon CEO. “We continued lowering our cost to\nserve in our\
+    \ fulfillment network, while also providing Prime customers with the fastest delivery\
+    \ speeds we’ve ever recorded.\nOur AWS growth stabilized as customers started\
+    \ shifting from cost optimization to new workload deployment, and AWS has\ncontinued\
+    \ to add to its meaningful leadership position in the cloud with a slew of generative\
+    \ AI releases that make it much\neasier and more cost-effective for companies\
+    \ to train and run models (Trainium and Inferentia chips), customize Large\nLanguage\
+    \ Models to build generative AI applications and agents (Bedrock), and write code\
+    \ much more efficiently with\nCodeWhisperer. We’re also continuing to see strong\
+    \ demand for our advertising services as the team keeps innovating for\nbrands,\
+    \ including the ramp up for Thursday Night Football with the ability for advertisers\
+    \ to tailor their spots by audience and\ncreate interactive experiences for consumers.\
+    \ We remain excited about what lies ahead for customers and the company.”\nHighlights\n\
+    Obsessing over the customer experience\nAmazon obsesses over how to make customers’\
+    \ lives better and easier every day. This is true for consumers, sellers, brands,\n\
+    developers, enterprises, and creators. For example, Amazon:\n•\n\nDelivered its\
+    \ largest selection of products to U.S. Prime members at the fastest speeds ever\
+    \ in the quarter. The\ncompany now offers U.S. Prime members free Same-Day or\
+    \ One-Day Delivery on tens of millions of the most popular\nitems. Across the\
+    \ top 60 largest U.S. metro areas, more than half of Prime member orders arrived\
+    \ the same or next day\nin the quarter. So far this year, Amazon has delivered\
+    \ more than 1.8 billion units to U.S. Prime members the same or\nnext day—nearly\
+    \ four times the number of units delivered at those speeds by this point in 2019.\n\
+    \n•\n\nHeld the biggest Prime Day event ever on July 11-12, in the third quarter,\
+    \ as Prime members worldwide purchased\nmore than 375 million items and saved\
+    \ more than $2.5 billion. This year, Amazon offered more deals than any past\n\
+    Prime Day, with Home, Fashion, and Beauty among the top-selling deal categories.\
+    \ This was the largest Prime Day\never for Amazon’s independent sellers, most\
+    \ of which are small and medium-sized businesses, and the first where\nU.S.-based\
+    \ Prime members could shop deals directly from merchant sites using Buy with Prime.\n\
+    \n•\n\nIncreased selection in the U.S. Amazon store. Amazon added new beauty and\
+    \ fashion brands, including D’Amelio\nFootwear, Dyson hair care, IT Cosmetics,\
+    \ Ralph Lauren Fragrances, and Urban Decay, and extended its collaboration\nwith\
+    \ Victoria’s Secret. This marks the first time Victoria’s Secret lingerie and\
+    \ apparel are available through a retail\npartner in North America. Amazon also\
+    \ expanded its selection of grocery items from brands such as General Mills and\n\
+    Coca-Cola.\n\n•\n\nAnnounced Amazon Business is one of our fastest growing offerings,\
+    \ with a $35 billion annualized gross sales run rate\nand serving more than 6\
+    \ million customers. Amazon Business allows businesses, municipalities, and organizations\
+    \ to\nprocure products like office supplies and other bulk items easily and at\
+    \ discounted prices.\n\n•\n\nEnabled customers worldwide to save more than $1\
+    \ billion in the last 12 months through Subscribe & Save, a program\nthat helps\
+    \ customers save time and money on regularly scheduled deliveries. Customers select\
+    \ their preferred delivery\nfrequency for eligible products and can cancel or\
+    \ change their subscription at any time. The program has tens of\nmillions of\
+    \ global subscribers with hundreds of millions of subscriptions.\n\n•\n\nAnnounced\
+    \ that Amazon Day deliveries, which give Prime members the ability to choose a\
+    \ designated day of the week\nthat makes sense for them to receive their orders,\
+    \ saved 136 million boxes in 2022. On top of making deliveries work\nfor customers’\
+    \ personal schedules, this free Prime benefit uses 30% fewer boxes on average.\n\
+    \n•\n\nReleased Amazon’s annual U.S. Small Business Empowerment Report for 2022,\
+    \ which detailed that more than 60% of\nsales in Amazon’s store came from independent\
+    \ sellers, most of which are small and medium-sized businesses. U.S.based independent\
+    \ sellers sold more than 4.1 billion products and averaged more than $230,000\
+    \ in sales. Amazon also\nannounced a Small Business Search filter, which helps\
+    \ customers easily discover and shop for products from small\nbusinesses and artisans\
+    \ while shopping in Amazon’s store.\n\n•\n\nMarked the 10th anniversary of Amazon.in\
+    \ and announced that Amazon India has enabled cumulative ecommerce\nexports of\
+    \ over $7 billion. By 2025, Amazon India has a goal to enable cumulative ecommerce\
+    \ exports of $20 billion,\ndigitize 10 million small businesses, and create 2\
+    \ million jobs in India.\n\n•\n\nPremiered AIR, which launched in more theaters\
+    \ worldwide than any previous Amazon Original film. The film\nsubsequently debuted\
+    \ on Prime Video and ranked No. 3 on Nielsen’s Streaming Top 10 list during the\
+    \ first three days\nof its release. The company also premiered additional Amazon\
+    \ Original films and series including the final seasons of\nTom Clancy’s Jack\
+    \ Ryan and Emmy-winning The Marvelous Mrs. Maisel; the global spy thriller Citadel,\
+    \ which was\nthe No. 1 title on Prime Video in nearly 200 countries and territories\
+    \ during its premiere weekend; and Emmy-\n\n\fnominated Jury Duty, which was the\
+    \ No. 1 title on Freevee during the month it premiered and delivered the highest\n\
+    number of viewers in the U.S. on Freevee in a single month.\n•\n\nEarned 68 Primetime\
+    \ Emmy Award nominations, including three nominations in the Outstanding Comedy\
+    \ Series\ncategory for Prime Video’s The Marvelous Mrs. Maisel, Freevee’s Jury\
+    \ Duty, and MGM’s Wednesday. Jury Duty\nbecame the first advertising-based video-on-demand\
+    \ series nominated in a major Emmy category, while The\nMarvelous Mrs. Maisel\
+    \ became the most nominated streaming comedy in Emmy history with 80 nominations\
+    \ over its\nfive seasons. Daisy Jones & The Six also earned nine nominations and\
+    \ The Lord of the Rings: The Rings of Power\nearned six nominations.\n\n•\n\n\
+    Grew Prime Video’s international slate of content with more than 40 new local\
+    \ Amazon Originals and live sporting\nevents. Medellín (France) and My Fault (Spain)\
+    \ became the most watched non-English-language local Original titles in\nPrime\
+    \ Video history outside of their home territories. New global programming also\
+    \ included Deadloch (Australia),\nCaravana das Drags (Brazil), The Gryphon (Germany),\
+    \ Dahaad (India), Takeshi’s Castle (Japan), De Viaje con los\nDerbez Season Three\
+    \ (Mexico), and Gangs of Lagos (Nigeria).\n\n•\n\nLaunched Amazon MGM Studios\
+    \ Distribution to license Amazon Original and MGM library content to third parties\n\
+    after debuting on Prime Video. This will include movies and TV series, such as\
+    \ Coming 2 America and The Marvelous\nMrs. Maisel, among others. Titles available\
+    \ cover a variety of highly marketable formats and genres with distribution\n\
+    rights available.\n\n•\n\nPartnered with Pinterest to display ads on its website\
+    \ for products sold in Amazon’s store, where over 463 million\npeople go each\
+    \ month to find recipes, home, and style inspiration. As Pinterest’s first partner\
+    \ for third-party ads,\nAmazon will make it easier for customers to discover and\
+    \ buy relevant products on Amazon and provide value for\nbrands and advertisers.\n\
+    \n•\n\nAnnounced new commitments and migrations from AWS customers.\n•\n\nOmnicom,\
+    \ a global marketing and communications company, will use AWS generative artificial\
+    \ intelligence\n(generative AI) and machine learning services, including Amazon\
+    \ Bedrock and Amazon EC2 Trn1n instances\npowered by AWS Trainium chips, to help\
+    \ accelerate advertising campaign development, including\nautomating activities\
+    \ such as developing creative briefs, media plans, ad creative, audience segmentation,\
+    \ and\nperformance measurement.\n\n•\n\nRoyal Philips will use Amazon Bedrock\
+    \ to create a generative AI application that will provide clinical\ndecision support,\
+    \ help enable more accurate diagnoses, and automate administrative tasks.\n\n\
+    •\n\n3M Health Information Systems is using AWS machine learning and generative\
+    \ AI services, including\nAmazon Bedrock, Amazon Comprehend Medical, and Amazon\
+    \ Transcribe Medical, to accelerate AI\ninnovation in clinical documentation.\n\
+    \n•\n\nOld Mutual, an African financial services group, migrated its information\
+    \ technology infrastructure to AWS\nto help decrease financial transaction processing\
+    \ time by two-thirds and reduce downtime by 50%, as well as\nleverage AWS machine\
+    \ learning and generative AI services to generate real-time, personalized financial\n\
+    forecasting and recommendations for customers.\n\n•\n\nExperian named AWS as its\
+    \ preferred cloud provider to power its multiyear information technology\nmodernization\
+    \ initiative.\n\n•\n\nBanco Bilbao Vizcaya Argentaria will use AWS analytics and\
+    \ machine learning to transform its internal\nprocesses, improve risk management,\
+    \ drive growth, and provide innovative solutions for its customers.\n\n•\n\nAllen\
+    \ Institute is working with AWS to build a first-of-its-kind knowledge hub to\
+    \ advance treatment for brain\ndisorders.\n\n•\n\nSumitomo Corporation, a global\
+    \ trading and investment company, selected AWS to modernize its SAP\nservice and\
+    \ drive business insights across its 900 subsidiaries.\n\n•\n\nKB Bank in South\
+    \ Korea reduced its operating costs by 20% using Amazon Elastic Kubernetes Service,\n\
+    Amazon Aurora, and Amazon CloudWatch, among other AWS services, to provide 70\
+    \ key financial services\nto the bank’s 11 million monthly active users.\n\n•\n\
+    \nAcciona, a Spanish infrastructure and renewable energy company, completed the\
+    \ migration of its enterprise\nresource planning workloads and other core business\
+    \ applications to AWS, resulting in increased data\navailability and enhanced\
+    \ security.\n\n\f•\n\n•\n\nHSBC launched an AI-powered index that uses AWS machine\
+    \ learning services to analyze and learn from\ndata thousands of times faster\
+    \ than humans, enabling the index to automatically adapt its approach as market\n\
+    dynamics change and new information becomes available.\n\nAWS continued to expand\
+    \ its infrastructure footprint to meet customer demand, launching AWS Local Zones\
+    \ in\nAuckland, New Zealand, and Manila, Philippines, and an Amazon CloudFront\
+    \ location in Nigeria.\n\nInventing on behalf of customers\nAmazon is driven by\
+    \ a passion for invention across all of its business areas. The company builds\
+    \ new products and services that\ncustomers ask for, and also invents new ones\
+    \ that customers didn’t know they wanted but make their lives or businesses better\n\
+    in some meaningful way. For example, Amazon:\n•\n\nAnnounced new AWS technologies\
+    \ and capabilities that help customers of all sizes take advantage of generative\
+    \ AI,\nimprove productivity, and enhance their security posture. These include:\n\
+    •\n\nMore choice for Amazon Bedrock customers with the addition of Cohere as a\
+    \ foundation model provider and\nthe latest foundation models from Anthropic and\
+    \ Stability AI.\n\n•\n\nAgents for Amazon Bedrock, a capability that makes it\
+    \ easier for developers to create generative-AI based\napplications that can complete\
+    \ complex tasks and deliver customized, up-to-date answers based on\nproprietary\
+    \ data.\n\n•\n\nAWS HealthScribe, a new HIPAA-eligible service for healthcare\
+    \ software providers that uses speech\nrecognition and generative AI to automatically\
+    \ create preliminary clinical documentation from patientclinician conversations.\n\
+    \n•\n\nAmazon Elastic Compute Cloud (Amazon EC2) P5 instances, the latest generation\
+    \ instances optimized for\ngenerative AI and HPC, powered by NVIDIA H100 Tensor\
+    \ Core GPUs.\n\n•\n\nAWS AppFabric, a service that helps IT and security teams\
+    \ more easily manage and secure applications.\n\n•\n\nThe general availability\
+    \ of Amazon Security Lake, which centralizes security data from AWS, on-premises,\n\
+    and other cloud environments, into a purpose-built data lake. This gives customers\
+    \ broad visibility to\ninvestigate and respond to security events.\n\n•\n\nNew\
+    \ capabilities for Amazon GuardDuty, AWS’s threat detection service that helps\
+    \ protect customers from\nthe latest threats using machine learning, anomaly detection,\
+    \ and integrated threat intelligence. New\ncapabilities include new container\
+    \ runtime protection for Amazon Elastic Kubernetes Service (Amazon EKS),\nextended\
+    \ coverage for data stored in Amazon Aurora, and support for serverless applications\
+    \ in AWS\nLambda.\n\n•\n\nAmazon Aurora I/O-Optimized, a new configuration for\
+    \ Amazon Aurora (AWS’s high-performance, fullymanaged relational database service)\
+    \ that offers improved price performance and predictable pricing for\ncustomers\
+    \ with input/output (I/O)-intensive applications.\n\n•\n\nThe AWS Generative AI\
+    \ Innovation Center to help customers successfully build and deploy generative\
+    \ AI\nsolutions. AWS is investing $100 million in the program, which will connect\
+    \ AWS AI and machine learning\nexperts with customers around the globe to help\
+    \ them envision, design, and launch new generative AI\nproducts, services, and\
+    \ processes.\n\n•\n\nIntroduced new Echo devices to give customers more choices\
+    \ for how to access Alexa. Echo Pop features a new\nhardware design with a front-facing\
+    \ directional speaker; Echo Show 5 features a redesigned speaker and new spacethemed\
+    \ design for the Echo Show 5 Kids; and wireless Echo Buds deliver high-quality\
+    \ audio and access to Alexa on\nthe go. To date, Amazon has sold more than half\
+    \ a billion Alexa-enabled devices globally.\n\n•\n\nExpanded the Amazon Fire tablet\
+    \ family with the Fire Max 11, Amazon’s biggest and most powerful tablet with\
+    \ an\n11-inch display, durable and eco-friendly design, processor that’s almost\
+    \ 50% faster than any other Amazon tablet, 14\nhours of battery life, fingerprint\
+    \ recognition, and Alexa integration.\n\n•\n\nExpanded offerings of Alexa Smart\
+    \ Properties—which delivers Alexa experiences in hotels, vacation rentals,\napartments,\
+    \ and other properties—to include Atria Management Company, which is bringing\
+    \ Alexa to its senior living\nfacilities across the U.S., and Circa Resort & Casino,\
+    \ which is adding Alexa to all of its hotel rooms in Las Vegas,\nNevada.\n\n•\n\
+    \nAnnounced Fire TV Channels, a free ad-supported service that offers Fire TV\
+    \ customers access to content from over\n400 providers like NHL, Xbox, and TMZ.\
+    \ Customers can watch live, on-demand, and short-form content in categories\n\
+    such as news, sports, music videos, entertainment, food and cooking, video games,\
+    \ and travel. Fire TV Channels\n\n\fbrings together premium free content that\
+    \ spans diverse customer interests from a growing list of household names like\n\
+    ABC News, CBS Sports HQ, FOX Sports, Major League Baseball, NBC News Now, Martha\
+    \ Stewart, and America’s\nTest Kitchen.\n•\n\nIntroduced new, more advanced machine\
+    \ learning models to help advertisers reach previously unaddressable audiences\n\
+    with Amazon Ads. The new machine learning models analyze a range of signals to\
+    \ help advertisers predict and reach\nhighly relevant audiences with optimal cost-efficiency,\
+    \ which is critical to reaching desired audiences as the\nadvertising industry\
+    \ moves away from third-party cookies. Performance improvements include an increase\
+    \ in clickthrough rate, an increase in return on ad spend, and a decrease in cost\
+    \ per impression.\n\n•\n\nLaunched Amazon Hub Delivery in the U.S. In this flexible\
+    \ delivery program, Amazon partners with local businesses,\nsuch as florists or\
+    \ dry cleaners, to deliver packages for Amazon. Partners receive packages each\
+    \ morning and can make\ndeliveries when it works best for their schedule. Amazon’s\
+    \ goal is to onboard 2,500 partners in 23 states by the end of\n2023.\n\nSupporting\
+    \ employees, delivery service partners, communities, and the environment\nIn addition\
+    \ to its focus on customers, Amazon strives to make every day better for its employees\
+    \ and delivery service partners.\nAmazon also believes that success and scale\
+    \ bring broad responsibility to help the planet, future generations, and local\n\
+    communities in which the company has a significant presence. For example, the\
+    \ company:\n•\n\nWas named the top corporate giver in the Puget Sound metro region\
+    \ by the Puget Sound Business Journal and in the\nWashington, D.C., metro region\
+    \ by The Washington Business Journal. Amazon was recognized for donations to more\n\
+    than 300 local organizations, supporting equity in education, affordable housing,\
+    \ and regional economic development.\n\n•\n\nDoubled the capacity of Amazon’s\
+    \ Disaster Relief Hub in Atlanta, Georgia, where 2.4 million relief items were\
+    \ prepositioned ahead of the 2023 hurricane season. Items are distributed in the\
+    \ wake of natural disasters to nonprofits and\nother aid partners that quickly\
+    \ help communities impacted by hurricanes or other disasters. Amazon also launched\
+    \ a\nDisaster Relief Hub in Japan, bringing Amazon’s global total number of Disaster\
+    \ Relief hubs to five.\n\n•\n\nAwarded 400 scholarships for students from underserved\
+    \ and underrepresented communities to attend a U.S. college\nor university through\
+    \ Amazon Future Engineer, the company’s computer science education program. Since\
+    \ launching\nthe program five years ago, Amazon has awarded $38 million in scholarships\
+    \ to 950 U.S. students who are also\ngranted paid internships at Amazon.\n\n•\n\
+    \nCommitted to hire at least 5,000 displaced refugees in Europe by 2026 and expanded\
+    \ Amazon’s Welcome Door\nprogram to Australia, Germany, and Poland. The program,\
+    \ which launched in 2022 in the U.S., provides resources and\nsupport to refugee\
+    \ and humanitarian-based immigrant employees.\n\n•\n\nAnnounced that in 2022 in\
+    \ North America, more than 7 million products were shipped without additional\
+    \ Amazon\npackaging. This is part of the company’s efforts to reduce excess packaging\
+    \ for customer orders without\ncompromising delivery speed or product care with\
+    \ Amazon’s Ship In Own Container program, where items are\nshipped without additional\
+    \ packaging.\n\n•\n\nAnnounced the global expansion of Amazon’s Cancer Advocacy,\
+    \ Resources, Education, and Support (CARES)\nprogram by the end of 2023 for all\
+    \ Amazon employees and family members with cancer. CARES helps alleviate stress\n\
+    related to working while sick and helps with accessing the best possible care,\
+    \ benefits management, health system\nnavigation, appointment scheduling, paperwork,\
+    \ and more. The program started in 2022 and operates in 23 countries.\n\n•\n\n\
+    Opened Metropolitan Park (“Met Park”), the first phase of Amazon’s second headquarters,\
+    \ in Arlington, Virginia. The\n2.1 million-square-foot development includes over\
+    \ 50,000 square feet of retail space that prioritizes local minority- and\nwomen-owned\
+    \ businesses, protected bike lanes, over 2.5 acres of public park space, and will\
+    \ operate with zero carbon\nemissions. Other features include low-carbon concrete,\
+    \ water capture and reuse, and landscaped roofs where plantings\nwill reduce buildings’\
+    \ energy consumption.\n\n•\n\nRanked No. 1 on LinkedIn’s Top Companies, an annual\
+    \ list of the most sought-after places to work and grow a career\nin the U.S.,\
+    \ Japan, and Spain; No. 1 on the Harvard CAPS Harris Poll of Most Favorable Institutions,\
+    \ ahead of all\nother companies and government institutions, including the U.S.\
+    \ military; No. 3 on Boston Consulting Group’s annual\nMost Innovative Companies\
+    \ report; and No. 3 on Morning Consult’s Most Trusted Brands list. Amazon also\
+    \ ranked in\nthe top 10 for the 15th consecutive year on the Axios Harris Poll\
+    \ 100, an annual ranking of the reputation of the most\nvisible companies in America.\n\
+    \n\fFinancial Guidance\nThe following forward-looking statements reflect Amazon.com’s\
+    \ expectations as of August 3, 2023, and are subject to\nsubstantial uncertainty.\
+    \ Our results are inherently unpredictable and may be materially affected by many\
+    \ factors, such as\nfluctuations in foreign exchange rates, changes in global\
+    \ economic and geopolitical conditions and customer demand and\nspending (including\
+    \ the impact of recessionary fears), inflation, interest rates, regional labor\
+    \ market constraints, world events,\nthe rate of growth of the Internet, online\
+    \ commerce, and cloud services, and the various factors detailed below.\nThird\
+    \ Quarter 2023 Guidance\n•\n•\n•\n\nNet sales are expected to be between $138.0\
+    \ billion and $143.0 billion, or to grow between 9% and 13% compared\nwith third\
+    \ quarter 2022. This guidance anticipates a favorable impact of approximately\
+    \ 120 basis points from foreign\nexchange rates.\nOperating income is expected\
+    \ to be between $5.5 billion and $8.5 billion, compared with $2.5 billion in third\
+    \ quarter\n2022.\nThis guidance assumes, among other things, that no additional\
+    \ business acquisitions, restructurings, or legal\nsettlements are concluded.\n\
+    \nA conference call will be webcast live today at 2:30 p.m. PT/5:30 p.m. ET, and\
+    \ will be available for at least three months at\namazon.com/ir. This call will\
+    \ contain forward-looking statements and other material information regarding\
+    \ the Company’s\nfinancial and operating results.\nThese forward-looking statements\
+    \ are inherently difficult to predict. Actual results and outcomes could differ\
+    \ materially for a\nvariety of reasons, including, in addition to the factors\
+    \ discussed above, the amount that Amazon.com invests in new business\nopportunities\
+    \ and the timing of those investments, the mix of products and services sold to\
+    \ customers, the mix of net sales\nderived from products as compared with services,\
+    \ the extent to which we owe income or other taxes, competition, management\n\
+    of growth, potential fluctuations in operating results, international growth and\
+    \ expansion, the outcomes of claims, litigation,\ngovernment investigations, and\
+    \ other proceedings, fulfillment, sortation, delivery, and data center optimization,\
+    \ risks of\ninventory management, variability in demand, the degree to which the\
+    \ Company enters into, maintains, and develops\ncommercial agreements, proposed\
+    \ and completed acquisitions and strategic transactions, payments risks, and risks\
+    \ of\nfulfillment throughput and productivity. Other risks and uncertainties include,\
+    \ among others, risks related to new products,\nservices, and technologies, system\
+    \ interruptions, government regulation and taxation, and fraud. In addition, global\
+    \ economic\nand geopolitical conditions and additional or unforeseen circumstances,\
+    \ developments, or events may give rise to or amplify\nmany of these risks. More\
+    \ information about factors that potentially could affect Amazon.com’s financial\
+    \ results is included in\nAmazon.com’s filings with the Securities and Exchange\
+    \ Commission (“SEC”), including its most recent Annual Report on\nForm 10-K and\
+    \ subsequent filings.\nOur investor relations website is amazon.com/ir and we\
+    \ encourage investors to use it as a way of easily finding information\nabout\
+    \ us. We promptly make available on this website, free of charge, the reports\
+    \ that we file or furnish with the SEC, corporate\ngovernance information (including\
+    \ our Code of Business Conduct and Ethics), and select press releases, which may\
+    \ contain\nmaterial information about us, and you may subscribe to be notified\
+    \ of new information posted to this site.\nAbout Amazon\nAmazon is guided by four\
+    \ principles: customer obsession rather than competitor focus, passion for invention,\
+    \ commitment to\noperational excellence, and long-term thinking. Amazon strives\
+    \ to be Earth’s Most Customer-Centric Company, Earth’s Best\nEmployer, and Earth’s\
+    \ Safest Place to Work. Customer reviews, 1-Click shopping, personalized recommendations,\
+    \ Prime,\nFulfillment by Amazon, AWS, Kindle Direct Publishing, Kindle, Career\
+    \ Choice, Fire tablets, Fire TV, Amazon Echo, Alexa,\nJust Walk Out technology,\
+    \ Amazon Studios, and The Climate Pledge are some of the things pioneered by Amazon.\
+    \ For more\ninformation, visit amazon.com/about and follow @AmazonNews."
+metrics:
+  net_sales:
+    unit: USD billions
+    tol: 0.1
+    description: Consolidated net sales (total company revenue)
+  operating_income:
+    unit: USD billions
+    tol: 0.1
+    description: Consolidated operating income
+expected_guidance:
+- source: q1_2023
+  metric: net_sales
+  period: Q2FY2023
+  low: 127.0
+  high: 133.0
+- source: q1_2023
+  metric: operating_income
+  period: Q2FY2023
+  low: 2.0
+  high: 5.5
+- source: q2_2023
+  metric: net_sales
+  period: Q3FY2023
+  low: 138.0
+  high: 143.0
+- source: q2_2023
+  metric: operating_income
+  period: Q3FY2023
+  low: 5.5
+  high: 8.5
+expected_changes:
+- metric: net_sales
+  period: Q3FY2023
+  type: initiated
+  from: null
+  to:
+    low: 138.0
+    high: 143.0
+- metric: operating_income
+  period: Q3FY2023
+  type: initiated
+  from: null
+  to:
+    low: 5.5
+    high: 8.5
+traps:
+- source: q1_2023
+  metric: net_sales
+  period: Q1FY2023
+  value: 127.4
+  description: Q1 2023 reported net sales ($127.4B actual, not guidance)
+- source: q1_2023
+  metric: operating_income
+  period: Q1FY2023
+  value: 4.8
+  description: Q1 2023 reported operating income ($4.8B actual, not guidance)
+- source: q2_2023
+  metric: net_sales
+  period: Q2FY2023
+  value: 134.4
+  description: Q2 2023 reported net sales ($134.4B actual, not guidance)
+- source: q2_2023
+  metric: operating_income
+  period: Q2FY2023
+  value: 7.7
+  description: Q2 2023 reported operating income ($7.7B actual, not guidance)

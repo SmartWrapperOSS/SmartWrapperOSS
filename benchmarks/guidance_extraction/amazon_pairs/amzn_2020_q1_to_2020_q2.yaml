@@ -1,0 +1,794 @@
+task_id: guidance_amazon_2020q1_2020q2
+company: Amazon.com, Inc. (real Q1 2020 & Q2 2020 SEC earnings releases)
+documents:
+- id: q1_2020
+  label: Amazon Q1 2020 Earnings Release, April 30, 2020
+  text: "AMAZON.COM ANNOUNCES FIRST QUARTER RESULTS\nSEATTLE—(BUSINESS WIRE) April\
+    \ 30, 2020—Amazon.com, Inc. (NASDAQ: AMZN) today announced financial results\n\
+    for its first quarter ended March 31, 2020.\n•\n\nOperating cash flow increased\
+    \ 16% to $39.7 billion for the trailing twelve months, compared with $34.4 billion\
+    \ for\nthe trailing twelve months ended March 31, 2019.\n\n•\n\nFree cash flow\
+    \ increased to $24.3 billion for the trailing twelve months, compared with $23.0\
+    \ billion for the trailing\ntwelve months ended March 31, 2019.\n\n•\n\nFree cash\
+    \ flow less principal repayments of finance leases and financing obligations decreased\
+    \ to $14.3 billion for\nthe trailing twelve months, compared with $15.1 billion\
+    \ for the trailing twelve months ended March 31, 2019.\n\n•\n\nFree cash flow\
+    \ less equipment finance leases and principal repayments of all other finance\
+    \ leases and financing\nobligations decreased to $11.7 billion for the trailing\
+    \ twelve months, compared with $11.8 billion for the trailing\ntwelve months ended\
+    \ March 31, 2019.\n\n•\n\nCommon shares outstanding plus shares underlying stock-based\
+    \ awards totaled 513 million on March 31, 2020,\ncompared with 507 million one\
+    \ year ago.\n\n•\n\nNet sales increased 26% to $75.5 billion in the first quarter,\
+    \ compared with $59.7 billion in first quarter 2019.\nExcluding the $387 million\
+    \ unfavorable impact from year-over-year changes in foreign exchange rates throughout\
+    \ the\nquarter, net sales increased 27% compared with first quarter 2019.\n\n\
+    •\n\nOperating income decreased to $4.0 billion in the first quarter, compared\
+    \ with operating income of $4.4 billion in\nfirst quarter 2019.\n\n•\n\nNet income\
+    \ decreased to $2.5 billion in the first quarter, or $5.01 per diluted share,\
+    \ compared with net income of $3.6\nbillion, or $7.09 per diluted share, in first\
+    \ quarter 2019.\n\n“From online shopping to AWS to Prime Video and Fire TV, the\
+    \ current crisis is demonstrating the adaptability and durability\nof Amazon’s\
+    \ business as never before, but it’s also the hardest time we’ve ever faced,”\
+    \ said Jeff Bezos, Amazon founder and\nCEO. “We are inspired by all the essential\
+    \ workers we see doing their jobs — nurses and doctors, grocery store cashiers,\
+    \ police\nofficers, and our own extraordinary frontline employees. The service\
+    \ we provide has never been more critical, and the people\ndoing the frontline\
+    \ work — our employees and all the contractors throughout our supply chain — are\
+    \ counting on us to keep\nthem safe as they do that work. We’re not going to let\
+    \ them down. Providing for customers and protecting employees as this\ncrisis\
+    \ continues for more months is going to take skill, humility, invention, and money.\
+    \ If you’re a shareowner in Amazon, you\nmay want to take a seat, because we’re\
+    \ not thinking small. Under normal circumstances, in this coming Q2, we’d expect\
+    \ to\nmake some $4 billion or more in operating profit. But these aren’t normal\
+    \ circumstances. Instead, we expect to spend the\nentirety of that $4 billion,\
+    \ and perhaps a bit more, on COVID-related expenses getting products to customers\
+    \ and keeping\nemployees safe. This includes investments in personal protective\
+    \ equipment, enhanced cleaning of our facilities, less efficient\nprocess paths\
+    \ that better allow for effective social distancing, higher wages for hourly teams,\
+    \ and hundreds of millions to\ndevelop our own COVID-19 testing capabilities.\
+    \ There is a lot of uncertainty in the world right now, and the best investment\
+    \ we\ncan make is in the safety and well-being of our hundreds of thousands of\
+    \ employees. I’m confident that our long-term oriented\nshareowners will understand\
+    \ and embrace our approach, and that in fact they would expect no less.”\n\n\f\
+    COVID-19\nWhat we are doing for employees\n•\n\nOur top concern is ensuring the\
+    \ health and safety of our employees and contractors around the world. We made\
+    \ over\n150 significant process changes in our operations network and Whole Foods\
+    \ Market stores to help teams stay healthy\n— and we conduct daily audits of the\
+    \ measures we’ve put into place.\n\n•\n\nWe have procured 100 million face masks\
+    \ and are requiring that they be worn by all associates, drivers, and support\n\
+    staff in our operations network. We purchased more than 1,000 thermal cameras\
+    \ and 31,000 thermometers, which we\nare using to conduct mandatory daily temperature\
+    \ checks for employees and support staff throughout our operations\nsites and\
+    \ Whole Foods Market stores.\n\n•\n\nA team of Amazonians — from research scientists\
+    \ and program managers to procurement specialists and software\nengineers — has\
+    \ moved from their normal day jobs to a dedicated team working to build incremental\
+    \ testing capacity.\nThe team is building its first lab and has begun a pilot\
+    \ to test front-line employees. We’re not sure how far we will get\nin the relevant\
+    \ timeframe, but we think it’s worth trying, and we stand ready to share anything\
+    \ we learn.\n\n•\n\nIn March and April, we announced plans to and have now hired\
+    \ 175,000 people in our fulfillment and delivery\nnetwork in response to increased\
+    \ customer demand and to assist existing employees. We are happy to welcome these\n\
+    new hires to our team and are continuing to hire.\n\n•\n\nIn March, we increased\
+    \ pay for hourly employees by $2/hour in the U.S. and Canada, £2/hour in the U.K.,\
+    \ and €2/hour\nin many European countries. We also doubled the regular hourly\
+    \ base pay for overtime hours worked — a minimum of\n$34 an hour in the U.S. —\
+    \ an increase from time and a half. Our investment in increased pay for our hourly\
+    \ employees\nand partners during COVID-19 will be nearly $700 million through\
+    \ May 16.\n\nWhat we are doing for customers\n•\n\nWe’re prioritizing the stocking\
+    \ and delivery of essential items to ensure the fastest delivery of household\
+    \ staples,\nmedical supplies, and other critical products.\n\n•\n\nWe’re acting\
+    \ aggressively to help protect customers from bad actors and have removed over\
+    \ one million offers from\nour stores due to COVID-based price gouging. We’ve\
+    \ suspended more than 10,000 selling accounts globally for\nviolating our fair-pricing\
+    \ policies.\n\n•\n\nWe’re working hard to increase order capacity for Prime Now,\
+    \ Amazon Fresh, and Whole Foods Market. We’ve\nexpanded Whole Foods Market grocery\
+    \ pickup from roughly 80 stores to more than 150, adjusted store hours for\nselect\
+    \ locations to focus exclusively on fulfilling online grocery orders during certain\
+    \ times, and have made it easier\nfor customers to see when the next delivery\
+    \ window is available on the Prime Now, Amazon Fresh, and Whole Foods\nMarket\
+    \ homepages.\n\n•\n\nWe’ve implemented additional safety measures within our Whole\
+    \ Foods Market stores, including providing plexiglass\nbarriers between cashiers\
+    \ and customers at checkout, rolling out enhanced cleanliness and sanitation protocols,\
+    \ and\nenforcing social distancing guidelines. Our Whole Foods Market locations\
+    \ are open to seniors one hour before opening\nthe store to the general public,\
+    \ and we are reserving the first hour of grocery pickup at select Whole Foods\
+    \ Market\nlocations for seniors.\n\n•\n\nAlexa is helping customers stay informed\
+    \ and connected, and can now answer tens of thousands of questions related to\n\
+    COVID-19. We’re working to provide accurate and timely information from official\
+    \ government and news sources,\nglobally. Alexa also provides an experience that\
+    \ helps customers in Brazil, Canada, India, Japan, Mexico, and the U.S.\ncheck\
+    \ their risk level for COVID-19. Customers can ask, “Alexa, what do I do if I\
+    \ think I have COVID-19?” or\n“Alexa, what do I do if I think I have coronavirus?”\
+    \ Alexa then asks a series of questions about the person’s symptoms\nand possible\
+    \ exposure and provides guidance sourced from local health authorities.\n\n\f\
+    •\n\nTo support third-party sellers in Amazon’s stores, many of whom are small\
+    \ and medium-sized businesses, we paused\nAmazon Lending loan repayments from\
+    \ March 26 to April 30. In recent weeks, we also waived one month of fees for\n\
+    long-term storage, Strategic Account Services account management, and the Launchpad\
+    \ program, as well as two\nweeks of inventory storage fees.\n\n•\n\nAmazon is\
+    \ supporting small businesses by partnering with American Express and its Stand\
+    \ for Small initiative,\nproviding free use of business tools that help with virtual\
+    \ communication and collaboration, such as Amazon Chime,\nAmazon WorkDocs, and\
+    \ Amazon WorkSpaces, as well as enabling small businesses to use the cloud at\
+    \ no charge for\n12 months with AWS Free Tier. We’re also giving complimentary\
+    \ access to training and educational tools from the\nAmazon Small Business Academy\
+    \ to help entrepreneurs learn how to build their businesses online.\n\n•\n\nAWS\
+    \ is helping healthcare workers, medical researchers, scientists, and public health\
+    \ officials working to understand\nand fight COVID-19 by providing a centralized\
+    \ repository of curated, up-to-date, pre-processed, and publicly-readable\ndatasets\
+    \ focused on the spread and characteristics of the virus. The AWS COVID-19 data\
+    \ lake, which includes data\nsets from Johns Hopkins University, Definitive Healthcare,\
+    \ Carnegie Mellon’s Delphi Research Group, and other\nsources, is available for\
+    \ anyone researching, tracking, deploying vital resources, or developing other\
+    \ helpful solutions\nand applications to combat COVID-19.\n\n•\n\nAWS is supporting\
+    \ the White House’s COVID-19 High Performance Computing Consortium, providing\
+    \ computing\nresources to advance research on diagnosis, treatment, and vaccines.\n\
+    \n•\n\nCustomers are using AWS to lessen the impact that COVID-19 has on families,\
+    \ communities, and businesses.\nExamples include:\n•\n\nThe New York City COVID-19\
+    \ Rapid Response Coalition is using a conversational agent, which is running\n\
+    on AWS, to enable at-risk, elderly New Yorkers to receive accurate, timely information\
+    \ about medical needs.\n\n•\n\nThe Los Angeles Unified School District is using\
+    \ AWS to power a new call center that is fielding IT\nquestions, providing remote\
+    \ support, and enabling staff to answer calls around remote learning for 700,000\n\
+    students.\n\n•\n\nVolunteer Surge, a nonprofit consortium, is running its online\
+    \ training platform on AWS to recruit, train, and\ndeploy one million volunteer\
+    \ health workers.\n\n•\n\nThe World Health Organization is using AWS to build\
+    \ large-scale data lakes, aggregate epidemiological\ncountry data, rapidly translate\
+    \ medical training videos into different languages, and help global healthcare\n\
+    workers better treat patients.\n\n•\n\nCerner, a global healthcare technology\
+    \ company, is compiling de-identified patient data to help COVID-19\nresearchers\
+    \ and is leveraging AWS to secure and store critical information. The data is\
+    \ available free of\ncharge and will support research, vaccine development, and\
+    \ new treatment options, allowing organizations to\nshare information and accelerate\
+    \ understanding of the virus.\n\n•\n\nIn England, the National Health Service\
+    \ is using AWS to analyze hospital occupancy levels, emergency room\ncapacity,\
+    \ and patient wait times in order to help decide where best to allocate resources.\n\
+    \n•\n\nAWS is helping Kentucky and West Virginia authorities address the surge\
+    \ in call volumes to unemployment\ncall centers by transitioning from legacy technology\
+    \ that often required agents to work in the states’ offices to\nAmazon Connect\
+    \ which enables staff to work remotely via the AWS Cloud.\n\n•\n\nOrigin Energy,\
+    \ Australia’s largest integrated energy retailer, is using Amazon Connect to operate\
+    \ its cloudbased contact center and successfully manage inbound calls by enabling\
+    \ their contact center agents to work\nremotely during the COVID-19 crisis.\n\n\
+    •\n\nAWS is helping the state of Rhode Island address a surge in unemployment\
+    \ insurance applications — 10\ntimes the volume their legacy system could typically\
+    \ handle — by powering the Department of Labor and\nTraining’s website and online\
+    \ application portal.\n\n\f•\n\nAWS is helping schools around the world quickly\
+    \ deploy and transition to online learning through its EdTech\ncustomers and partners.\
+    \ In Egypt, the Ministry of Education and CDSM Thinqi are standing up instant\
+    \ access to online\nlearning content, where 22 million K-12 students are able\
+    \ to continue their education in the midst of COVID-19; and\nin India, EdTech\
+    \ startup Impartus is launching virtual classrooms for more than 530,000 students\
+    \ — the online\nequivalent of 13,000 physical classrooms. AWS is also working\
+    \ with Blackboard, the largest education technology\nand services company in the\
+    \ world, enabling them to scale to 50x their usual capacity within a 24-hour timeframe\
+    \ to\nmeet the global surge in demand of daily users for their virtual teaching\
+    \ and learning platform.\n\n•\n\nIn collaboration with Salesforce, AWS is participating\
+    \ in the “Salesforce Care” campaign, a program to onboard up to\n300 customers,\
+    \ like HCA Healthcare and Providence Health & Services, to help them quickly stand-up\
+    \ call center\ncapacity to handle the spike in demand from their patients.\n\n\
+    What we are doing for communities\n•\n\nUsing our network of Amazon Flex drivers,\
+    \ we’re partnering with food banks across the U.S. to donate delivery\nservices\
+    \ of groceries to serve six million meals through the end of June. We’ve delivered\
+    \ 427,000 pounds of groceries,\nrepresenting 336,000 meals.\n\n•\n\nWe’ve partnered\
+    \ with a Seattle catering company to distribute more than 73,000 meals to over\
+    \ 2,700 elderly and\nmedically-vulnerable residents in Seattle and King County\
+    \ during the outbreak.\n\n•\n\nWe’re donating $5 million in Amazon devices to\
+    \ support healthcare workers, patients, schools, teachers, and\ncommunities around\
+    \ the globe that have been impacted by COVID-19.\n\n•\n\nWe’ve provided $10 million\
+    \ in funding to provide relief to more than 800 small businesses in Seattle and\
+    \ the Puget\nSound through cash grants and free rent as part of our Neighborhood\
+    \ Small Business Relief Fund.\n\n•\n\nWe have donated 12,200 laptops to students\
+    \ across the U.S. and are making online computer science resources,\nincluding\
+    \ exam prep, available at no cost to students, parents, and teachers through Amazon\
+    \ Future Engineer.\n\n•\n\nWe committed more than €21 million to relief organizations\
+    \ across Europe to support those most affected by COVID19.\n\n•\n\nIn partnership\
+    \ with the United States Department of Agriculture we’ve expanded the list of\
+    \ states where Supplemental\nNutrition Assistance Program (SNAP) benefits can\
+    \ be used online, which now includes Alabama, Arizona, California,\nFlorida, Iowa,\
+    \ Kentucky, Nebraska, New York, Oregon, and Washington, with additional states\
+    \ to come online soon.\n\n•\n\nWith the AWS Diagnostic Development Initiative,\
+    \ a program to support customers working to bring more accurate\ndiagnostic solutions\
+    \ to market for COVID-19, we’re committing $20 million to accelerate this work\
+    \ and help our\ncustomers harness the cloud to tackle this challenge.\n\nBusiness\
+    \ Highlights\nShopping and Entertainment\n•\n\nAmazon ranked #1 in the 2019 American\
+    \ Customer Satisfaction Index Internet Retail Category and has been ranked in\n\
+    the top 10 for the past 11 years. In the U.K., the Institute of Customer Service\
+    \ named Amazon as the company with the\nbest customer service score for the past\
+    \ decade.\n\n•\n\nPrime Video launched Prime Video Cinema in the U.S., the U.K.,\
+    \ and Germany. Prime Video Cinema is a premium\nmovie rental offering that allows\
+    \ customers to stream in-theater movies at home, including titles such as Birds\
+    \ of Prey,\nEmma, The Invisible Man, Onward, and Trolls World Tour.\n\n•\n\nCustomers\
+    \ in the U.S., the U.K., and Germany can now rent or buy hundreds of thousands\
+    \ of video titles directly from\nthe Prime Video app on Apple iOS 12 devices and\
+    \ the Apple TV Gen 4+, including new release movies, awardwinning TV shows, and\
+    \ Oscar-nominated movies.\n\n\f•\n\nPrime Video premiered several new Amazon Original\
+    \ series including the reality competition Making the Cut, hosted\nand executive\
+    \ produced by Heidi Klum and Tim Gunn; The Forgotten Army in India; Love Island\
+    \ in France; Celebrity\nHunted in Italy; and the docuseries The Test: A New Era\
+    \ for Australia’s Team in Australia.\n\n•\n\nPrime Video and the National Football\
+    \ League (NFL) announced a multi-year agreement to renew their partnership to\n\
+    deliver a live digital stream of 11 Thursday Night Football games as well as exclusive\
+    \ global streaming rights to one\nadditional regular season game. All NFL games\
+    \ on Prime Video are available at no extra cost to Prime members.\n\n•\n\nAmazon\
+    \ launched Amazon Go Grocery in Seattle, the first grocery store to offer Just\
+    \ Walk Out Shopping. The store's\ncheckout-free experience is enabled by the same\
+    \ Just Walk Out Technology used in 25 Amazon Go stores across the\nU.S. In addition,\
+    \ Amazon is now offering its Just Walk Out Technology to retailers for use in\
+    \ their stores, allowing\nmore shoppers to enjoy the convenience of taking what\
+    \ they want and leaving without stopping to check out.\n\n•\n\nAmazon launched\
+    \ Amazon.nl and a new Prime program for the Netherlands marketplace. Amazon Prime\
+    \ includes\nunlimited free shipping, Prime Video, Twitch Prime, and Amazon Photos.\n\
+    \n•\n\nAmazon announced that more than 15,000 small and medium-sized businesses\
+    \ selling in Amazon’s stores in the U.S.\nsurpassed $1 million in sales in 2019.\
+    \ Additionally, third-party sellers sold more than 700 million items that shipped\n\
+    with Prime Free One-Day Delivery or faster in the U.S. in 2019.\n\nDevices and\
+    \ Alexa\n•\n\nAlexa is available on even more devices including TV, mobile, and\
+    \ auto and is now available on select LG and\nSamsung Smart TV 2020 models and\
+    \ the new OnePlus 8 mobile phone. Additionally, BMW customers in the U.S., and\n\
+    MINI customers in the U.S., France, Italy, Spain, and Austria can now access Alexa\
+    \ on select models.\n\n•\n\nAmazon introduced a new speaking style for Alexa skills,\
+    \ enabling U.S. developers to build more natural long-form\ncontent experiences\
+    \ by adding conversational pauses to Alexa’s speech when reading articles or blogs.\n\
+    \n•\n\nFire TV’s content catalog continues to grow internationally with new apps,\
+    \ including Disney+, available on Fire TV\nand Fire Tablet devices in the U.K.,\
+    \ France, Germany, Italy, and Spain.\n\n•\n\nRing launched several new products\
+    \ and features, including two Ring Video Doorbells and its next-generation Ring\n\
+    Chime and Ring Chime Pro, in the U.S., the U.K., Canada, Australia, and New Zealand.\
+    \ Additionally, Ring launched\nmandatory two-step verification for all users,\
+    \ along with the ability to opt out of personalized advertising.\n\n•\n\nAmazon\
+    \ launched Blink Mini, a new compact indoor smart security camera that works with\
+    \ Alexa in the U.S., the\nU.K., Canada, Germany, and France.\n\nAmazon Web Services\n\
+    •\n\nAWS announced the opening of the AWS Europe (Milan) and AWS Africa (Cape\
+    \ Town) Regions. AWS now spans 76\nAvailability Zones within 24 geographic regions,\
+    \ with announced plans for nine more Availability Zones and three\nmore AWS Regions\
+    \ in Indonesia, Japan, and Spain.\n\n•\n\nAWS announced the general availability\
+    \ of Amazon Detective, a security service that makes it easy for customers to\n\
+    conduct faster and more efficient investigations into security issues across their\
+    \ AWS workloads. Amazon Detective\nautomatically collects log data from a customer’s\
+    \ resources and uses machine learning, statistical analysis, and graph\ntheory\
+    \ to build interactive visualizations that help customers analyze, investigate,\
+    \ and quickly identify the root cause\nof potential security issues or suspicious\
+    \ activities.\n\n•\n\nAWS announced the general availability of Amazon Keyspaces\
+    \ (for Apache Cassandra), a scalable, highly available,\nand fully managed database\
+    \ service for Cassandra workloads. Amazon Keyspaces supports the same application\
+    \ code,\nApache 2.0 licensed drivers, and developer tools that customers running\
+    \ Cassandra workloads use today. With Amazon\nKeyspaces, customers can easily\
+    \ migrate on-premises Cassandra workloads to the cloud, without having to provision,\n\
+    configure, and operate servers or large Cassandra clusters, or needing to manually\
+    \ add or remove nodes or rebalance\npartitions as traffic scales up or down.\n\
+    \n\f•\n\nAWS announced Amazon AppFlow, a fully managed service that provides an\
+    \ easy, secure way for customers to create\nand automate bidirectional data flows\
+    \ between AWS and SaaS applications — such as Salesforce, Slack, Infor Nexus,\n\
+    Marketo, ServiceNow, Trend Micro, and Zendesk — without writing custom integration\
+    \ code. Amazon AppFlow also\nworks with AWS PrivateLink to route data flows through\
+    \ the AWS network instead of over the public Internet to\nprovide even stronger\
+    \ data privacy and security. With Amazon AppFlow, customers can bring together\
+    \ and manage\npetabytes, even exabytes, of data spread across all of their applications\
+    \ without having to develop custom connectors\nor manage underlying API and network\
+    \ connectivity.\n\n•\n\nAWS announced the general availability of Amazon Augmented\
+    \ Artificial Intelligence (Amazon A2I), a fully managed\nservice that makes it\
+    \ easy to add human review to machine learning predictions to enhance model and\
+    \ application\naccuracy by continuously identifying and improving low confidence\
+    \ predictions. Human review for model predictions\ncan be added to new or existing\
+    \ applications using reviewers from Mechanical Turk, third party vendors, or a\n\
+    customer’s own employees.\n\n•\n\nAWS helped power the NFL’s first ever remote\
+    \ draft — the most watched ever, reaching more than 55 million viewers\ntotal.\
+    \ Through all seven rounds of the three-day event, AWS ensured that over 100 live\
+    \ feeds ran successfully, creating\na seamless experience for the NFL, teams,\
+    \ coaches, players and their families, fans, and everyone watching.\n\nCommunity\
+    \ and Sustainability\n•\n\nAmazon launched the first Amazon Future Engineer Teacher\
+    \ of the Year Awards, recognizing teachers working to help\nstudents in underserved\
+    \ communities gain the skills they need to build careers in computer science.\n\
+    \n•\n\nAmazon donated $3.9 million to CodeVA, a Virginia non-profit organization,\
+    \ to expand computer science education\nfor 500,000 students and training for\
+    \ 12,000 teachers in 700 underserved communities across Virginia — with virtual\n\
+    training starting now in light of COVID-19.\n\n•\n\nAmazon leveraged its operational\
+    \ expertise and logistics network to provide relief and support to victims across\
+    \ the\nglobe including those impacted by the Australian bushfire crisis, Indonesia’s\
+    \ floods, earthquakes in Puerto Rico, and\ntornadoes in the Middle Tennessee region.\
+    \ Amazon has donated more than 750,000 relief items to help community\npartners\
+    \ responding to large-scale natural disasters.\n\n•\n\nAmazon announced four new\
+    \ renewable energy projects across the U.S., Europe, and Australia that will support\n\
+    Amazon’s commitment under The Climate Pledge to be net zero carbon by 2040, 10\
+    \ years ahead of the Paris\nAgreement. Globally, Amazon has 86 renewable energy\
+    \ projects that have the capacity to generate over 2,300 MW\nand deliver more\
+    \ than 6.3 million MWh of energy annually.\n\n•\n\nAmazon announced its first\
+    \ donation of $10 million to The Nature Conservancy. This first project donation\
+    \ is part of\nAmazon’s Right Now Climate Fund — a $100 million commitment to protect,\
+    \ restore, and support reforestation\nprojects around the world in collaboration\
+    \ with The Nature Conservancy.\n\nFinancial Guidance\nThe following forward-looking\
+    \ statements reflect Amazon.com’s expectations as of April 30, 2020, and are subject\
+    \ to\nsubstantial uncertainty. Our results are inherently unpredictable and may\
+    \ be materially affected by many factors, such as\nfluctuations in foreign exchange\
+    \ rates, changes in global economic conditions and customer spending, world events,\
+    \ the rate of\ngrowth of the Internet, online commerce, and cloud services, and\
+    \ the various factors detailed below. This guidance reflects our\nestimates as\
+    \ of April 30, 2020 regarding the impact of the COVID-19 pandemic on our operations,\
+    \ including those discussed\nabove, and is highly dependent on numerous factors\
+    \ that we may not be able to predict or control, including: the duration and\n\
+    spread of the pandemic; actions taken by governments, businesses, and individuals\
+    \ in response to the pandemic; the impact of\nthe pandemic on global and regional\
+    \ economies and economic activity, workforce staffing and productivity, and our\
+    \ significant\nand continuing spending on employee safety measures; our ability\
+    \ to continue operations in affected areas; and consumer\ndemand and consumer\
+    \ spending patterns, as well as the effects on suppliers, creditors, and third-party\
+    \ sellers, all of which are\nuncertain. This guidance also assumes the impacts\
+    \ on consumer demand and spending patterns, including impacts due to\nconcerns\
+    \ over the current economic outlook, will be in line with those experienced during\
+    \ Q2 to date, and the additional\n\n\fassumptions set forth below. However, it\
+    \ is not possible to determine the ultimate impact on our operations for the second\n\
+    quarter, or whether other currently unanticipated direct or indirect consequences\
+    \ of the pandemic are reasonably likely to\nmaterially affect our operations.\n\
+    Second Quarter 2020 Guidance\n•\n\n•\n•\n\nNet sales are expected to be between\
+    \ $75.0 billion and $81.0 billion, or to grow between 18% and 28% compared with\n\
+    second quarter 2019. This guidance anticipates an unfavorable impact of approximately\
+    \ 70 basis points from foreign\nexchange rates.\nOperating income (loss) is expected\
+    \ to be between $(1.5) billion and $1.5 billion, compared with $3.1 billion in\n\
+    second quarter 2019. This guidance assumes approximately $4.0 billion of costs\
+    \ related to COVID-19.\nThis guidance assumes, among other things, that no additional\
+    \ business acquisitions, investments, restructurings, or\nlegal settlements are\
+    \ concluded.\n\nA conference call will be webcast live today at 2:30 p.m. PT/5:30\
+    \ p.m. ET, and will be available for at least three months at\namazon.com/ir.\
+    \ This call will contain forward-looking statements and other material information\
+    \ regarding the Company’s\nfinancial and operating results.\nThese forward-looking\
+    \ statements are inherently difficult to predict. Actual results could differ\
+    \ materially for a variety of\nreasons, including, in addition to the factors\
+    \ discussed above, the amount that Amazon.com invests in new business\nopportunities\
+    \ and the timing of those investments, the mix of products and services sold to\
+    \ customers, the mix of net sales\nderived from products as compared with services,\
+    \ the extent to which we owe income or other taxes, competition, management\n\
+    of growth, potential fluctuations in operating results, international growth and\
+    \ expansion, the outcomes of claims, litigation,\ngovernment investigations, and\
+    \ other proceedings, fulfillment, sortation, delivery, and data center optimization,\
+    \ risks of\ninventory management, seasonality, the degree to which the Company\
+    \ enters into, maintains, and develops commercial\nagreements, proposed and completed\
+    \ acquisitions and strategic transactions, payments risks, and risks of fulfillment\
+    \ throughput\nand productivity. Other risks and uncertainties include, among others,\
+    \ risks related to new products, services, and technologies,\nsystem interruptions,\
+    \ government regulation and taxation, and fraud. In addition, additional or unforeseen\
+    \ effects from the\nCOVID-19 pandemic and the global economic climate may give\
+    \ rise to or amplify many of these risks. More information about\nfactors that\
+    \ potentially could affect Amazon.com’s financial results is included in Amazon.com’s\
+    \ filings with the Securities and\nExchange Commission (“SEC”), including its\
+    \ most recent Annual Report on Form 10-K and subsequent filings.\nOur investor\
+    \ relations website is amazon.com/ir and we encourage investors to use it as a\
+    \ way of easily finding information\nabout us. We promptly make available on this\
+    \ website, free of charge, the reports that we file or furnish with the SEC, corporate\n\
+    governance information (including our Code of Business Conduct and Ethics), and\
+    \ select press releases, which may contain\nmaterial information about us, and\
+    \ you may subscribe to be notified of new information posted to this site.\nAbout\
+    \ Amazon\nAmazon is guided by four principles: customer obsession rather than\
+    \ competitor focus, passion for invention, commitment to\noperational excellence,\
+    \ and long-term thinking. Customer reviews, 1-Click shopping, personalized recommendations,\
+    \ Prime,\nFulfillment by Amazon, AWS, Kindle Direct Publishing, Kindle, Fire tablets,\
+    \ Fire TV, Amazon Echo, and Alexa are some of the\nproducts and services pioneered\
+    \ by Amazon. For more information, visit amazon.com/about and follow @AmazonNews."
+- id: q2_2020
+  label: Amazon Q2 2020 Earnings Release, July 30, 2020
+  text: "AMAZON.COM ANNOUNCES SECOND QUARTER RESULTS\nSEATTLE—(BUSINESS WIRE) July\
+    \ 30, 2020—Amazon.com, Inc. (NASDAQ: AMZN) today announced financial results for\n\
+    its second quarter ended June 30, 2020.\n•\n\nOperating cash flow increased 42%\
+    \ to $51.2 billion for the trailing twelve months, compared with $36.0 billion\
+    \ for\nthe trailing twelve months ended June 30, 2019.\n\n•\n\nFree cash flow\
+    \ increased to $31.9 billion for the trailing twelve months, compared with $25.0\
+    \ billion for the trailing\ntwelve months ended June 30, 2019.\n\n•\n\nFree cash\
+    \ flow less principal repayments of finance leases and financing obligations increased\
+    \ to $21.3 billion for\nthe trailing twelve months, compared with $16.1 billion\
+    \ for the trailing twelve months ended June 30, 2019.\n\n•\n\nFree cash flow less\
+    \ equipment finance leases and principal repayments of all other finance leases\
+    \ and financing\nobligations increased to $19.4 billion for the trailing twelve\
+    \ months, compared with $13.0 billion for the trailing\ntwelve months ended June\
+    \ 30, 2019.\n\n•\n\nCommon shares outstanding plus shares underlying stock-based\
+    \ awards totaled 517 million on June 30, 2020,\ncompared with 510 million one\
+    \ year ago.\n\n•\n\nNet sales increased 40% to $88.9 billion in the second quarter,\
+    \ compared with $63.4 billion in second quarter 2019.\nExcluding the $582 million\
+    \ unfavorable impact from year-over-year changes in foreign exchange rates throughout\
+    \ the\nquarter, net sales increased 41% compared with second quarter 2019.\n\n\
+    •\n\nOperating income increased to $5.8 billion in the second quarter, compared\
+    \ with operating income of $3.1 billion in\nsecond quarter 2019.\n\n•\n\nNet income\
+    \ increased to $5.2 billion in the second quarter, or $10.30 per diluted share,\
+    \ compared with net income of\n$2.6 billion, or $5.22 per diluted share, in second\
+    \ quarter 2019.\n\n“This was another highly unusual quarter, and I couldn’t be\
+    \ more proud of and grateful to our employees around the globe,”\nsaid Jeff Bezos,\
+    \ Amazon founder and CEO. “As expected, we spent over $4 billion on incremental\
+    \ COVID-19-related costs in\nthe quarter to help keep employees safe and deliver\
+    \ products to customers in this time of high demand—purchasing personal\nprotective\
+    \ equipment, increasing cleaning of our facilities, following new safety process\
+    \ paths, adding new backup family care\nbenefits, and paying a special thank you\
+    \ bonus of over $500 million to front-line employees and delivery partners. We’ve\n\
+    created over 175,000 new jobs since March and are in the process of bringing 125,000\
+    \ of these employees into regular, fulltime positions. And third-party sales again\
+    \ grew faster this quarter than Amazon’s first-party sales. Lastly, even in this\n\
+    unpredictable time, we injected significant money into the economy this quarter,\
+    \ investing over $9 billion in capital projects,\nincluding fulfillment, transportation,\
+    \ and AWS.”\nHighlights\nSupporting Employees\n•\n\nAmazon’s top priority is providing\
+    \ for the health and safety of our employees and partners, and the company spent\n\
+    more than $4 billion in the second quarter on incremental COVID-19 related initiatives\
+    \ to help keep employees safe,\nprovide additional compensation to our employees\
+    \ and delivery partners, and deliver products to customers.\n\n•\n\nAmazon provided\
+    \ a one-time Thank You bonus totaling over $500 million to all front-line employees\
+    \ and partners\nwho were with the company throughout the month of June.\n\n\f\
+    •\n\nAmazon introduced a new family backup care benefit through Care.com to 650,000\
+    \ full and part-time Amazon and\nWhole Foods Market employees in the U.S. This\
+    \ benefit provides employees with up to 10 days of companysubsidized emergency\
+    \ backup child or adult care.\n\n•\n\nAmazon introduced Distance Assistant to\
+    \ help keep employees safe by providing them with live feedback on their\nsocial\
+    \ distancing via a 50-inch monitor. Amazon made the software and AI behind this\
+    \ innovation available via open\nsource so that anyone can create their own Distance\
+    \ Assistant at no cost and get up and running with just a monitor,\ncomputer,\
+    \ and camera.\n\n•\n\nAmazon is collaborating with national medical care group\
+    \ Crossover Health to pilot Amazon Neighborhood Health\nCenters, which are new\
+    \ medical facilities available to Amazon employees and their families. The centers\
+    \ will provide\naccess to quality, convenient care while reducing health care\
+    \ costs for employees and Amazon. The pilot includes 20\nCrossover Health branded\
+    \ and operated centers in Dallas/Fort Worth, Texas; Phoenix, Arizona; Louisville,\
+    \ Kentucky;\nDetroit, Michigan; and San Bernardino/Moreno Valley, California.\n\
+    \nInvesting in Communities\n•\n\nAmazon donated more than $10 million of personal\
+    \ protective equipment, including 4.4 million masks and thousands\nof contactless\
+    \ thermometers, to Direct Relief and Feeding America. The masks went to over 200\
+    \ of Direct Relief’s\npartner clinics and Feeding America’s food banks and agencies\
+    \ in 47 states, the District of Columbia, and Puerto Rico.\n\n•\n\nAmazon Business\
+    \ delivered more than 200 million essential health and safety products to healthcare\
+    \ and government\norganizations in tens of thousands of locations across the U.S.\n\
+    \n•\n\nAmazon partnered with food banks and schools to deliver more than six million\
+    \ meals to underserved families and\nvulnerable seniors in 25 U.S. cities and\
+    \ in communities in Australia, Japan, Singapore, Spain, and the U.K. Amazon\n\
+    plans to deliver one million more meals by the end of this summer.\n\n•\n\nAmazon\
+    \ teamed up with Boys & Girls Clubs of America to launch Camp Prime, offering\
+    \ families fun, safe, and easy\nways to help kids stay engaged this summer, including\
+    \ a digital handbook full of camp-themed activities using items\nfrom around the\
+    \ house. Camp Prime is free and available to all, and Prime members can extend\
+    \ their experience with\ncontent from Prime Video, Prime Reading, and Amazon Music.\
+    \ Amazon also donated $500,000 to Boys & Girls Clubs\nto help dozens of Club locations\
+    \ offer kids summer activities, including filling “curbside camp” kits available\
+    \ for\npickup from Clubs that remain closed.\n\n•\n\nAmazon announced a $10 million\
+    \ donation to 12 organizations that are working to bring about social justice\
+    \ for and\nimprove the lives of Black and African Americans. In addition, Amazon\
+    \ also matched 100% of $8.5 million in\ndonations by Amazon employees, bringing\
+    \ total donations to these organizations from the company and its employees\n\
+    to $27 million.\n\n•\n\nAmazon announced its first ever Amazon Future Engineer\
+    \ Teacher of the Year Award honoring 10 teachers each with\na grant valued at\
+    \ more than $50,000 to benefit their schools and students. Amazon also announced\
+    \ its second annual\nclass of Amazon Future Engineer Scholarship recipients, awarding\
+    \ 100 students each with a $40,000 college\nscholarship and a guaranteed paid\
+    \ internship at Amazon.\n\nProtecting the Planet\n•\n\nVerizon, Infosys, Reckitt\
+    \ Benckiser, and Oak View Group signed The Climate Pledge, the commitment co-founded\
+    \ by\nAmazon and Global Optimism to achieve net-zero carbon by 2040, a decade\
+    \ ahead of the Paris Agreement.\n\n•\n\nAmazon and We Mean Business, a global\
+    \ nonprofit coalition working with businesses to accelerate the transition to\
+    \ a\nzero-carbon economy, announced a partnership to establish the world’s most\
+    \ comprehensive effort to drive companies\nto adopt more ambitious carbon emissions\
+    \ reduction goals. The partnership encourages companies to accelerate their\n\
+    goals to meet The Climate Pledge.\n\n•\n\nAmazon launched The Climate Pledge Fund\
+    \ with an initial $2 billion in funding to help support visionary companies\n\
+    whose product and service solutions will facilitate the transition to a zero carbon\
+    \ economy.\n\n•\n\nAmazon announced it is on a path to run on 100% renewable energy\
+    \ by 2025, five years ahead of schedule. As part of\nThe Climate Pledge, Amazon\
+    \ had previously committed to reach 80% renewable energy by 2024 and 100% renewable\n\
+    energy by 2030.\n\n•\n\nAmazon Air secured up to six million gallons of sustainable\
+    \ aviation fuel (SAF) supplied by Shell Aviation and\nproduced by World Energy.\
+    \ The investment will help increase production of SAF by demonstrating growing\
+    \ demand\nfor low-carbon aviation fuel. The fuel is produced from a feedstock\
+    \ of inedible agricultural waste fats and oils and is\nexpected to reduce carbon\
+    \ emissions by up to 20% compared to conventional jet fuel.\n\n\f•\n\nAmazon secured\
+    \ the naming rights to the new home of Seattle’s NHL team, Kraken, and WNBA team,\
+    \ Storm, and will\nname it Climate Pledge Arena. Opening in summer 2021, Climate\
+    \ Pledge Arena will be one of the world’s most\nsustainable arenas. Through a\
+    \ partnership between Amazon, Oak View Group, and NHL Seattle, the rebuild of\
+    \ this\nvenue is expected to be the first net zero carbon certified arena in the\
+    \ world.\n\n•\n\nIn Germany, Amazon announced the first project in Europe from\
+    \ Amazon’s $100 million Right Now Climate Fund.\nThe €3.75 million commitment\
+    \ to The Nature Conservancy will support its work, which includes increasing species\n\
+    biodiversity in cities.\n\nEmpowering Small and Medium-Sized Businesses\n•\n\n\
+    Amazon released its 2020 Small and Medium-Sized Business (SMB) Impact Report,\
+    \ highlighting how SMBs selling in\nits U.S. store have sold more than 3.4 billion\
+    \ products in the past year and created an estimated 1.1 million jobs.\n\n•\n\n\
+    In partnership with the British small business support network “Enterprise Nation,”\
+    \ Amazon launched the Amazon\nSmall Business Accelerator, which aims to support\
+    \ more than 200,000 small businesses across the U.K. negatively\nimpacted by the\
+    \ COVID-19 crisis. Amazon hosted a week-long boot camp in the U.K. to help 1,000\
+    \ offline businesses\nget online, and offered free services, AWS credits, training,\
+    \ and support.\n\n•\n\nIn the U.K., Amazon worked with the British Chambers of\
+    \ Commerce to give up to 1,000 businesses tours of Amazon\nfulfillment centers,\
+    \ helping other companies learn from the safety measures Amazon has put in place\
+    \ within its own\noperations so the businesses can re-open safely and kick-start\
+    \ the economy.\n\n•\n\nAmazon in Japan launched Global Selling to allow Japanese\
+    \ sellers to reach new customers across 16 Amazon sites\nworldwide.\n\n•\n\nAmazon\
+    \ in India announced plans to help digitally enable micro, small, and medium businesses\
+    \ across the country as\npart of a $1 billion investment pledge. Amazon launched\
+    \ Local Shops on Amazon.in, offering shopkeepers and\nretailers with physical\
+    \ stores the ability to register to serve more customers from their local areas.\
+    \ Since launch, more\nthan 11,000 sellers have enrolled in the program. In addition,\
+    \ Amazon introduced seller registration and account\nmanagement services in Hindi\
+    \ to help businesses overcome language barriers. Since launch, more than 10,000\
+    \ sellers\nhave used Hindi to register on Amazon.in.\n\nShopping and Entertainment\n\
+    •\n\nAmazon increased grocery delivery capacity by over 160% and tripled grocery\
+    \ pickup locations to support customers\nduring COVID-19. Online grocery sales\
+    \ tripled in the second quarter when compared with the same period last year.\n\
+    \n•\n\nAmazon continues working closely with the U.S. Department of Agriculture\
+    \ to expand access to online grocery\nshopping for people who rely on Supplemental\
+    \ Nutrition Assistance Program (SNAP) benefits. Amazon now reaches\nbeneficiaries\
+    \ in 39 states and the District of Columbia, providing more than 90% of SNAP households\
+    \ with the ability\nto use their SNAP benefits online.\n\n•\n\nAmazon established\
+    \ the Amazon Counterfeit Crimes Unit, a team dedicated to bringing counterfeiters\
+    \ who violate the\nlaw and Amazon’s policies by listing counterfeit products in\
+    \ its stores to justice. Amazon’s Counterfeit Crimes Unit is\na global, multi-disciplinary\
+    \ group composed of former federal prosecutors, experienced investigators, and\
+    \ data analysts\nwho will join Amazon’s existing Customer Trust team working to\
+    \ drive counterfeit to zero.\n\n•\n\nPrime Video launched Watch Parties, a feature\
+    \ that enables Prime members to interact with each other via chat on a\ndesktop\
+    \ while watching Prime Video content, including award-winning TV shows and movies.\n\
+    \n•\n\nPrime Video introduced Prime Video Profiles, allowing customers to create\
+    \ and manage up to six profiles within a\nsingle account. Each profile offers\
+    \ individualized recommendations, season progress, and watchlists based on\nindividual\
+    \ profile activity.\n\n•\n\nAmazon premiered several Amazon Original series including\
+    \ Upload, from Emmy-winner Greg Daniels, Homecoming\nSeason 2, Bosch Season 6,\
+    \ and Regular Heroes, a docuseries focusing on COVID-19 heroes. Additionally,\
+    \ Amazon\npremiered several Original movies including Selah and the Spades, The\
+    \ Goldfinch, The Vast of Night, 7500, and the\nfamily action-comedy My Spy, along\
+    \ with local Indian movies Ponmagal Vandhal and Gulabo Sitabo.\n\nDevices and\
+    \ Alexa\n•\n\nAmazon expanded the portfolio of devices and features that are available\
+    \ to customers around the world. Echo Auto is\nnow available in Australia, Canada,\
+    \ France, Germany, Italy, Spain, and the U.K.; Echo Dot with clock and Echo\n\
+    Studio are now available in Brazil; eero mesh WiFi systems are now available in\
+    \ Australia and Mexico; and Alexa\nSkill Blueprints are now available in France,\
+    \ Italy, Mexico, and Spain.\n\n\f•\n\nAmazon announced new or expanded Alexa integrations\
+    \ with global automotive brands including General Motors,\nVolkswagen, Toyota,\
+    \ and Lexus.\n\n•\n\nAmazon continues to make Alexa smarter and add more ways\
+    \ for customers to stay connected. Customers can now set\nreminders that play\
+    \ across all of their Alexa devices, use new notification capabilities with Routines,\
+    \ ask Alexa for\nnutrition tips, receive Announcements on their mobile phones\
+    \ as a push notification, and broadcast a response to an\nAnnouncement.\n\n•\n\
+    \nThe Alexa Fund is supporting the startup community through investments in Molekule,\
+    \ a leader in reinventing air\npurification, and Amira Learning, the first AI-powered\
+    \ reading assistant. The Alexa Fund also announced its newest\ncohort of companies\
+    \ participating in Alexa Next Stage powered by Techstars, a program empowering\
+    \ entrepreneurs\nwho are innovating in the field of voice technology.\n\n•\n\n\
+    Amazon announced new live content integrations on Fire TV from YouTube TV and\
+    \ Hulu, and expanded discovery\noptions including the new Free tab which helps\
+    \ customers find free movies, TV shows, and more.\n\n•\n\nRing launched its next-generation\
+    \ original Ring Video Doorbell for improved home security, featuring a higher\n\
+    resolution camera, improved night vision and additional privacy features. Ring\
+    \ also announced Ring Alarm is now\navailable in several additional European countries,\
+    \ including Germany, Norway, and Sweden.\n\nAmazon Web Services\n•\n\n•\n\nCustomers\
+    \ are using AWS to lessen the impact of the COVID-19 crisis on families, communities,\
+    \ and businesses.\nExamples include:\n•\n\nWith the support of AWS hosting services,\
+    \ the World Health Organization (WHO) launched an app to\nsupport health workers\
+    \ around the world in caring for patients with COVID-19, as well as to protect\n\
+    themselves as they do this critical work.\n\n•\n\nZoom, a provider of enterprise\
+    \ video communications, has long utilized AWS to host a significant portion of\n\
+    its network. In addition to offering a robust free service, since March Zoom has\
+    \ also offered free access to\nover 100,000 schools to enable them to educate\
+    \ students remotely. Zoom and AWS have worked together to\nhelp businesses, schools,\
+    \ and healthcare institutions maintain mission and business continuity as they\
+    \ stay\nsafe at home.\n\n•\n\nPropel, a company focused on building software to\
+    \ help low-income Americans improve their financial\nhealth, developed Fresh Electronic\
+    \ Benefit Transfer (EBT), an app built on AWS that has helped more than\nthree\
+    \ million individuals per month manage their benefits under the Supplemental Nutrition\
+    \ Assistance\nProgram (SNAP), save with coupons, and find jobs.\n\n•\n\nUNC Health\
+    \ built a chatbot on AWS to help address increased call volumes to its COVID-19\
+    \ help line,\nanswering questions from patients seeking guidance on COVID-19 testing\
+    \ and what to do if they or their\nloved ones were exposed to the virus.\n\n•\n\
+    \nOrange County United Way built a highly-secure mobile and web-enabled app on\
+    \ AWS called AssistOC that\nallows individuals to submit requests for financial\
+    \ assistance to the nonprofit’s Homelessness Prevention\nProgram, launched in\
+    \ response to the current pandemic, via a smartphone or personal computer.\n\n\
+    AWS announced several significant new customer commitments and migrations during\
+    \ the quarter. Examples include:\n•\n\nHSBC, one of the world’s largest financial\
+    \ services organizations, selected AWS as a key, long-term strategic\ncloud provider\
+    \ to drive their digital transformation and deliver new and personalized banking\
+    \ services for\nmillions of personal banking customers worldwide.\n\n•\n\nGlobal\
+    \ market intelligence company IHS Markit selected AWS as its preferred cloud provider\
+    \ to help\nimprove scalability and agility to respond to industry changes and\
+    \ develop new products and services.\n\n•\n\nFormula 1 is using a range of AWS\
+    \ services, including machine learning, for six new F1 Insights powered by\nAWS\
+    \ that will roll out during the 2020 racing season to give fans the ability to\
+    \ compare their favorite drivers\nand cars and better predict race outcomes.\n\
+    \n•\n\nBundesliga is using AWS machine learning and analytics to enhance the fan\
+    \ experience for Germany’s top\nfootball league, delivering new advanced statistics\
+    \ through Bundesliga Match Facts powered by AWS,\nincluding Average Positions\
+    \ and xGoals.\n\n•\n\nCapella Space, a provider of on-demand Earth observation\
+    \ data via satellite-based radar, is all-in on AWS,\nrunning its entire infrastructure\
+    \ on AWS using a full portfolio of cloud services including AWS Ground\nStation\
+    \ to deliver satellite data to customers in minutes.\n\n\f•\n\nGenesys has selected\
+    \ AWS as the preferred cloud provider for Genesys Cloud, an all-in-one solution\
+    \ and\nleading public cloud contact center platform used by organizations around\
+    \ the world to manage and improve\ncustomer relationships across any channel,\
+    \ including voice, text, web chat, and social.\n\n•\n\nAWS announced Amazon Honeycode,\
+    \ a fully-managed service that allows customers to quickly build powerful mobile\n\
+    and web applications – with no programming required. With Amazon Honeycode, customers\
+    \ can create applications\nusing the simplicity and familiarity of a spreadsheet,\
+    \ but with the data management capability of a database, the\ncollaboration and\
+    \ notifications common in business applications, and a truly seamless web and\
+    \ mobile user experience\nto perform important business functions like managing\
+    \ field agents, performing PO approvals, scheduling weekly\nevents, reporting\
+    \ employee or team activities, tracking task progress, following customer activity,\
+    \ surveying end users,\nmanaging content, inventorying resources, and more.\n\n\
+    •\n\nAWS announced the general availability of AWS Snowcone, a small, ultra-portable,\
+    \ rugged, and secure edge\ncomputing and data transfer device that can fit in\
+    \ a small backpack. At under five pounds, AWS Snowcone is the\nsmallest member\
+    \ of the AWS Snow Family of devices, enabling customers to collect data, process\
+    \ it locally, and move\nit to AWS. AWS Snowcone is built to withstand harsh conditions,\
+    \ and is designed for a variety of use cases in\nenvironments outside of the traditional\
+    \ data center that lack consistent network connectivity and/or require portability.\n\
+    \n•\n\nAWS announced the general availability of AWS IoT SiteWise, a managed service\
+    \ that collects data from the plant\nfloor, structures and labels the data, and\
+    \ generates real-time key performance indicators (KPIs) and metrics to help\n\
+    industrial customers make better, data-driven decisions. Customers can use SiteWise\
+    \ to monitor operations across\nfacilities, quickly compute industrial performance\
+    \ metrics, create applications that analyze industrial equipment data to\nprevent\
+    \ costly equipment issues, and reduce gaps in production.\n\n•\n\nAWS announced\
+    \ the general availability of the sixth generation of Amazon Elastic Compute Cloud\
+    \ (Amazon EC2)\nwith three Arm-based instances (M6g, C6g, R6g) powered by AWS-designed,\
+    \ Arm-based Graviton2 processors, that\ndeliver up to 40% better price and performance\
+    \ than current x86 processor-based instances.\n\n•\n\nAWS announced the general\
+    \ availability of Amazon CodeGuru, a developer-quality service powered by machine\n\
+    learning that provides intelligent recommendations for improving code quality\
+    \ and identifying an application’s most\nexpensive lines of code.\n\n•\n\nAWS\
+    \ announced the general availability of UltraWarm for Amazon Elasticsearch Service,\
+    \ a highly performant, fullymanaged, low-cost warm storage tier that provides\
+    \ fast, interactive analytics of log data at one-tenth the cost of\nexisting storage\
+    \ options. UltraWarm for Amazon Elasticsearch Service gives Elasticsearch customers\
+    \ a warm storage\ntier that both stores large amounts of data cost-effectively\
+    \ and provides the type of interactive experience that\nElasticsearch customers\
+    \ expect.\n\n•\n\nAWS announced the general availability of Amazon Kendra, a highly\
+    \ accurate and easy to use enterprise search\nservice powered by machine learning.\
+    \ Amazon Kendra enables organizations to index all of their internal data sources\n\
+    across siloes, makes that data searchable, and allows users to get precise answers\
+    \ to natural language queries instead of\ntrial-and-error keyword search – all\
+    \ with no machine learning expertise required.\n\n•\n\nAWS and Slack announced\
+    \ a multi-year agreement to deliver solutions for enhanced enterprise workforce\n\
+    collaboration. Slack will migrate its Slack Calls capability for all voice and\
+    \ video calling to Amazon Chime, AWS’s\ncommunications service that lets users\
+    \ meet, chat, and place business calls. Slack is also leveraging AWS’s global\n\
+    infrastructure to support enterprise customers’ rapid adoption of its platform\
+    \ and to offer them data residency – the\nability to choose which country or region\
+    \ their data is stored at rest in while fulfilling compliance requirements.\n\n\
+    •\n\nAWS announced a new, global team dedicated to accelerating innovation in\
+    \ the global aerospace and satellite industry.\nThe Aerospace and Satellite Solutions\
+    \ team will bring AWS services and solutions to the space enterprise, and work\n\
+    with customers and partners around the world to: reimagine space system architectures;\
+    \ transform space enterprises;\nlaunch new services that process space data on\
+    \ Earth and in orbit; and provide secure, flexible, scalable, and costefficient\
+    \ cloud solutions to support government missions and companies advancing space\
+    \ around the world.\n\n•\n\nAWS announced Amazon Interactive Video Service (Amazon\
+    \ IVS), a managed service customers may use to set up\nlive, interactive video\
+    \ streams for web or mobile applications in just a few minutes. Amazon IVS uses\
+    \ the same\ntechnology that powers Twitch and allows customers to configure live\
+    \ streams that can be delivered to millions of\nconcurrent viewers globally with\
+    \ interactive features like virtual chat spaces, votes and polls, moderated question\
+    \ and\nanswer sessions, and synchronized promotional elements.\n\n\fFinancial\
+    \ Guidance\nThe following forward-looking statements reflect Amazon.com’s expectations\
+    \ as of July 30, 2020, and are subject to substantial\nuncertainty. Our results\
+    \ are inherently unpredictable and may be materially affected by many factors,\
+    \ such as fluctuations in\nforeign exchange rates, changes in global economic\
+    \ conditions and customer spending, world events, the rate of growth of the\n\
+    Internet, online commerce, and cloud services, and the various factors detailed\
+    \ below. This guidance reflects our estimates as of\nJuly 30, 2020 regarding the\
+    \ impact of the COVID-19 pandemic on our operations, including those discussed\
+    \ above, and is\nhighly dependent on numerous factors that we may not be able\
+    \ to predict or control, including: the duration and scope of the\npandemic, including\
+    \ any recurrence; actions taken by governments, businesses, and individuals in\
+    \ response to the pandemic; the\nimpact of the pandemic on global and regional\
+    \ economies and economic activity, workforce staffing and productivity, and our\n\
+    significant and continuing spending on employee safety measures; our ability to\
+    \ continue operations in affected areas; and\nconsumer demand and spending patterns,\
+    \ as well as the effects on suppliers, creditors, and third-party sellers, all\
+    \ of which are\nuncertain. This guidance also assumes the impacts on consumer\
+    \ demand and spending patterns, including impacts due to\nconcerns over the current\
+    \ economic outlook, will be in line with those experienced during the third quarter\
+    \ to date, and the\nadditional assumptions set forth below. However, it is not\
+    \ possible to determine the ultimate impact on our operations for the\nthird quarter,\
+    \ or whether other currently unanticipated direct or indirect consequences of\
+    \ the pandemic are reasonably likely to\nmaterially affect our operations.\nThird\
+    \ Quarter 2020 Guidance\n•\n•\n•\n\nNet sales are expected to be between $87.0\
+    \ billion and $93.0 billion, or to grow between 24% and 33% compared with\nthird\
+    \ quarter 2019. This guidance anticipates an unfavorable impact of approximately\
+    \ 20 basis points from foreign\nexchange rates.\nOperating income is expected\
+    \ to be between $2.0 billion and $5.0 billion, compared with $3.2 billion in third\
+    \ quarter\n2019. This guidance assumes more than $2.0 billion of costs related\
+    \ to COVID-19.\nThis guidance assumes, among other things, that no additional\
+    \ business acquisitions, investments, restructurings, or\nlegal settlements are\
+    \ concluded.\n\nA conference call will be webcast live today at 2:30 p.m. PT/5:30\
+    \ p.m. ET, and will be available for at least three months at\namazon.com/ir.\
+    \ This call will contain forward-looking statements and other material information\
+    \ regarding the Company’s\nfinancial and operating results.\nThese forward-looking\
+    \ statements are inherently difficult to predict. Actual results could differ\
+    \ materially for a variety of\nreasons, including, in addition to the factors\
+    \ discussed above, the amount that Amazon.com invests in new business\nopportunities\
+    \ and the timing of those investments, the mix of products and services sold to\
+    \ customers, the mix of net sales\nderived from products as compared with services,\
+    \ the extent to which we owe income or other taxes, competition, management\n\
+    of growth, potential fluctuations in operating results, international growth and\
+    \ expansion, the outcomes of claims, litigation,\ngovernment investigations, and\
+    \ other proceedings, fulfillment, sortation, delivery, and data center optimization,\
+    \ risks of\ninventory management, seasonality, the degree to which the Company\
+    \ enters into, maintains, and develops commercial\nagreements, proposed and completed\
+    \ acquisitions and strategic transactions, payments risks, and risks of fulfillment\n\
+    throughput and productivity. Other risks and uncertainties include, among others,\
+    \ risks related to new products, services, and\ntechnologies, system interruptions,\
+    \ government regulation and taxation, and fraud. In addition, additional or unforeseen\
+    \ effects\nfrom the COVID-19 pandemic and the global economic climate may give\
+    \ rise to or amplify many of these risks. More\ninformation about factors that\
+    \ potentially could affect Amazon.com’s financial results is included in Amazon.com’s\
+    \ filings with\nthe Securities and Exchange Commission (“SEC”), including its\
+    \ most recent Annual Report on Form 10-K and subsequent\nfilings.\nOur investor\
+    \ relations website is amazon.com/ir and we encourage investors to use it as a\
+    \ way of easily finding information\nabout us. We promptly make available on this\
+    \ website, free of charge, the reports that we file or furnish with the SEC, corporate\n\
+    governance information (including our Code of Business Conduct and Ethics), and\
+    \ select press releases, which may contain\nmaterial information about us, and\
+    \ you may subscribe to be notified of new information posted to this site.\nAbout\
+    \ Amazon\nAmazon is guided by four principles: customer obsession rather than\
+    \ competitor focus, passion for invention, commitment to\noperational excellence,\
+    \ and long-term thinking. Customer reviews, 1-Click shopping, personalized recommendations,\
+    \ Prime,\nFulfillment by Amazon, AWS, Kindle Direct Publishing, Kindle, Fire tablets,\
+    \ Fire TV, Amazon Echo, and Alexa are some of\nthe products and services pioneered\
+    \ by Amazon. For more information, visit amazon.com/about and follow @AmazonNews."
+metrics:
+  net_sales:
+    unit: USD billions
+    tol: 0.1
+    description: Consolidated net sales (total company revenue)
+  operating_income:
+    unit: USD billions
+    tol: 0.1
+    description: Consolidated operating income
+expected_guidance:
+- source: q1_2020
+  metric: net_sales
+  period: Q2FY2020
+  low: 75.0
+  high: 81.0
+- source: q1_2020
+  metric: operating_income
+  period: Q2FY2020
+  low: -1.5
+  high: 1.5
+- source: q2_2020
+  metric: net_sales
+  period: Q3FY2020
+  low: 87.0
+  high: 93.0
+- source: q2_2020
+  metric: operating_income
+  period: Q3FY2020
+  low: 2.0
+  high: 5.0
+expected_changes:
+- metric: net_sales
+  period: Q3FY2020
+  type: initiated
+  from: null
+  to:
+    low: 87.0
+    high: 93.0
+- metric: operating_income
+  period: Q3FY2020
+  type: initiated
+  from: null
+  to:
+    low: 2.0
+    high: 5.0
+traps:
+- source: q1_2020
+  metric: net_sales
+  period: Q1FY2020
+  value: 75.5
+  description: Q1 2020 reported net sales ($75.5B actual, not guidance)
+- source: q1_2020
+  metric: operating_income
+  period: Q1FY2020
+  value: 4.0
+  description: Q1 2020 reported operating income ($4.0B actual, not guidance)
+- source: q2_2020
+  metric: net_sales
+  period: Q2FY2020
+  value: 88.9
+  description: Q2 2020 reported net sales ($88.9B actual, not guidance)
+- source: q2_2020
+  metric: operating_income
+  period: Q2FY2020
+  value: 5.8
+  description: Q2 2020 reported operating income ($5.8B actual, not guidance)

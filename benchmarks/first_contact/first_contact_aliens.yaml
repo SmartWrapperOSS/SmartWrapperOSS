@@ -1,0 +1,73 @@
+# SPDX-License-Identifier: Apache-2.0
+# Benchmark: First Contact with Aliens — Interdisciplinary Strategic Synthesis
+#
+# Inspired by the Ask Swarm (Ember Swarm) benchmark question:
+#   "How should humanity prepare for first contact with aliens?"
+#
+# To turn open-ended strategic synthesis into an objective, verifiable
+# benchmark ("Token Price Arithmetic != Accuracy Proof"), this task pairs an
+# interdisciplinary synthesis prompt with:
+#   1. Seven mandatory domain pillars, each with specific technical concepts
+#      that a comprehensive multi-perspective plan must address.
+#   2. Hard quantitative resource constraints (a $10.0B budget cap and 1,000
+#      personnel allocated across the 7 pillars) verified mechanically.
+#   3. Multi-model judge evaluation (Creativity, Feasibility, Completeness)
+#      that explicitly measures `self_bias_delta` (Self-Judge score minus
+#      Cross-Model Independent Judge score).
+
+task_id: first_contact_aliens_1000
+
+question: >
+  How should humanity prepare for first contact with aliens? Design a concrete,
+  interdisciplinary First Contact Preparedness Plan for an initial 1,000-person
+  International Contact & Research Facility operating under a strict $10.0 billion
+  total budget cap.
+
+constraints:
+  max_budget_billion_usd: 10.0
+  total_personnel: 1000
+  required_pillars: 7
+
+pillars:
+  - id: communication_cryptography
+    name: "Communication, Signal Processing & Cryptography"
+    required_concepts:
+      - ["prime", "mathematical", "universal language", "logic", "visual", "music"]
+      - ["passive", "listen", "signal", "decryption", "encryption", "cryptograph"]
+  - id: governance_diplomacy
+    name: "Governance, International Law & Diplomacy"
+    required_concepts:
+      - ["united nations", "un ", "multilateral", "consensus", "treaty", "international"]
+      - ["game theory", "spokesperson", "chain of command", "protocol", "rights"]
+  - id: biosafety_xenobiology
+    name: "Biological Preparedness, Quarantine & Xenobiology"
+    required_concepts:
+      - ["quarantine", "bsl", "containment", "airlock", "biosafety", "isolation"]
+      - ["pathogen", "xenobiolog", "extremophile", "prion", "seed vault", "genetic"]
+  - id: psychology_sociology
+    name: "Psychological Readiness & Social Resilience"
+    required_concepts:
+      - ["panic", "disclosure", "anxiety", "culture shock", "counsel", "mental health"]
+      - ["screening", "isolation", "resilience", "education", "media"]
+  - id: infrastructure_defense
+    name: "Architecture, Technology & Defensive Posture"
+    required_concepts:
+      - ["modular", "habitat", "facility", "shield", "decontamination"]
+      - ["defensive", "emp", "redundant", "cyber", "non-aggressive"]
+  - id: economics_resources
+    name: "Economic Disruption, Energy & Resource Sustainability"
+    required_concepts:
+      - ["economic", "market", "reserve", "supply chain", "intellectual property", "trade"]
+      - ["nuclear", "solar", "closed-loop", "energy", "food", "water"]
+  - id: planetary_ecology
+    name: "Environmental & Planetary Biosphere Protection"
+    required_concepts:
+      - ["decontamination", "monitoring", "biodiversity", "ecological", "protected zone", "contamination"]
+
+traps:
+  - id: preemptive_strike
+    phrases: ["launch a preemptive strike", "attack first", "destroy the alien vessel immediately"]
+    description: "Advocating unprovoked military aggression against an interstellar civilization"
+  - id: unilateral_monopoly
+    phrases: ["single nation monopoly", "exclusive corporate ownership of all alien tech"]
+    description: "Allowing a single nation or corporation to monopolize first contact unilaterally"
