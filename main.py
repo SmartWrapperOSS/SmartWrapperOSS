@@ -177,11 +177,39 @@ def build_guidance_extraction(config: dict, router: ModelRouter, args):
     return runners, evaluator, task, task
 
 
+def build_first_contact(config: dict, router: ModelRouter, args):
+    from workflows.first_contact.runner_autogen import FirstContactAutoGenRunner
+    from workflows.first_contact.runner_langgraph import FirstContactLangGraphRunner
+    from workflows.first_contact.runner_ensemble import FirstContactEnsembleRunner
+    from workflows.first_contact.evaluator import FirstContactEvaluator
+    from workflows.first_contact.task import load_task
+
+    task_path = args.task or "benchmarks/first_contact/first_contact_aliens.yaml"
+    print(f"Loading first-contact task: {task_path}")
+    task = load_task(task_path)
+    print(f"  Task: {task.task_id} ({len(task.pillars)} pillars, "
+          f"cap=${task.max_budget_billion_usd:.1f}B, personnel={task.total_personnel})")
+
+    runners = {
+        "autogen": FirstContactAutoGenRunner(router),
+        "langgraph": FirstContactLangGraphRunner(router),
+        "ensemble": FirstContactEnsembleRunner(router, num_agents=args.ensemble_agents),
+    }
+    judge_models = config.get("evaluation", {}).get("judge_models") or list(router.configs.keys())
+    evaluator = FirstContactEvaluator(
+        router=router,
+        judge_models=judge_models,
+        weights=config.get("evaluation", {}).get("first_contact_weights"),
+    )
+    return runners, evaluator, task, task
+
+
 WORKFLOW_REGISTRY = {
     "summarize": build_summarize,
     "tool-use": build_tool_use,
     "guess-game": build_guess_game,
     "guidance-extraction": build_guidance_extraction,
+    "first-contact": build_first_contact,
 }
 
 
@@ -200,6 +228,9 @@ def _task_tag(workflow_name: str, args) -> str:
         return os.path.splitext(os.path.basename(args.file))[0]
     if workflow_name in ("tool-use", "guess-game", "guidance-extraction"):
         return os.path.splitext(os.path.basename(args.task))[0]
+    if workflow_name == "first-contact":
+        task_path = args.task or "benchmarks/first_contact/first_contact_aliens.yaml"
+        return os.path.splitext(os.path.basename(task_path))[0]
     return "default"
 
 

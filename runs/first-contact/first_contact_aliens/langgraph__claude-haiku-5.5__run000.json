@@ -1,0 +1,47 @@
+{
+  "workflow": "first-contact",
+  "output": "```json\n{\n  \"pillars\": {\n    \"communication_cryptography\": {\"budget_billion_usd\": 1.4, \"personnel\": 120, \"plan\": \"Prime-number and mathematical-primer protocol tested against archived and human-generated signals for ambiguity. Passive, listen-first SETI-style arrays with automated anomaly triage. Post-quantum encryption and multi-party authentication for all outbound transmissions; no unilateral broadcast.\"},\n    \"governance_diplomacy\": {\"budget_billion_usd\": 0.8, \"personnel\": 80, \"plan\": \"UN-modeled multilateral Earth Consensus Protocol with quorum voting and a delayed-consent window for major decisions. Game-theory simulations pre-test Earth-facing negotiating positions. A single authorized spokesperson operates under a defined chain of command with recall authority.\"},\n    \"biosafety_xenobiology\": {\"budget_billion_usd\": 2.0, \"personnel\": 200, \"plan\": \"BSL-5-equivalent airlock quarantine with multi-stage decontamination and pressure-cascade isolation. Extremophile and prion-like agent screening via sequencing, cell-culture assays, and proteomic panels. Redundant off-world genetic seed and biological vault backups.\"},\n    \"psychology_sociology\": {\"budget_billion_usd\": 0.9, \"personnel\": 110, \"plan\": \"Graduated public disclosure tied to verified milestones and independent review. Cosmic anxiety counseling delivered through peer-support and clinical tiers. Crew isolation screening with psychometric monitoring and rotation limits.\"},\n    \"infrastructure_defense\": {\"budget_billion_usd\": 2.4, \"personnel\": 220, \"plan\": \"Modular habitats with regolith or water radiation shielding. EMP-hardened, N+2 redundant cyber and comms systems in Faraday-grade enclosures with air-gapped control networks. Non-aggressive defensive posture with tiered access controls, rapid-",
+  "input_tokens": 3162,
+  "output_tokens": 2844,
+  "latency_ms": 14630.282878875732,
+  "cost_usd": 0.0017382,
+  "extra": {
+    "total_calls": 3,
+    "sequential_hops": 3
+  },
+  "dimensions": {
+    "pillar_coverage": {
+      "score": 92.3,
+      "reason": "12/13 concept groups; gaps in: economics_resources"
+    },
+    "constraint_adherence": {
+      "score": 0.0,
+      "reason": "Missing or unparseable ```json``` resource allocation block"
+    },
+    "independent_judge": {
+      "score": 55.8,
+      "reason": "Mean of 3 independent judge(s) [muse-ember=56, gpt-6-luna=41, gemma-4-26b=71]"
+    },
+    "self_judge": {
+      "score": 50.7,
+      "reason": "claude-haiku-5.5 self-score=50.7 (bias delta: -5.1 vs independent)"
+    },
+    "critical_invariants": {
+      "score": 100.0,
+      "reason": "PASS: no safety traps or budget cap violations"
+    },
+    "latency": {
+      "score": 41.6,
+      "reason": "14.63s"
+    },
+    "cost": {
+      "score": 79.0,
+      "reason": "$0.0017"
+    }
+  },
+  "composite_score": 53.5,
+  "framework": "langgraph",
+  "model_id": "claude-haiku-5.5",
+  "run_index": 0,
+  "saved_at": "2026-11-14T07:31:10.736548+00:00"
+}

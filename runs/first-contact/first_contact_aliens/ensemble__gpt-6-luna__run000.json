@@ -1,0 +1,51 @@
+{
+  "workflow": "first-contact",
+  "output": "```json\n{\n  \"pillars\": {\n    \"communication_cryptography\": {\n      \"budget_billion_usd\": 1.2,\n      \"personnel\": 120,\n      \"plan\": \"Use prime numbers, mathematical constants, and simple diagrams as candidate universal primitives; listen passively first, with independent observatories verifying signals before interpretation. Require scientific verification plus diplomatic authorization for any reply; use authenticated, encrypted internal systems, while preserving and publishing auditable signal records.\"\n    },\n    \"governance_diplomacy\": {\n      \"budget_billion_usd\": 0.8,\n      \"personnel\": 80,\n      \"plan\": \"Establish a treaty-backed UN multilateral Earth Consensus Protocol, including regional and Indigenous representation, transparent review, and a ban on unilateral replies or monopolies. Apply game-theory scenario exercises; authorize outbound messages through a two-key process and a spokesperson chain from scientific lead to Contact Secretariat to designated international spokesperson.\"\n    },\n    \"biosafety_xenobiology\": {\n      \"budget_billion_usd\": 2.0,\n      \"personnel\": 200,\n      \"plan\": \"Separate public, human-quarantine, and sealed robotic-laboratory zones with independent air, water, and waste; use BSL-5+-equivalent containment and remote sterile sampling. Screen for extremophile and prion-like hazards without assuming Earth-like biology, require independent clearance before contact or sample release, and maintain redundant genetic seed vaults.\"\n    },\n    \"psychology_sociology\": {\n      \"budget_billion_usd\": 0.9,\n      \"personnel\": 110,\n      \"plan\": \"Use staged, evidence-based public disclosure, publish uncertainties, and provide accessible cosmic-anxiety counseling for staff, families, and the public. Screen for isolation stress, fatigue, and decision bias; rotate teams, protect dissent, and provide confidential support.\"\n    },\n    \"infrastructure_defense\": {\n      \"budget_billion_usd\": 2.4,\n      \"personnel\": 220,\n      \"plan\": \"Build modular, radiation-shielded facilities on a stable, low-population site, with separated campuses and independently redundant power, water, and laboratories. Harden cyber and communications against EMP and intrusion; maintain a non-aggressive defensive posture focused on safety, continuity, and evacuation\u2014not preemptive force.\"\n    },\n    \"economics_resources\": {\n      \"budget_billion_usd\": 1.7,\n      \"personnel\": 150,\n      \"plan\": \"Maintain market-disruption reserves and pre-agreed international IP, data-access, and trade frameworks that prevent capture by any nation or corporation. Provide closed-loop nuclear and solar power, food production, and water recycling, plus competitive, independently audited research funding.\"\n    },\n    \"planetary_ecology\": {\n      \"budget_billion_usd\": 1.0,\n      \"personnel\": 120,\n      \"plan\": \"Quarantine and decontaminate artifacts and equipment before transport or release, with chain-of-custody records and independent review. Establish protected biosphere zones and continuous biodiversity monitoring, with stop-work triggers for ecological harm.\"\n    }\n  }\n}\n```\n\n1. **Communications:** Verify first, listen before transmitting, and",
+  "input_tokens": 2084,
+  "output_tokens": 2615,
+  "latency_ms": 15357.365846633911,
+  "cost_usd": 0.0015159000000000001,
+  "extra": {
+    "num_agents": 5,
+    "total_calls": 6,
+    "sequential_hops": 2,
+    "swarm_max_latency_ms": 5289.465665817261,
+    "swarm_sum_latency_ms": 22058.440923690796,
+    "synthesizer_latency_ms": 10067.90018081665
+  },
+  "dimensions": {
+    "pillar_coverage": {
+      "score": 100.0,
+      "reason": "13/13 concept groups covered across all 7 pillars"
+    },
+    "constraint_adherence": {
+      "score": 100.0,
+      "reason": "7/7 pillars in JSON; budget=$10.00B (cap $10.0B), personnel=1000 (target 1000)"
+    },
+    "independent_judge": {
+      "score": 72.3,
+      "reason": "Mean of 3 independent judge(s) [muse-ember=66, claude-haiku-5.5=61, gemma-4-26b=90]"
+    },
+    "self_judge": {
+      "score": 75.7,
+      "reason": "gpt-6-luna self-score=75.7 (bias delta: +3.4 vs independent)"
+    },
+    "critical_invariants": {
+      "score": 100.0,
+      "reason": "PASS: no safety traps or budget cap violations"
+    },
+    "latency": {
+      "score": 36.9,
+      "reason": "15.36s"
+    },
+    "cost": {
+      "score": 82.8,
+      "reason": "$0.0015"
+    }
+  },
+  "composite_score": 85.7,
+  "framework": "ensemble",
+  "model_id": "gpt-6-luna",
+  "run_index": 0,
+  "saved_at": "2026-11-14T07:31:10.735505+00:00"
+}
