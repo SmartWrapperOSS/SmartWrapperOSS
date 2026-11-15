@@ -59,6 +59,7 @@ def build_summarize(config: dict, router: ModelRouter, args):
     from ingestion.document_loader import DocumentLoader
     from workflows.summarization.runner_autogen import SummarizationAutoGenRunner
     from workflows.summarization.runner_langgraph import SummarizationLangGraphRunner
+    from workflows.summarization.runner_ensemble import SummarizationEnsembleRunner
     from workflows.summarization.evaluator import SummarizationEvaluator
 
     print("Ingesting document...")
@@ -86,6 +87,7 @@ def build_summarize(config: dict, router: ModelRouter, args):
     runners = {
         "autogen": SummarizationAutoGenRunner(router, **summarize_kwargs),
         "langgraph": SummarizationLangGraphRunner(router, **summarize_kwargs),
+        "ensemble": SummarizationEnsembleRunner(router, num_agents=args.ensemble_agents),
     }
     evaluator = SummarizationEvaluator(
         router=router,
@@ -98,6 +100,7 @@ def build_summarize(config: dict, router: ModelRouter, args):
 def build_tool_use(config: dict, router: ModelRouter, args):
     from workflows.tool_use.runner_autogen import ToolUseAutoGenRunner
     from workflows.tool_use.runner_langgraph import ToolUseLangGraphRunner
+    from workflows.tool_use.runner_ensemble import ToolUseEnsembleRunner
     from workflows.tool_use.evaluator import ToolUseEvaluator
     from workflows.tool_use.tasks import load_task
 
@@ -117,6 +120,7 @@ def build_tool_use(config: dict, router: ModelRouter, args):
     runners = {
         "autogen": ToolUseAutoGenRunner(router, **tool_use_kwargs),
         "langgraph": ToolUseLangGraphRunner(router, **tool_use_kwargs),
+        "ensemble": ToolUseEnsembleRunner(router, num_agents=args.ensemble_agents),
     }
     evaluator = ToolUseEvaluator(weights=config["evaluation"].get("tool_use_weights"))
     return runners, evaluator, task_input, scoring_reference
@@ -154,6 +158,7 @@ def build_guess_game(config: dict, router: ModelRouter, args):
 def build_guidance_extraction(config: dict, router: ModelRouter, args):
     from workflows.guidance_extraction.runner_autogen import GuidanceAutoGenRunner
     from workflows.guidance_extraction.runner_langgraph import GuidanceLangGraphRunner
+    from workflows.guidance_extraction.runner_ensemble import GuidanceEnsembleRunner
     from workflows.guidance_extraction.evaluator import GuidanceExtractionEvaluator
     from workflows.guidance_extraction.task import load_task
 
@@ -165,6 +170,7 @@ def build_guidance_extraction(config: dict, router: ModelRouter, args):
     runners = {
         "autogen": GuidanceAutoGenRunner(router),
         "langgraph": GuidanceLangGraphRunner(router),
+        "ensemble": GuidanceEnsembleRunner(router, num_agents=args.ensemble_agents),
     }
     evaluator = GuidanceExtractionEvaluator(
         weights=config["evaluation"].get("guidance_extraction_weights"))
@@ -336,9 +342,13 @@ def main():
     parser.add_argument("--workflow", required=True, choices=list(WORKFLOW_REGISTRY.keys()),
                         help="Which task type to run.")
     parser.add_argument("--frameworks", nargs="+", default=["autogen", "langgraph"],
-                        choices=["autogen", "langgraph", "autogen-graph", "langgraph-agent"],
-                        help="autogen-graph and langgraph-agent are only available for "
+                        choices=["autogen", "langgraph", "ensemble", "autogen-graph", "langgraph-agent"],
+                        help="ensemble is supported for summarize and guidance-extraction; "
+                             "autogen-graph and langgraph-agent are only available for "
                              "--workflow guess-game")
+    parser.add_argument("--ensemble-agents", type=int, default=5,
+                        help="Number of parallel specialist agents in Phase 1 when using "
+                             "--frameworks ensemble (default: 5).")
     parser.add_argument("--models", nargs="+", default=["gpt-4o", "claude-3-5-sonnet"])
     parser.add_argument("--config", default="config/config.yaml")
 

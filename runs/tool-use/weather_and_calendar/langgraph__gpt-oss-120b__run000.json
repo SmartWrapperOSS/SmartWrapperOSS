@@ -1,0 +1,42 @@
+{
+  "workflow": "tool-use",
+  "output": "",
+  "input_tokens": 237,
+  "output_tokens": 69,
+  "latency_ms": 836.266279220581,
+  "cost_usd": 7.695e-05,
+  "extra": {
+    "tool_calls": []
+  },
+  "dimensions": {
+    "tool_selection": {
+      "score": 0.0,
+      "reason": "0/3 expected tools called"
+    },
+    "argument_correctness": {
+      "score": 0.0,
+      "reason": "No matching tool calls to check arguments on"
+    },
+    "task_completion": {
+      "score": 0.0,
+      "reason": "0/3 required steps completed"
+    },
+    "efficiency": {
+      "score": 100.0,
+      "reason": "0 calls made, 3 expected"
+    },
+    "latency": {
+      "score": 100.0,
+      "reason": "0.8s"
+    },
+    "cost": {
+      "score": 100.0,
+      "reason": "$0.0001"
+    }
+  },
+  "composite_score": 25.0,
+  "framework": "langgraph",
+  "model_id": "gpt-oss-120b",
+  "run_index": 0,
+  "saved_at": "2026-11-14T19:53:41.966974+00:00"
+}

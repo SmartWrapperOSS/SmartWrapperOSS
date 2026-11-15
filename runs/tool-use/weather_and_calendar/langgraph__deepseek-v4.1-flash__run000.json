@@ -1,0 +1,57 @@
+{
+  "workflow": "tool-use",
+  "output": "",
+  "input_tokens": 465,
+  "output_tokens": 791,
+  "latency_ms": 4788.751602172852,
+  "cost_usd": 0.000184288,
+  "extra": {
+    "tool_calls": [
+      {
+        "tool_name": "get_weather",
+        "arguments": {
+          "location": "Boston",
+          "date": "tomorrow"
+        },
+        "result": {
+          "location": "Boston",
+          "date": "tomorrow",
+          "condition": "rain",
+          "precipitation": true
+        },
+        "timestamp": 1794682362.9531486
+      }
+    ]
+  },
+  "dimensions": {
+    "tool_selection": {
+      "score": 33.3,
+      "reason": "1/3 expected tools called"
+    },
+    "argument_correctness": {
+      "score": 100.0,
+      "reason": "2/2 arguments matched"
+    },
+    "task_completion": {
+      "score": 33.3,
+      "reason": "1/3 required steps completed"
+    },
+    "efficiency": {
+      "score": 100.0,
+      "reason": "1 calls made, 3 expected"
+    },
+    "latency": {
+      "score": 100.0,
+      "reason": "4.8s"
+    },
+    "cost": {
+      "score": 98.4,
+      "reason": "$0.0002"
+    }
+  },
+  "composite_score": 66.5,
+  "framework": "langgraph",
+  "model_id": "deepseek-v4.1-flash",
+  "run_index": 0,
+  "saved_at": "2026-11-14T18:53:16.501084+00:00"
+}

@@ -1,0 +1,114 @@
+{
+  "workflow": "tool-use",
+  "output": "",
+  "input_tokens": 1719,
+  "output_tokens": 267,
+  "latency_ms": 5165.496349334717,
+  "cost_usd": 8.9586e-05,
+  "extra": {
+    "tool_calls": [
+      {
+        "tool_name": "get_weather",
+        "arguments": {
+          "location": "Boston",
+          "date": "tomorrow"
+        },
+        "result": {
+          "location": "Boston",
+          "date": "tomorrow",
+          "condition": "rain",
+          "precipitation": true
+        },
+        "timestamp": 1794682193.7982829
+      },
+      {
+        "tool_name": "get_calendar_event",
+        "arguments": {
+          "date": "tomorrow",
+          "time": "3pm"
+        },
+        "result": {
+          "error": "Bad arguments: get_calendar_event() got an unexpected keyword argument 'date'"
+        },
+        "timestamp": 1794682194.4788823
+      },
+      {
+        "tool_name": "get_calendar_event",
+        "arguments": {
+          "time": "3pm"
+        },
+        "result": {
+          "time": "3pm",
+          "title": "Team sync",
+          "attendees": 4
+        },
+        "timestamp": 1794682195.1078448
+      },
+      {
+        "tool_name": "update_calendar_event",
+        "arguments": {
+          "time": "3pm",
+          "new_time": "5pm",
+          "title": "Team sync"
+        },
+        "result": {
+          "error": "Bad arguments: update_calendar_event() got an unexpected keyword argument 'time'"
+        },
+        "timestamp": 1794682197.0785081
+      },
+      {
+        "tool_name": "update_calendar_event",
+        "arguments": {
+          "new_time": "5pm",
+          "title": "Team sync"
+        },
+        "result": {
+          "error": "Bad arguments: update_calendar_event() got an unexpected keyword argument 'title'"
+        },
+        "timestamp": 1794682197.4977643
+      },
+      {
+        "tool_name": "update_calendar_event",
+        "arguments": {
+          "event_id": "Team sync",
+          "new_time": "5pm"
+        },
+        "result": {
+          "error": "Bad arguments: update_calendar_event() got an unexpected keyword argument 'event_id'"
+        },
+        "timestamp": 1794682198.050119
+      }
+    ]
+  },
+  "dimensions": {
+    "tool_selection": {
+      "score": 100.0,
+      "reason": "3/3 expected tools called"
+    },
+    "argument_correctness": {
+      "score": 100.0,
+      "reason": "4/4 arguments matched"
+    },
+    "task_completion": {
+      "score": 100.0,
+      "reason": "3/3 required steps completed"
+    },
+    "efficiency": {
+      "score": 50.0,
+      "reason": "6 calls made, 3 expected"
+    },
+    "latency": {
+      "score": 91.0,
+      "reason": "5.2s"
+    },
+    "cost": {
+      "score": 99.9,
+      "reason": "$0.0001"
+    }
+  },
+  "composite_score": 94.3,
+  "framework": "autogen",
+  "model_id": "glm-5.3-flash",
+  "run_index": 0,
+  "saved_at": "2026-11-14T18:50:55.930629+00:00"
+}

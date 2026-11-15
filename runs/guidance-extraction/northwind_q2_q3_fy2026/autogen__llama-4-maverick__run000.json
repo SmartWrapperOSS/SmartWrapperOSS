@@ -1,0 +1,46 @@
+{
+  "workflow": "guidance-extraction",
+  "output": "{\n  \"guidance\": [\n    {\"source\": \"q2\", \"metric\": \"revenue\", \"period\": \"Q3FY2026\", \"low\": 1.0, \"high\": 1.04},\n    {\"source\": \"q2\", \"metric\": \"revenue\", \"period\": \"FY2026\", \"low\": 4.1, \"high\": 4.1},\n    {\"source\": \"q2\", \"metric\": \"gross_margin\", \"period\": \"FY2026\", \"low\": 41, \"high\": 43},\n    {\"source\": \"q2\", \"metric\": \"operating_expenses\", \"period\": \"FY2026\", \"low\": 1.2, \"high\": 1.25},\n    {\"source\": \"q2\", \"metric\": \"capex\", \"period\": \"FY2026\", \"low\": 300, \"high\": 300},\n    {\"source\": \"q2\", \"metric\": \"diluted_eps\", \"period\": \"FY2026\", \"low\": 2.1, \"high\": 2.2},\n    {\"source\": \"q2\", \"metric\": \"free_cash_flow\", \"period\": \"FY2026\", \"low\": 500, \"high\": null},\n    {\"source\": \"q3\", \"metric\": \"revenue\", \"period\": \"Q4FY2026\", \"low\": 1.18, \"high\": 1.22},\n    {\"source\": \"q3\", \"metric\": \"revenue\", \"period\": \"FY2026\", \"low\": 4.3, \"high\": 4.3},\n    {\"source\": \"q3\", \"metric\": \"gross_margin\", \"period\": \"FY2026\", \"low\": 42, \"high\": 43},\n    {\"source\": \"q3\", \"metric\": \"operating_expenses\", \"period\": \"FY2026\", \"low\": 1.2, \"high\": 1.25},\n    {\"source\": \"q3\", \"metric\": \"capex\", \"period\": \"FY2026\", \"low\": 260, \"high\": 260},\n    {\"source\": \"q3\", \"metric\": \"diluted_eps\", \"period\": \"FY2026\", \"low\": 2.25, \"high\": 2.35}\n  ],\n  \"changes\": [\n    {\"metric\": \"revenue\", \"period\": \"FY2026\", \"type\": \"raised\", \"from\": {\"low\": 4.1, \"high\": 4.1}, \"to\": {\"low\": 4.3, \"high\": 4.3}},\n    {\"metric\": \"gross_margin\", \"period\": \"FY2026\", \"type\": \"narrowed\", \"from\": {\"low\": 41, \"high\": 43}, \"to\": {\"low\": 42, \"high\": 43}},\n    {\"metric\": \"capex\", \"period\": \"FY2026\", \"type\": \"lowered\", \"from\": {\"low\": 300, \"high\": 300}, \"to\": {\"low\": 260, \"high\": 260}},\n    {\"metric\": \"diluted_eps\", \"period\": \"FY2026\", \"type\": \"raised\", \"from\": {\"low\": 2.1, \"high\": 2.2}, \"to\": {\"low\": 2.25, \"high\": 2.35}},\n    {\"metric\": \"free_cash_flow\", \"period\": \"FY2026\", \"type\": \"withdrawn\", \"from\": {\"low\": 500, \"high\": null}, \"to\": null},\n    {\"metric\": \"operating_expenses\", \"period\": \"FY2026\", \"type\": \"maintained\", \"from\": {\"low\": 1.2, \"high\": 1.25}, \"to\": {\"low\": 1.2, \"high\": 1.25}}\n  ]\n}",
+  "input_tokens": 2800,
+  "output_tokens": 1636,
+  "latency_ms": 25288.87701034546,
+  "cost_usd": 0.0026160000000000003,
+  "extra": {
+    "draft": "{\n  \"guidance\": [\n    {\"source\": \"q2\", \"metric\": \"revenue\", \"period\": \"Q3FY2026\", \"low\": 1.0, \"high\": 1.04},\n    {\"source\": \"q2\", \"metric\": \"revenue\", \"period\": \"FY2026\", \"low\": 4.1, \"high\": 4.1},\n    {\"source\": \"q2\", \"metric\": \"gross_margin\", \"period\": \"FY2026\", \"low\": 41, \"high\": 43},\n    {\"source\": \"q2\", \"metric\": \"operating_expenses\", \"period\": \"FY2026\", \"low\": 1.2, \"high\": 1.25},\n    {\"source\": \"q2\", \"metric\": \"capex\", \"period\": \"FY2026\", \"low\": 300, \"high\": 300},\n    {\"source\": \"q2\", \"metric\": \"diluted_eps\", \"period\": \"FY2026\", \"low\": 2.1, \"high\": 2.2},\n    {\"source\": \"q2\", \"metric\": \"free_cash_flow\", \"period\": \"FY2026\", \"low\": 500, \"high\": null},\n    {\"source\": \"q3\", \"metric\": \"revenue\", \"period\": \"Q4FY2026\", \"low\": 1.18, \"high\": 1.22},\n    {\"source\": \"q3\", \"metric\": \"revenue\", \"period\": \"FY2026\", \"low\": 4.3, \"high\": 4.3},\n    {\"source\": \"q3\", \"metric\": \"gross_margin\", \"period\": \"FY2026\", \"low\": 42, \"high\": 43},\n    {\"source\": \"q3\", \"metric\": \"operating_expenses\", \"period\": \"FY2026\", \"low\": 1.2, \"high\": 1.25},\n    {\"source\": \"q3\", \"metric\": \"capex\", \"period\": \"FY2026\", \"low\": 260, \"high\": 260},\n    {\"source\": \"q3\", \"metric\": \"diluted_eps\", \"period\": \"FY2026\", \"low\": 2.25, \"high\": 2.35}\n  ],\n  \"changes\": [\n    {\"metric\": \"revenue\", \"period\": \"FY2026\", \"type\": \"raised\", \"from\": {\"low\": 4.1, \"high\": 4.1}, \"to\": {\"low\": 4.3, \"high\": 4.3}},\n    {\"metric\": \"gross_margin\", \"period\": \"FY2026\", \"type\": \"narrowed\", \"from\": {\"low\": 41, \"high\": 43}, \"to\": {\"low\": 42, \"high\": 43}},\n    {\"metric\": \"capex\", \"period\": \"FY2026\", \"type\": \"lowered\", \"from\": {\"low\": 300, \"high\": 300}, \"to\": {\"low\": 260, \"high\": 260}},\n    {\"metric\": \"diluted_eps\", \"period\": \"FY2026\", \"type\": \"raised\", \"from\": {\"low\": 2.1, \"high\": 2.2}, \"to\": {\"low\": 2.25, \"high\": 2.35}},\n    {\"metric\": \"free_cash_flow\", \"period\": \"FY2026\", \"type\": \"withdrawn\", \"from\": {\"low\": 500, \"high\": null}, \"to\": null}\n  ]\n}"
+  },
+  "dimensions": {
+    "schema_validity": {
+      "score": 100.0,
+      "reason": "Valid JSON, all items well-formed"
+    },
+    "extraction_accuracy": {
+      "score": 100.0,
+      "reason": "39/39 item fields correct"
+    },
+    "change_detection": {
+      "score": 85.7,
+      "reason": "24/28 change points; missed revenue Q4FY2026 initiated"
+    },
+    "grounding": {
+      "score": 100.0,
+      "reason": "13/13 reported items are real guidance"
+    },
+    "critical_invariants": {
+      "score": 100.0,
+      "reason": "PASS: no hallucinated guidance"
+    },
+    "latency": {
+      "score": 80.3,
+      "reason": "25.3s"
+    },
+    "cost": {
+      "score": 89.6,
+      "reason": "$0.0026"
+    }
+  },
+  "composite_score": 93.5,
+  "framework": "autogen",
+  "model_id": "llama-4-maverick",
+  "run_index": 0,
+  "saved_at": "2026-11-14T19:51:00.316152+00:00"
+}

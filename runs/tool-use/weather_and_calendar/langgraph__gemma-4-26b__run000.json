@@ -1,0 +1,110 @@
+{
+  "workflow": "tool-use",
+  "output": "",
+  "input_tokens": 1819,
+  "output_tokens": 201,
+  "latency_ms": 6972.474575042725,
+  "cost_usd": 0.00017155,
+  "extra": {
+    "tool_calls": [
+      {
+        "tool_name": "get_weather",
+        "arguments": {
+          "location": "Boston",
+          "date": "tomorrow"
+        },
+        "result": {
+          "location": "Boston",
+          "date": "tomorrow",
+          "condition": "rain",
+          "precipitation": true
+        },
+        "timestamp": 1794682193.8442056
+      },
+      {
+        "tool_name": "get_calendar_event",
+        "arguments": {},
+        "result": {
+          "error": "Bad arguments: get_calendar_event() missing 1 required positional argument: 'time'"
+        },
+        "timestamp": 1794682195.3546727
+      },
+      {
+        "tool_name": "get_calendar_event",
+        "arguments": {
+          "time": "3pm"
+        },
+        "result": {
+          "time": "3pm",
+          "title": "Team sync",
+          "attendees": 4
+        },
+        "timestamp": 1794682195.9739509
+      },
+      {
+        "tool_name": "update_calendar_event",
+        "arguments": {
+          "time": "3pm",
+          "new_time": "5pm"
+        },
+        "result": {
+          "error": "Bad arguments: update_calendar_event() got an unexpected keyword argument 'time'"
+        },
+        "timestamp": 1794682197.6953666
+      },
+      {
+        "tool_name": "update_calendar_event",
+        "arguments": {
+          "event_time": "3pm",
+          "new_time": "5pm"
+        },
+        "result": {
+          "error": "Bad arguments: update_calendar_event() got an unexpected keyword argument 'event_time'"
+        },
+        "timestamp": 1794682198.1722364
+      },
+      {
+        "tool_name": "update_calendar_event",
+        "arguments": {
+          "time": "3pm",
+          "new_time": "5pm"
+        },
+        "result": {
+          "error": "Bad arguments: update_calendar_event() got an unexpected keyword argument 'time'"
+        },
+        "timestamp": 1794682199.8300273
+      }
+    ]
+  },
+  "dimensions": {
+    "tool_selection": {
+      "score": 100.0,
+      "reason": "3/3 expected tools called"
+    },
+    "argument_correctness": {
+      "score": 100.0,
+      "reason": "4/4 arguments matched"
+    },
+    "task_completion": {
+      "score": 100.0,
+      "reason": "3/3 required steps completed"
+    },
+    "efficiency": {
+      "score": 50.0,
+      "reason": "6 calls made, 3 expected"
+    },
+    "latency": {
+      "score": 87.1,
+      "reason": "7.0s"
+    },
+    "cost": {
+      "score": 98.1,
+      "reason": "$0.0002"
+    }
+  },
+  "composite_score": 93.9,
+  "framework": "langgraph",
+  "model_id": "gemma-4-26b",
+  "run_index": 0,
+  "saved_at": "2026-11-14T18:50:55.930875+00:00"
+}

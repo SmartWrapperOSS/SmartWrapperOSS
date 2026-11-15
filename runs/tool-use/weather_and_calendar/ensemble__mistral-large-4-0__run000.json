@@ -1,0 +1,42 @@
+{
+  "workflow": "tool-use",
+  "output": "",
+  "input_tokens": 1522,
+  "output_tokens": 7224,
+  "latency_ms": 38231.05549812317,
+  "cost_usd": 0.016235799999999998,
+  "extra": {
+    "tool_calls": []
+  },
+  "dimensions": {
+    "tool_selection": {
+      "score": 0.0,
+      "reason": "0/3 expected tools called"
+    },
+    "argument_correctness": {
+      "score": 0.0,
+      "reason": "No matching tool calls to check arguments on"
+    },
+    "task_completion": {
+      "score": 0.0,
+      "reason": "0/3 required steps completed"
+    },
+    "efficiency": {
+      "score": 100.0,
+      "reason": "0 calls made, 3 expected"
+    },
+    "latency": {
+      "score": 0.0,
+      "reason": "38.2s"
+    },
+    "cost": {
+      "score": 0.0,
+      "reason": "$0.0162"
+    }
+  },
+  "composite_score": 10.0,
+  "framework": "ensemble",
+  "model_id": "mistral-large-4-0",
+  "run_index": 0,
+  "saved_at": "2026-11-14T19:56:19.659728+00:00"
+}

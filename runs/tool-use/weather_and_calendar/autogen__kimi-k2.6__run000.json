@@ -1,0 +1,114 @@
+{
+  "workflow": "tool-use",
+  "output": "",
+  "input_tokens": 1705,
+  "output_tokens": 202,
+  "latency_ms": 20804.439067840576,
+  "cost_usd": 0.00179707,
+  "extra": {
+    "tool_calls": [
+      {
+        "tool_name": "get_weather",
+        "arguments": {
+          "location": "Boston",
+          "date": "tomorrow"
+        },
+        "result": {
+          "location": "Boston",
+          "date": "tomorrow",
+          "condition": "rain",
+          "precipitation": true
+        },
+        "timestamp": 1794686025.9499202
+      },
+      {
+        "tool_name": "get_calendar_event",
+        "arguments": {
+          "time": "3pm"
+        },
+        "result": {
+          "time": "3pm",
+          "title": "Team sync",
+          "attendees": 4
+        },
+        "timestamp": 1794686028.2275739
+      },
+      {
+        "tool_name": "update_calendar_event",
+        "arguments": {
+          "time": "3pm",
+          "new_time": "5pm",
+          "title": "Team sync"
+        },
+        "result": {
+          "error": "Bad arguments: update_calendar_event() got an unexpected keyword argument 'time'"
+        },
+        "timestamp": 1794686033.4911964
+      },
+      {
+        "tool_name": "update_calendar_event",
+        "arguments": {
+          "title": "Team sync",
+          "new_time": "5pm"
+        },
+        "result": {
+          "error": "Bad arguments: update_calendar_event() got an unexpected keyword argument 'title'"
+        },
+        "timestamp": 1794686034.756963
+      },
+      {
+        "tool_name": "update_calendar_event",
+        "arguments": {
+          "old_time": "3pm",
+          "new_time": "5pm"
+        },
+        "result": {
+          "error": "Bad arguments: update_calendar_event() got an unexpected keyword argument 'old_time'"
+        },
+        "timestamp": 1794686035.857523
+      },
+      {
+        "tool_name": "update_calendar_event",
+        "arguments": {
+          "time": "3pm",
+          "new_time": "5pm"
+        },
+        "result": {
+          "error": "Bad arguments: update_calendar_event() got an unexpected keyword argument 'time'"
+        },
+        "timestamp": 1794686042.9123359
+      }
+    ]
+  },
+  "dimensions": {
+    "tool_selection": {
+      "score": 100.0,
+      "reason": "3/3 expected tools called"
+    },
+    "argument_correctness": {
+      "score": 100.0,
+      "reason": "4/4 arguments matched"
+    },
+    "task_completion": {
+      "score": 100.0,
+      "reason": "3/3 required steps completed"
+    },
+    "efficiency": {
+      "score": 50.0,
+      "reason": "6 calls made, 3 expected"
+    },
+    "latency": {
+      "score": 83.2,
+      "reason": "20.8s"
+    },
+    "cost": {
+      "score": 85.6,
+      "reason": "$0.0018"
+    }
+  },
+  "composite_score": 92.7,
+  "framework": "autogen",
+  "model_id": "kimi-k2.6",
+  "run_index": 0,
+  "saved_at": "2026-11-14T19:55:41.276631+00:00"
+}

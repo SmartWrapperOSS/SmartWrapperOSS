@@ -1,0 +1,110 @@
+{
+  "workflow": "tool-use",
+  "output": "",
+  "input_tokens": 10840,
+  "output_tokens": 1022,
+  "latency_ms": 47403.62858772278,
+  "cost_usd": 0.0009836399999999998,
+  "extra": {
+    "tool_calls": [
+      {
+        "tool_name": "get_weather",
+        "arguments": {
+          "location": "Boston",
+          "date": "tomorrow"
+        },
+        "result": {
+          "location": "Boston",
+          "date": "tomorrow",
+          "condition": "rain",
+          "precipitation": true
+        },
+        "timestamp": 1794682214.1265628
+      },
+      {
+        "tool_name": "get_calendar_event",
+        "arguments": {},
+        "result": {
+          "error": "Bad arguments: get_calendar_event() missing 1 required positional argument: 'time'"
+        },
+        "timestamp": 1794682216.0640469
+      },
+      {
+        "tool_name": "get_calendar_event",
+        "arguments": {
+          "time": "3pm"
+        },
+        "result": {
+          "time": "3pm",
+          "title": "Team sync",
+          "attendees": 4
+        },
+        "timestamp": 1794682225.0867796
+      },
+      {
+        "tool_name": "update_calendar_event",
+        "arguments": {
+          "time": "5pm",
+          "title": "Team sync"
+        },
+        "result": {
+          "error": "Bad arguments: update_calendar_event() got an unexpected keyword argument 'time'"
+        },
+        "timestamp": 1794682226.3786411
+      },
+      {
+        "tool_name": "update_calendar_event",
+        "arguments": {
+          "title": "Team sync",
+          "new_time": "5pm"
+        },
+        "result": {
+          "error": "Bad arguments: update_calendar_event() got an unexpected keyword argument 'title'"
+        },
+        "timestamp": 1794682228.4028826
+      },
+      {
+        "tool_name": "update_calendar_event",
+        "arguments": {
+          "new_time": "5pm"
+        },
+        "result": {
+          "status": "updated",
+          "new_time": "5pm"
+        },
+        "timestamp": 1794682255.9284098
+      }
+    ]
+  },
+  "dimensions": {
+    "tool_selection": {
+      "score": 100.0,
+      "reason": "3/3 expected tools called"
+    },
+    "argument_correctness": {
+      "score": 100.0,
+      "reason": "4/4 arguments matched"
+    },
+    "task_completion": {
+      "score": 100.0,
+      "reason": "3/3 required steps completed"
+    },
+    "efficiency": {
+      "score": 50.0,
+      "reason": "6 calls made, 3 expected"
+    },
+    "latency": {
+      "score": 0.0,
+      "reason": "47.4s"
+    },
+    "cost": {
+      "score": 80.6,
+      "reason": "$0.0010"
+    }
+  },
+  "composite_score": 86.0,
+  "framework": "ensemble",
+  "model_id": "gemma-4-26b",
+  "run_index": 0,
+  "saved_at": "2026-11-14T18:50:55.932678+00:00"
+}

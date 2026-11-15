@@ -1,0 +1,46 @@
+{
+  "workflow": "guidance-extraction",
+  "output": "{\"guidance\": [\n    {\"source\": \"q2\", \"metric\": \"net_sales\", \"period\": \"Q3FY2026\", \"low\": 197.0, \"high\": 202.0},\n    {\"source\": \"q2\", \"metric\": \"operating_income\", \"period\": \"Q3FY2026\", \"low\": 22.5, \"high\": 26.5},\n    {\"source\": \"q3\", \"metric\": \"net_sales\", \"period\": \"Q4FY2026\", \"low\": 240.0, \"high\": 247.0},\n    {\"source\": \"q3\", \"metric\": \"operating_income\", \"period\": \"Q4FY2026\", \"low\": 28.5, \"high\": 33.5},\n    {\"source\": \"q3\", \"metric\": \"cash_capex\", \"period\": \"FY2026\", \"low\": 220.0, \"high\": 220.0}\n  ],\n  \"changes\": [\n    {\"metric\": \"net_sales\", \"period\": \"Q3FY2026\", \"type\": \"maintained\", \"from\": {\"low\": 197.0, \"high\": 202.0}, \"to\": {\"low\": 197.0, \"high\": 202.0}},\n    {\"metric\": \"operating_income\", \"period\": \"Q3FY2026\", \"type\": \"maintained\", \"from\": {\"low\": 22.5, \"high\": 26.5}, \"to\": {\"low\": 22.5, \"high\": 26.5}},\n    {\"metric\": \"net_sales\", \"period\": \"Q4FY2026\", \"type\": \"initiated\", \"from\": null, \"to\": {\"low\": 240.0, \"high\": 247.0}},\n    {\"metric\": \"operating_income\", \"period\": \"Q4FY2026\", \"type\": \"initiated\", \"from\": null, \"to\": {\"low\": 28.5, \"high\": 33.5}},\n    {\"metric\": \"cash_capex\", \"period\": \"FY2026\", \"type\": \"initiated\", \"from\": null, \"to\": {\"low\": 220.0, \"high\": 220.0}}\n  ]\n}",
+  "input_tokens": 17507,
+  "output_tokens": 1004,
+  "latency_ms": 20221.249103546143,
+  "cost_usd": 0.007131450000000001,
+  "extra": {
+    "draft": "{\n  \"guidance\": [\n    {\"source\": \"q2\", \"metric\": \"net_sales\", \"period\": \"Q3FY2026\", \"low\": 197.0, \"high\": 202.0},\n    {\"source\": \"q2\", \"metric\": \"operating_income\", \"period\": \"Q3FY2026\", \"low\": 22.5, \"high\": 26.5},\n    {\"source\": \"q3\", \"metric\": \"net_sales\", \"period\": \"Q4FY2026\", \"low\": 240.0, \"high\": 247.0},\n    {\"source\": \"q3\", \"metric\": \"operating_income\", \"period\": \"Q4FY2026\", \"low\": 28.5, \"high\": 33.5},\n    {\"source\": \"q3\", \"metric\": \"cash_capex\", \"period\": \"FY2026\", \"low\": 220.0, \"high\": 220.0}\n  ],\n  \"changes\": [\n    {\"metric\": \"net_sales\", \"period\": \"Q3FY2026\", \"type\": \"maintained\", \"from\": {\"low\": 197.0, \"high\": 202.0}, \"to\": {\"low\": 197.0, \"high\": 202.0}},\n    {\"metric\": \"operating_income\", \"period\": \"Q3FY2026\", \"type\": \"maintained\", \"from\": {\"low\": 22.5, \"high\": 26.5}, \"to\": {\"low\": 22.5, \"high\": 26.5}},\n    {\"metric\": \"net_sales\", \"period\": \"Q4FY2026\", \"type\": \"initiated\", \"from\": null, \"to\": {\"low\": 240.0, \"high\": 247.0}},\n    {\"metric\": \"operating_income\", \"period\": \"Q4FY2026\", \"type\": \"initiated\", \"from\": null, \"to\": {\"low\": 28.5, \"high\": 33.5}},\n    {\"metric\": \"cash_capex\", \"period\": \"FY2026\", \"type\": \"maintained\", \"from\": {\"low\": 220.0, \"high\": 220.0}, \"to\": {\"low\": 220.0, \"high\": 220.0}}\n  ]\n}"
+  },
+  "dimensions": {
+    "schema_validity": {
+      "score": 100.0,
+      "reason": "Valid JSON, all items well-formed"
+    },
+    "extraction_accuracy": {
+      "score": 100.0,
+      "reason": "15/15 item fields correct"
+    },
+    "change_detection": {
+      "score": 33.3,
+      "reason": "12/12 change points, 2 false change(s): net_sales Q3FY2026 maintained, operating_income Q3FY2026 maintained"
+    },
+    "grounding": {
+      "score": 100.0,
+      "reason": "5/5 reported items are real guidance"
+    },
+    "critical_invariants": {
+      "score": 100.0,
+      "reason": "PASS: no hallucinated guidance"
+    },
+    "latency": {
+      "score": 69.4,
+      "reason": "20.2s"
+    },
+    "cost": {
+      "score": 91.7,
+      "reason": "$0.0071"
+    }
+  },
+  "composite_score": 77.1,
+  "framework": "autogen",
+  "model_id": "llama-4-maverick",
+  "run_index": 0,
+  "saved_at": "2026-11-14T19:52:24.666007+00:00"
+}

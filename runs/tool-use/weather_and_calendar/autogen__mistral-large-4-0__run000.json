@@ -1,0 +1,98 @@
+{
+  "workflow": "tool-use",
+  "output": "",
+  "input_tokens": 1726,
+  "output_tokens": 5043,
+  "latency_ms": 119163.92469406128,
+  "cost_usd": 0.0117985,
+  "extra": {
+    "tool_calls": [
+      {
+        "tool_name": "get_weather",
+        "arguments": {
+          "location": "Boston",
+          "date": "tomorrow"
+        },
+        "result": {
+          "location": "Boston",
+          "date": "tomorrow",
+          "condition": "rain",
+          "precipitation": true
+        },
+        "timestamp": 1794686044.7890902
+      },
+      {
+        "tool_name": "get_calendar_event",
+        "arguments": {
+          "date": "tomorrow"
+        },
+        "result": {
+          "error": "Bad arguments: get_calendar_event() got an unexpected keyword argument 'date'"
+        },
+        "timestamp": 1794686061.31077
+      },
+      {
+        "tool_name": "get_calendar_event",
+        "arguments": {},
+        "result": {
+          "error": "Bad arguments: get_calendar_event() missing 1 required positional argument: 'time'"
+        },
+        "timestamp": 1794686086.0597692
+      },
+      {
+        "tool_name": "get_calendar_event",
+        "arguments": {
+          "time": "3pm"
+        },
+        "result": {
+          "time": "3pm",
+          "title": "Team sync",
+          "attendees": 4
+        },
+        "timestamp": 1794686114.8580902
+      },
+      {
+        "tool_name": "update_calendar_event",
+        "arguments": {
+          "time": "3pm",
+          "new_time": "5pm"
+        },
+        "result": {
+          "error": "Bad arguments: update_calendar_event() got an unexpected keyword argument 'time'"
+        },
+        "timestamp": 1794686124.8212652
+      }
+    ]
+  },
+  "dimensions": {
+    "tool_selection": {
+      "score": 100.0,
+      "reason": "3/3 expected tools called"
+    },
+    "argument_correctness": {
+      "score": 100.0,
+      "reason": "4/4 arguments matched"
+    },
+    "task_completion": {
+      "score": 100.0,
+      "reason": "3/3 required steps completed"
+    },
+    "efficiency": {
+      "score": 66.7,
+      "reason": "5 calls made, 3 expected"
+    },
+    "latency": {
+      "score": 0.0,
+      "reason": "119.2s"
+    },
+    "cost": {
+      "score": 0.0,
+      "reason": "$0.0118"
+    }
+  },
+  "composite_score": 81.7,
+  "framework": "autogen",
+  "model_id": "mistral-large-4-0",
+  "run_index": 0,
+  "saved_at": "2026-11-14T19:55:41.276857+00:00"
+}
