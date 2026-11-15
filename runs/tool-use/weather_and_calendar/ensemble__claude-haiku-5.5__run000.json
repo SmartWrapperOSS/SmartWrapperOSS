@@ -1,0 +1,114 @@
+{
+  "workflow": "tool-use",
+  "output": "",
+  "input_tokens": 16622,
+  "output_tokens": 6129,
+  "latency_ms": 15766.414880752563,
+  "cost_usd": 0.0047267,
+  "extra": {
+    "tool_calls": [
+      {
+        "tool_name": "get_weather",
+        "arguments": {
+          "location": "Boston",
+          "date": "tomorrow"
+        },
+        "result": {
+          "location": "Boston",
+          "date": "tomorrow",
+          "condition": "rain",
+          "precipitation": true
+        },
+        "timestamp": 1794682210.0147297
+      },
+      {
+        "tool_name": "get_calendar_event",
+        "arguments": {
+          "date": "tomorrow",
+          "time": "15:00"
+        },
+        "result": {
+          "error": "Bad arguments: get_calendar_event() got an unexpected keyword argument 'date'"
+        },
+        "timestamp": 1794682211.857578
+      },
+      {
+        "tool_name": "get_calendar_event",
+        "arguments": {
+          "time": "15:00"
+        },
+        "result": {
+          "time": "15:00",
+          "title": "Team sync",
+          "attendees": 4
+        },
+        "timestamp": 1794682214.6316297
+      },
+      {
+        "tool_name": "update_calendar_event",
+        "arguments": {
+          "title": "Team sync",
+          "time": "15:00",
+          "new_time": "17:00"
+        },
+        "result": {
+          "error": "Bad arguments: update_calendar_event() got an unexpected keyword argument 'title'"
+        },
+        "timestamp": 1794682217.7315407
+      },
+      {
+        "tool_name": "update_calendar_event",
+        "arguments": {
+          "time": "15:00",
+          "new_time": "17:00"
+        },
+        "result": {
+          "error": "Bad arguments: update_calendar_event() got an unexpected keyword argument 'time'"
+        },
+        "timestamp": 1794682220.562321
+      },
+      {
+        "tool_name": "update_calendar_event",
+        "arguments": {
+          "new_time": "17:00"
+        },
+        "result": {
+          "status": "updated",
+          "new_time": "17:00"
+        },
+        "timestamp": 1794682224.008232
+      }
+    ]
+  },
+  "dimensions": {
+    "tool_selection": {
+      "score": 100.0,
+      "reason": "3/3 expected tools called"
+    },
+    "argument_correctness": {
+      "score": 50.0,
+      "reason": "2/4 arguments matched"
+    },
+    "task_completion": {
+      "score": 100.0,
+      "reason": "3/3 required steps completed"
+    },
+    "efficiency": {
+      "score": 50.0,
+      "reason": "6 calls made, 3 expected"
+    },
+    "latency": {
+      "score": 68.1,
+      "reason": "15.8s"
+    },
+    "cost": {
+      "score": 0.0,
+      "reason": "$0.0047"
+    }
+  },
+  "composite_score": 72.6,
+  "framework": "ensemble",
+  "model_id": "claude-haiku-5.5",
+  "run_index": 0,
+  "saved_at": "2026-11-14T18:50:55.932453+00:00"
+}

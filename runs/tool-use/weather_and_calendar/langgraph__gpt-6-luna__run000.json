@@ -1,0 +1,112 @@
+{
+  "workflow": "tool-use",
+  "output": "",
+  "input_tokens": 1631,
+  "output_tokens": 439,
+  "latency_ms": 15649.55997467041,
+  "cost_usd": 0.00038260000000000003,
+  "extra": {
+    "tool_calls": [
+      {
+        "tool_name": "get_weather",
+        "arguments": {
+          "location": "Boston",
+          "date": "tomorrow"
+        },
+        "result": {
+          "location": "Boston",
+          "date": "tomorrow",
+          "condition": "rain",
+          "precipitation": true
+        },
+        "timestamp": 1794682195.0821886
+      },
+      {
+        "tool_name": "get_calendar_event",
+        "arguments": {
+          "date": "tomorrow",
+          "time": "3pm"
+        },
+        "result": {
+          "error": "Bad arguments: get_calendar_event() got an unexpected keyword argument 'date'"
+        },
+        "timestamp": 1794682197.1925187
+      },
+      {
+        "tool_name": "get_calendar_event",
+        "arguments": {
+          "time": "3pm"
+        },
+        "result": {
+          "time": "3pm",
+          "title": "Team sync",
+          "attendees": 4
+        },
+        "timestamp": 1794682199.9902837
+      },
+      {
+        "tool_name": "update_calendar_event",
+        "arguments": {
+          "title": "Team sync",
+          "time": "5pm"
+        },
+        "result": {
+          "error": "Bad arguments: update_calendar_event() got an unexpected keyword argument 'title'"
+        },
+        "timestamp": 1794682202.9925964
+      },
+      {
+        "tool_name": "update_calendar_event",
+        "arguments": {
+          "time": "5pm"
+        },
+        "result": {
+          "error": "Bad arguments: update_calendar_event() got an unexpected keyword argument 'time'"
+        },
+        "timestamp": 1794682204.9753702
+      },
+      {
+        "tool_name": "update_calendar_event",
+        "arguments": {
+          "event": "Team sync",
+          "new_time": "5pm"
+        },
+        "result": {
+          "error": "Bad arguments: update_calendar_event() got an unexpected keyword argument 'event'"
+        },
+        "timestamp": 1794682208.5070193
+      }
+    ]
+  },
+  "dimensions": {
+    "tool_selection": {
+      "score": 100.0,
+      "reason": "3/3 expected tools called"
+    },
+    "argument_correctness": {
+      "score": 100.0,
+      "reason": "4/4 arguments matched"
+    },
+    "task_completion": {
+      "score": 100.0,
+      "reason": "3/3 required steps completed"
+    },
+    "efficiency": {
+      "score": 50.0,
+      "reason": "6 calls made, 3 expected"
+    },
+    "latency": {
+      "score": 68.4,
+      "reason": "15.6s"
+    },
+    "cost": {
+      "score": 93.6,
+      "reason": "$0.0004"
+    }
+  },
+  "composite_score": 92.1,
+  "framework": "langgraph",
+  "model_id": "gpt-6-luna",
+  "run_index": 0,
+  "saved_at": "2026-11-14T18:50:55.931798+00:00"
+}

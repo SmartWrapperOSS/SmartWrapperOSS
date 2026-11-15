@@ -1,0 +1,113 @@
+{
+  "workflow": "tool-use",
+  "output": "",
+  "input_tokens": 1641,
+  "output_tokens": 467,
+  "latency_ms": 16014.682531356812,
+  "cost_usd": 0.00039759999999999996,
+  "extra": {
+    "tool_calls": [
+      {
+        "tool_name": "get_weather",
+        "arguments": {
+          "location": "Boston",
+          "date": "tomorrow"
+        },
+        "result": {
+          "location": "Boston",
+          "date": "tomorrow",
+          "condition": "rain",
+          "precipitation": true
+        },
+        "timestamp": 1794682196.1116369
+      },
+      {
+        "tool_name": "get_calendar_event",
+        "arguments": {
+          "date": "tomorrow",
+          "time": "3pm"
+        },
+        "result": {
+          "error": "Bad arguments: get_calendar_event() got an unexpected keyword argument 'date'"
+        },
+        "timestamp": 1794682198.0810328
+      },
+      {
+        "tool_name": "get_calendar_event",
+        "arguments": {
+          "time": "3pm"
+        },
+        "result": {
+          "time": "3pm",
+          "title": "Team sync",
+          "attendees": 4
+        },
+        "timestamp": 1794682201.9550765
+      },
+      {
+        "tool_name": "update_calendar_event",
+        "arguments": {
+          "time": "3pm",
+          "new_time": "5pm"
+        },
+        "result": {
+          "error": "Bad arguments: update_calendar_event() got an unexpected keyword argument 'time'"
+        },
+        "timestamp": 1794682204.8913283
+      },
+      {
+        "tool_name": "update_calendar_event",
+        "arguments": {
+          "title": "Team sync",
+          "new_time": "5pm"
+        },
+        "result": {
+          "error": "Bad arguments: update_calendar_event() got an unexpected keyword argument 'title'"
+        },
+        "timestamp": 1794682207.1566901
+      },
+      {
+        "tool_name": "update_calendar_event",
+        "arguments": {
+          "new_time": "5pm"
+        },
+        "result": {
+          "status": "updated",
+          "new_time": "5pm"
+        },
+        "timestamp": 1794682209.8372388
+      }
+    ]
+  },
+  "dimensions": {
+    "tool_selection": {
+      "score": 100.0,
+      "reason": "3/3 expected tools called"
+    },
+    "argument_correctness": {
+      "score": 100.0,
+      "reason": "4/4 arguments matched"
+    },
+    "task_completion": {
+      "score": 100.0,
+      "reason": "3/3 required steps completed"
+    },
+    "efficiency": {
+      "score": 50.0,
+      "reason": "6 calls made, 3 expected"
+    },
+    "latency": {
+      "score": 67.6,
+      "reason": "16.0s"
+    },
+    "cost": {
+      "score": 93.3,
+      "reason": "$0.0004"
+    }
+  },
+  "composite_score": 92.1,
+  "framework": "autogen",
+  "model_id": "gpt-6-luna",
+  "run_index": 0,
+  "saved_at": "2026-11-14T18:50:55.932040+00:00"
+}

@@ -100,6 +100,7 @@ def build_summarize(config: dict, router: ModelRouter, args):
 def build_tool_use(config: dict, router: ModelRouter, args):
     from workflows.tool_use.runner_autogen import ToolUseAutoGenRunner
     from workflows.tool_use.runner_langgraph import ToolUseLangGraphRunner
+    from workflows.tool_use.runner_ensemble import ToolUseEnsembleRunner
     from workflows.tool_use.evaluator import ToolUseEvaluator
     from workflows.tool_use.tasks import load_task
 
@@ -119,6 +120,7 @@ def build_tool_use(config: dict, router: ModelRouter, args):
     runners = {
         "autogen": ToolUseAutoGenRunner(router, **tool_use_kwargs),
         "langgraph": ToolUseLangGraphRunner(router, **tool_use_kwargs),
+        "ensemble": ToolUseEnsembleRunner(router, num_agents=args.ensemble_agents),
     }
     evaluator = ToolUseEvaluator(weights=config["evaluation"].get("tool_use_weights"))
     return runners, evaluator, task_input, scoring_reference

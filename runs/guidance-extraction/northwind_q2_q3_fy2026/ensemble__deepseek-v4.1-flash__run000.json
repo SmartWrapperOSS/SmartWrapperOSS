@@ -1,0 +1,50 @@
+{
+  "workflow": "guidance-extraction",
+  "output": "",
+  "input_tokens": 6725,
+  "output_tokens": 3300,
+  "latency_ms": 8766.307830810547,
+  "cost_usd": 0.001012875,
+  "extra": {
+    "num_agents": 5,
+    "total_calls": 6,
+    "swarm_max_latency_ms": 4143.171548843384,
+    "swarm_sum_latency_ms": 13981.112718582153,
+    "synthesizer_latency_ms": 4623.136281967163
+  },
+  "dimensions": {
+    "schema_validity": {
+      "score": 0.0,
+      "reason": "Output is not parseable JSON"
+    },
+    "extraction_accuracy": {
+      "score": 0.0,
+      "reason": "0/39 item fields correct; missed or wrong: q2 revenue Q3FY2026, q2 revenue FY2026, q2 gross_margin FY2026, q2 operating_expenses FY2026"
+    },
+    "change_detection": {
+      "score": 0.0,
+      "reason": "0/28 change points; missed revenue FY2026 raised, missed gross_margin FY2026 narrowed, missed operating_expenses FY2026 maintained"
+    },
+    "grounding": {
+      "score": 0.0,
+      "reason": "No guidance items reported"
+    },
+    "critical_invariants": {
+      "score": 100.0,
+      "reason": "PASS: no hallucinated guidance"
+    },
+    "latency": {
+      "score": 96.7,
+      "reason": "8.8s"
+    },
+    "cost": {
+      "score": 96.5,
+      "reason": "$0.0010"
+    }
+  },
+  "composite_score": 14.5,
+  "framework": "ensemble",
+  "model_id": "deepseek-v4.1-flash",
+  "run_index": 0,
+  "saved_at": "2026-11-14T19:51:00.315808+00:00"
+}

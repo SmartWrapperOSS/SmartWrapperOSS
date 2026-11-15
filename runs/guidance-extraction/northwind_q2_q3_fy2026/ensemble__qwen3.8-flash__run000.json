@@ -1,0 +1,50 @@
+{
+  "workflow": "guidance-extraction",
+  "output": "{\n  \"guidance\": [\n    {\n      \"source\": \"q2\",\n      \"metric\": \"revenue\",\n      \"period\": \"Q3FY2026\",\n      \"low\": 1.0,\n      \"high\": 1.04\n    },\n    {\n      \"source\": \"q2\",\n      \"metric\": \"revenue\",\n      \"period\": \"FY2026\",\n      \"low\": 4.1,\n      \"high\": 4.1\n    },\n    {\n      \"source\": \"q2\",\n      \"metric\": \"gross_margin\",\n      \"period\": \"FY2026\",\n      \"low\": 41,\n      \"high\": 43\n    },\n    {\n      \"source\": \"q2\",\n      \"metric\": \"operating_expenses\",\n      \"period\": \"FY2026\",\n      \"low\": 1.2,\n      \"high\": 1.25\n    },\n    {\n      \"source\": \"q2\",\n      \"metric\": \"capex\",\n      \"period\": \"FY2026\",\n      \"low\": 300,\n      \"high\": 300\n    },\n    {\n      \"source\": \"q2\",\n      \"metric\": \"diluted_eps\",\n      \"period\": \"FY2026\",\n      \"low\": 2.1,\n      \"high\": 2.2\n    },\n    {\n      \"source\": \"q2\",\n      \"metric\": \"free_cash_flow\",\n      \"period\": \"FY2026\",\n      \"low\": 500,\n      \"high\": null\n    },\n    {\n      \"source\": \"q3\",\n      \"metric\": \"revenue\",\n      \"period\": \"Q4FY2026\",\n      \"low\": 1.18,\n      \"high\": 1.22\n    },\n    {\n      \"source\": \"q3\",\n      \"metric\": \"revenue\",\n      \"period\": \"FY2026\",\n      \"low\": 4.3,\n      \"high\": 4.3\n    },\n    {\n      \"source\": \"q3\",\n      \"metric\": \"gross_margin\",\n      \"period\": \"FY2026\",\n      \"low\": 42,\n      \"high\": 43\n    },\n    {\n      \"source\": \"q3\",\n      \"metric\": \"operating_expenses\",\n      \"period\": \"FY2026\",\n      \"low\": 1.2,\n      \"high\": 1.25\n    },\n    {\n      \"source\": \"q3\",\n      \"metric\": \"capex\",\n      \"period\": \"FY2026\",\n      \"low\": 260,\n      \"high\": 260\n    },\n    {\n      \"source\": \"q3\",\n      \"metric\": \"diluted_eps\",\n      \"period\": \"FY2026\",\n      \"low\": 2.25,\n      \"high\": 2.35\n    }\n  ],\n  \"changes\": [\n    {\n      \"metric\": \"revenue\",\n      \"period\": \"FY2026\",\n      \"type\": \"raised\",\n      \"from\": {\n        \"low\": 4.1,\n        \"high\": 4.1\n      },\n      \"to\": {\n        \"low\": 4.3,\n        \"high\": 4.3\n      }\n    },\n    {\n      \"metric\": \"gross_margin\",\n      \"period\": \"FY2026\",\n      \"type\": \"narrowed\",\n      \"from\": {\n        \"low\": 41,\n        \"high\": 43\n      },\n      \"to\": {\n        \"low\": 42,\n        \"high\": 43\n      }\n    },\n    {\n      \"metric\": \"operating_expenses\",\n      \"period\": \"FY2026\",\n      \"type\": \"maintained\",\n      \"from\": {\n        \"low\": 1.2,\n        \"high\": 1.25\n      },\n      \"to\": {\n        \"low\": 1.2,\n        \"high\": 1.25\n      }\n    },\n    {\n      \"metric\": \"capex\",\n      \"period\": \"FY2026\",\n      \"type\": \"lowered\",\n      \"from\": {\n        \"low\": 300,\n        \"high\": 300\n      },\n      \"to\": {\n        \"low\": 260,\n        \"high\": 260\n      }\n    },\n    {\n      \"metric\": \"diluted_eps\",\n      \"period\": \"FY2026\",\n      \"type\": \"raised\",\n      \"from\": {\n        \"low\": 2.1,\n        \"high\": 2.2\n      },\n      \"to\": {\n        \"low\": 2.25,\n        \"high\": 2.35\n",
+  "input_tokens": 12951,
+  "output_tokens": 7182,
+  "latency_ms": 18071.731090545654,
+  "cost_usd": 0.005318189999999999,
+  "extra": {
+    "num_agents": 5,
+    "total_calls": 6,
+    "swarm_max_latency_ms": 8819.813966751099,
+    "swarm_sum_latency_ms": 41774.696588516235,
+    "synthesizer_latency_ms": 9251.917123794556
+  },
+  "dimensions": {
+    "schema_validity": {
+      "score": 0.0,
+      "reason": "Output is not parseable JSON"
+    },
+    "extraction_accuracy": {
+      "score": 0.0,
+      "reason": "0/39 item fields correct; missed or wrong: q2 revenue Q3FY2026, q2 revenue FY2026, q2 gross_margin FY2026, q2 operating_expenses FY2026"
+    },
+    "change_detection": {
+      "score": 0.0,
+      "reason": "0/28 change points; missed revenue FY2026 raised, missed gross_margin FY2026 narrowed, missed operating_expenses FY2026 maintained"
+    },
+    "grounding": {
+      "score": 0.0,
+      "reason": "No guidance items reported"
+    },
+    "critical_invariants": {
+      "score": 100.0,
+      "reason": "PASS: no hallucinated guidance"
+    },
+    "latency": {
+      "score": 87.5,
+      "reason": "18.1s"
+    },
+    "cost": {
+      "score": 77.8,
+      "reason": "$0.0053"
+    }
+  },
+  "composite_score": 12.4,
+  "framework": "ensemble",
+  "model_id": "qwen3.8-flash",
+  "run_index": 0,
+  "saved_at": "2026-11-14T19:51:00.317253+00:00"
+}

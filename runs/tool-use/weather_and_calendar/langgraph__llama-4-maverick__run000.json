@@ -1,0 +1,42 @@
+{
+  "workflow": "tool-use",
+  "output": "",
+  "input_tokens": 181,
+  "output_tokens": 70,
+  "latency_ms": 1769.3774700164795,
+  "cost_usd": 0.00013335000000000002,
+  "extra": {
+    "tool_calls": []
+  },
+  "dimensions": {
+    "tool_selection": {
+      "score": 0.0,
+      "reason": "0/3 expected tools called"
+    },
+    "argument_correctness": {
+      "score": 0.0,
+      "reason": "No matching tool calls to check arguments on"
+    },
+    "task_completion": {
+      "score": 0.0,
+      "reason": "0/3 required steps completed"
+    },
+    "efficiency": {
+      "score": 100.0,
+      "reason": "0 calls made, 3 expected"
+    },
+    "latency": {
+      "score": 98.8,
+      "reason": "1.8s"
+    },
+    "cost": {
+      "score": 99.4,
+      "reason": "$0.0001"
+    }
+  },
+  "composite_score": 24.9,
+  "framework": "langgraph",
+  "model_id": "llama-4-maverick",
+  "run_index": 0,
+  "saved_at": "2026-11-14T19:53:41.967588+00:00"
+}

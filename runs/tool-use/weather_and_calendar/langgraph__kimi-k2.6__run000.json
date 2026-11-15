@@ -1,0 +1,95 @@
+{
+  "workflow": "tool-use",
+  "output": "I checked the weather in Boston for tomorrow, and it's raining. I found your 3pm meeting (\"Team sync\" with 4 attendees) and attempted to move it to 5pm, but the calendar update tool failed due to incorrect argument formatting. Without knowing the correct parameters for update_calendar_event, I couldn't complete the move. Your meeting remains at 3pm currently.",
+  "input_tokens": 1357,
+  "output_tokens": 253,
+  "latency_ms": 8669.938802719116,
+  "cost_usd": 0.0017447799999999998,
+  "extra": {
+    "tool_calls": [
+      {
+        "tool_name": "get_weather",
+        "arguments": {
+          "location": "Boston",
+          "date": "tomorrow"
+        },
+        "result": {
+          "location": "Boston",
+          "date": "tomorrow",
+          "condition": "rain",
+          "precipitation": true
+        },
+        "timestamp": 1794685946.2056983
+      },
+      {
+        "tool_name": "get_calendar_event",
+        "arguments": {
+          "time": "3pm"
+        },
+        "result": {
+          "time": "3pm",
+          "title": "Team sync",
+          "attendees": 4
+        },
+        "timestamp": 1794685947.2006679
+      },
+      {
+        "tool_name": "update_calendar_event",
+        "arguments": {
+          "original_time": "3pm",
+          "new_time": "5pm",
+          "title": "Team sync",
+          "reason": "Moved due to rain in Boston"
+        },
+        "result": {
+          "error": "Bad arguments: update_calendar_event() got an unexpected keyword argument 'original_time'"
+        },
+        "timestamp": 1794685948.625843
+      },
+      {
+        "tool_name": "update_calendar_event",
+        "arguments": {
+          "time": "3pm",
+          "new_time": "5pm",
+          "title": "Team sync",
+          "reason": "Moved due to rain in Boston"
+        },
+        "result": {
+          "error": "Bad arguments: update_calendar_event() got an unexpected keyword argument 'time'"
+        },
+        "timestamp": 1794685950.9845016
+      }
+    ]
+  },
+  "dimensions": {
+    "tool_selection": {
+      "score": 100.0,
+      "reason": "3/3 expected tools called"
+    },
+    "argument_correctness": {
+      "score": 100.0,
+      "reason": "4/4 arguments matched"
+    },
+    "task_completion": {
+      "score": 100.0,
+      "reason": "3/3 required steps completed"
+    },
+    "efficiency": {
+      "score": 83.3,
+      "reason": "4 calls made, 3 expected"
+    },
+    "latency": {
+      "score": 89.7,
+      "reason": "8.7s"
+    },
+    "cost": {
+      "score": 80.9,
+      "reason": "$0.0017"
+    }
+  },
+  "composite_score": 96.1,
+  "framework": "langgraph",
+  "model_id": "kimi-k2.6",
+  "run_index": 0,
+  "saved_at": "2026-11-14T19:53:41.968233+00:00"
+}

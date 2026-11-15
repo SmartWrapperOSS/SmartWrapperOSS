@@ -1,0 +1,91 @@
+{
+  "workflow": "tool-use",
+  "output": "",
+  "input_tokens": 1377,
+  "output_tokens": 3738,
+  "latency_ms": 77144.64569091797,
+  "cost_usd": 0.0088137,
+  "extra": {
+    "tool_calls": [
+      {
+        "tool_name": "get_weather",
+        "arguments": {
+          "location": "Boston",
+          "date": "tomorrow"
+        },
+        "result": {
+          "location": "Boston",
+          "date": "tomorrow",
+          "condition": "rain",
+          "precipitation": true
+        },
+        "timestamp": 1794685950.2465365
+      },
+      {
+        "tool_name": "get_calendar_event",
+        "arguments": {
+          "date": "tomorrow",
+          "time": "3pm"
+        },
+        "result": {
+          "error": "Bad arguments: get_calendar_event() got an unexpected keyword argument 'date'"
+        },
+        "timestamp": 1794685957.2435002
+      },
+      {
+        "tool_name": "get_calendar_event",
+        "arguments": {
+          "time": "3pm"
+        },
+        "result": {
+          "time": "3pm",
+          "title": "Team sync",
+          "attendees": 4
+        },
+        "timestamp": 1794685965.5905018
+      },
+      {
+        "tool_name": "update_calendar_event",
+        "arguments": {
+          "time": "3pm",
+          "new_time": "5pm"
+        },
+        "result": {
+          "error": "Bad arguments: update_calendar_event() got an unexpected keyword argument 'time'"
+        },
+        "timestamp": 1794685975.1683311
+      }
+    ]
+  },
+  "dimensions": {
+    "tool_selection": {
+      "score": 100.0,
+      "reason": "3/3 expected tools called"
+    },
+    "argument_correctness": {
+      "score": 100.0,
+      "reason": "4/4 arguments matched"
+    },
+    "task_completion": {
+      "score": 100.0,
+      "reason": "3/3 required steps completed"
+    },
+    "efficiency": {
+      "score": 83.3,
+      "reason": "4 calls made, 3 expected"
+    },
+    "latency": {
+      "score": 0.0,
+      "reason": "77.1s"
+    },
+    "cost": {
+      "score": 0.0,
+      "reason": "$0.0088"
+    }
+  },
+  "composite_score": 83.3,
+  "framework": "langgraph",
+  "model_id": "mistral-large-4-0",
+  "run_index": 0,
+  "saved_at": "2026-11-14T19:53:41.968434+00:00"
+}

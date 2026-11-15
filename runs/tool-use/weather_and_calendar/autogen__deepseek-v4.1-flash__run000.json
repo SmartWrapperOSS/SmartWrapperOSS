@@ -1,0 +1,42 @@
+{
+  "workflow": "tool-use",
+  "output": "",
+  "input_tokens": 212,
+  "output_tokens": 550,
+  "latency_ms": 6975.360870361328,
+  "cost_usd": 0.000122462,
+  "extra": {
+    "tool_calls": []
+  },
+  "dimensions": {
+    "tool_selection": {
+      "score": 0.0,
+      "reason": "0/3 expected tools called"
+    },
+    "argument_correctness": {
+      "score": 0.0,
+      "reason": "No matching tool calls to check arguments on"
+    },
+    "task_completion": {
+      "score": 0.0,
+      "reason": "0/3 required steps completed"
+    },
+    "efficiency": {
+      "score": 100.0,
+      "reason": "0 calls made, 3 expected"
+    },
+    "latency": {
+      "score": 92.8,
+      "reason": "7.0s"
+    },
+    "cost": {
+      "score": 100.0,
+      "reason": "$0.0001"
+    }
+  },
+  "composite_score": 24.5,
+  "framework": "autogen",
+  "model_id": "deepseek-v4.1-flash",
+  "run_index": 0,
+  "saved_at": "2026-11-14T18:53:16.501795+00:00"
+}

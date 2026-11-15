@@ -1,0 +1,101 @@
+{
+  "workflow": "tool-use",
+  "output": "The weather in Boston tomorrow is rainy. I have moved your 3pm meeting to 5pm.",
+  "input_tokens": 1822,
+  "output_tokens": 170,
+  "latency_ms": 5507.6916217803955,
+  "cost_usd": 0.00035319999999999997,
+  "extra": {
+    "tool_calls": [
+      {
+        "tool_name": "get_weather",
+        "arguments": {
+          "location": "Boston",
+          "date": "tomorrow"
+        },
+        "result": {
+          "location": "Boston",
+          "date": "tomorrow",
+          "condition": "rain",
+          "precipitation": true
+        },
+        "timestamp": 1794686023.018308
+      },
+      {
+        "tool_name": "get_calendar_event",
+        "arguments": {
+          "location": "Boston",
+          "time": "3pm"
+        },
+        "result": {
+          "error": "Bad arguments: get_calendar_event() got an unexpected keyword argument 'location'"
+        },
+        "timestamp": 1794686023.9020312
+      },
+      {
+        "tool_name": "get_calendar_event",
+        "arguments": {
+          "time": "3pm"
+        },
+        "result": {
+          "time": "3pm",
+          "title": "Team sync",
+          "attendees": 4
+        },
+        "timestamp": 1794686024.850011
+      },
+      {
+        "tool_name": "update_calendar_event",
+        "arguments": {
+          "time": "5pm"
+        },
+        "result": {
+          "error": "Bad arguments: update_calendar_event() got an unexpected keyword argument 'time'"
+        },
+        "timestamp": 1794686025.9994502
+      },
+      {
+        "tool_name": "update_calendar_event",
+        "arguments": {
+          "new_time": "5pm"
+        },
+        "result": {
+          "status": "updated",
+          "new_time": "5pm"
+        },
+        "timestamp": 1794686026.79071
+      }
+    ]
+  },
+  "dimensions": {
+    "tool_selection": {
+      "score": 100.0,
+      "reason": "3/3 expected tools called"
+    },
+    "argument_correctness": {
+      "score": 100.0,
+      "reason": "4/4 arguments matched"
+    },
+    "task_completion": {
+      "score": 100.0,
+      "reason": "3/3 required steps completed"
+    },
+    "efficiency": {
+      "score": 66.7,
+      "reason": "5 calls made, 3 expected"
+    },
+    "latency": {
+      "score": 96.1,
+      "reason": "5.5s"
+    },
+    "cost": {
+      "score": 97.9,
+      "reason": "$0.0004"
+    }
+  },
+  "composite_score": 96.2,
+  "framework": "autogen",
+  "model_id": "qwen3.8-flash",
+  "run_index": 0,
+  "saved_at": "2026-11-14T19:55:41.276390+00:00"
+}

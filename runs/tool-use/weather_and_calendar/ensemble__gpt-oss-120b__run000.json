@@ -1,0 +1,110 @@
+{
+  "workflow": "tool-use",
+  "output": "",
+  "input_tokens": 11418,
+  "output_tokens": 4334,
+  "latency_ms": 9235.871315002441,
+  "cost_usd": 0.004313099999999999,
+  "extra": {
+    "tool_calls": [
+      {
+        "tool_name": "get_weather",
+        "arguments": {
+          "city": "Boston",
+          "date": "tomorrow"
+        },
+        "result": {
+          "error": "Bad arguments: get_weather() got an unexpected keyword argument 'city'"
+        },
+        "timestamp": 1794686343.0917158
+      },
+      {
+        "tool_name": "get_weather",
+        "arguments": {
+          "location": "Boston",
+          "date": "tomorrow"
+        },
+        "result": {
+          "location": "Boston",
+          "date": "tomorrow",
+          "condition": "rain",
+          "precipitation": true
+        },
+        "timestamp": 1794686344.0569966
+      },
+      {
+        "tool_name": "get_calendar_event",
+        "arguments": {},
+        "result": {
+          "error": "Bad arguments: get_calendar_event() missing 1 required positional argument: 'time'"
+        },
+        "timestamp": 1794686345.0069456
+      },
+      {
+        "tool_name": "get_calendar_event",
+        "arguments": {
+          "time": "15:00"
+        },
+        "result": {
+          "time": "15:00",
+          "title": "Team sync",
+          "attendees": 4
+        },
+        "timestamp": 1794686346.5112875
+      },
+      {
+        "tool_name": "update_calendar_event",
+        "arguments": {
+          "time": "15:00",
+          "new_time": "17:00"
+        },
+        "result": {
+          "error": "Bad arguments: update_calendar_event() got an unexpected keyword argument 'time'"
+        },
+        "timestamp": 1794686347.871985
+      },
+      {
+        "tool_name": "update_calendar_event",
+        "arguments": {
+          "old_time": "15:00",
+          "new_time": "17:00"
+        },
+        "result": {
+          "error": "Bad arguments: update_calendar_event() got an unexpected keyword argument 'old_time'"
+        },
+        "timestamp": 1794686350.1630762
+      }
+    ]
+  },
+  "dimensions": {
+    "tool_selection": {
+      "score": 100.0,
+      "reason": "3/3 expected tools called"
+    },
+    "argument_correctness": {
+      "score": 50.0,
+      "reason": "2/4 arguments matched"
+    },
+    "task_completion": {
+      "score": 100.0,
+      "reason": "3/3 required steps completed"
+    },
+    "efficiency": {
+      "score": 50.0,
+      "reason": "6 calls made, 3 expected"
+    },
+    "latency": {
+      "score": 100.0,
+      "reason": "9.2s"
+    },
+    "cost": {
+      "score": 100.0,
+      "reason": "$0.0043"
+    }
+  },
+  "composite_score": 82.5,
+  "framework": "ensemble",
+  "model_id": "gpt-oss-120b",
+  "run_index": 0,
+  "saved_at": "2026-11-14T19:59:10.163768+00:00"
+}

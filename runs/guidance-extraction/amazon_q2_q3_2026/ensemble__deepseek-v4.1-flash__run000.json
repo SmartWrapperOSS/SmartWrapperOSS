@@ -1,0 +1,50 @@
+{
+  "workflow": "guidance-extraction",
+  "output": "",
+  "input_tokens": 51647,
+  "output_tokens": 3300,
+  "latency_ms": 8220.102310180664,
+  "cost_usd": 0.003303897,
+  "extra": {
+    "num_agents": 5,
+    "total_calls": 6,
+    "swarm_max_latency_ms": 4675.365447998047,
+    "swarm_sum_latency_ms": 18332.15641975403,
+    "synthesizer_latency_ms": 3544.736862182617
+  },
+  "dimensions": {
+    "schema_validity": {
+      "score": 0.0,
+      "reason": "Output is not parseable JSON"
+    },
+    "extraction_accuracy": {
+      "score": 0.0,
+      "reason": "0/15 item fields correct; missed or wrong: q2 net_sales Q3FY2026, q2 operating_income Q3FY2026, q3 net_sales Q4FY2026, q3 operating_income Q4FY2026"
+    },
+    "change_detection": {
+      "score": 0.0,
+      "reason": "0/12 change points; missed net_sales Q4FY2026 initiated, missed operating_income Q4FY2026 initiated, missed cash_capex FY2026 initiated"
+    },
+    "grounding": {
+      "score": 0.0,
+      "reason": "No guidance items reported"
+    },
+    "critical_invariants": {
+      "score": 100.0,
+      "reason": "PASS: no hallucinated guidance"
+    },
+    "latency": {
+      "score": 0.0,
+      "reason": "8.2s"
+    },
+    "cost": {
+      "score": 0.0,
+      "reason": "$0.0033"
+    }
+  },
+  "composite_score": 0.0,
+  "framework": "ensemble",
+  "model_id": "deepseek-v4.1-flash",
+  "run_index": 0,
+  "saved_at": "2026-11-14T18:53:00.008112+00:00"
+}
